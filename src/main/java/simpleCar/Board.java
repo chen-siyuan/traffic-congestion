@@ -15,10 +15,13 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public class Board extends JPanel implements Runnable {
     
     public static final Color COLOR = new Color(235, 209, 195);
@@ -35,6 +38,9 @@ public class Board extends JPanel implements Runnable {
     
     // Constructors
 
+    /**
+     * @param interval number of real life seconds each frame stays
+     */
     public Board(double interval) {
 
         setBackground(COLOR);
@@ -89,6 +95,11 @@ public class Board extends JPanel implements Runnable {
 
     }
     
+    /**
+     * 
+     * @param graphics the graphics object to draw vehicles on
+     * @param vehicle the vehicle to draw
+     */
     private void drawVehicle(Graphics graphics, Vehicle vehicle) {
         
         Graphics2D graphics2D = (Graphics2D)graphics;

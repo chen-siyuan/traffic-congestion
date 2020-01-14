@@ -7,10 +7,13 @@ package simpleCar;
 
 import java.awt.Color;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public abstract class Body {
     
     private Size size;
@@ -28,7 +31,12 @@ public abstract class Body {
         this.acceleration = getAcceleration();
         
     }
-
+    
+    /**
+     * Each class of descending objects have different ways of getting its acceleration
+     * 
+     * @return the Acceleration object
+     */
     public abstract Acceleration getAcceleration();
     
     // Getters

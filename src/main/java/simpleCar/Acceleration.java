@@ -5,15 +5,23 @@
  */
 package simpleCar;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public class Acceleration {
     
     private double magnitude;
     private double orientation;
     
+    /**
+     * This class is used as a basis for the acceleration of other classes
+     * @param magnitude the length of the acceleration vector
+     * @param orientation the direction of the acceleration vector, starts from positive x and rotates counterclockwise
+     */
     public Acceleration(double magnitude, double orientation) {
         
         this.magnitude = magnitude;
