@@ -4,7 +4,7 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 
 ## Team Members & Roles
 
-- Daniel Chen
+- Daniel Chen (programmer & team captain)
 - William Wu
 - Drew Kirk
 - Sam Monaghan
