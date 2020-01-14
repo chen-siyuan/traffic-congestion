@@ -58,12 +58,12 @@ public class Bus extends Vehicle {
         this(new Size(WIDTH, HEIGHT), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
     }
     
-    public Bus(Position p, Velocity initV) {
-        this(new Size(WIDTH, HEIGHT), p, initV);
+    public Bus(Position position, Velocity velocity) {
+        this(new Size(WIDTH, HEIGHT), position, velocity);
     }
 
-    private Bus(Size s, Position p, Velocity initV) {
-        super(s, p, initV);
+    private Bus(Size size, Position position, Velocity velocity) {
+        super(size, position, velocity);
     }
     
     // Methods
@@ -73,7 +73,6 @@ public class Bus extends Vehicle {
     }
 
     public String toString() {
-        
         return String.format("Bus:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
                 this.getWidth(), this.getHeight(),
                 this.getXPosition(), this.getYPosition(),

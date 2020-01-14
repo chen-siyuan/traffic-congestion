@@ -11,28 +11,28 @@ package simpleCar;
  */
 public class Position {
     
-    private double xPos;
-    private double yPos;
+    private double xPosition;
+    private double yPosition;
     
-    public Position(double xPos, double yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Position(double xPosition, double yPosition) {
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
     }
 
     public double getXPosition() {
-        return xPos;
+        return xPosition;
     }
 
     public double getYPosition() {
-        return yPos;
+        return yPosition;
     }
 
-    public void setXPosition(double xPos) {
-        this.xPos = xPos;
+    public void setXPosition(double xPosition) {
+        this.xPosition = xPosition;
     }
 
-    public void setYPosition(double yPos) {
-        this.yPos = yPos;
+    public void setYPosition(double yPosition) {
+        this.yPosition = yPosition;
     }
     
 }

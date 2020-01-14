@@ -20,11 +20,13 @@ public abstract class Body {
 
     // Constructors
     
-    public Body(Size s, Position p, Velocity initV) {
-        this.size = s;
-        this.position = p;
-        this.velocity = initV;
+    public Body(Size size, Position position, Velocity velocity) {
+        
+        this.size = size;
+        this.position = position;
+        this.velocity = velocity;
         this.acceleration = getAcceleration();
+        
     }
 
     public abstract Acceleration getAcceleration();

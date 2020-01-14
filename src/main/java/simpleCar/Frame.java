@@ -23,8 +23,10 @@ public class Frame extends JFrame {
     // Constructor
     
     public Frame(double interval) {
+        
         this.interval = interval;
         board = new Board(interval);
+        
     }
     
     // Getter

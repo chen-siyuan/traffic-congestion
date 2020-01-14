@@ -15,20 +15,17 @@ import java.util.HashMap;
  */
 public class Main {
     
-    // all in real life units
     public static final double PIXELS_PER_METER = 5;
     public static final double MILLISECONDS_PER_SECOND = 1000;
 
     // in real life units
-    public static final double PANEL_WIDTH = 100;
-    public static final double PANEL_HEIGHT = 100;
+    public static final double PANEL_WIDTH = 100;//meter
+    public static final double PANEL_HEIGHT = 100;//meter
     
-    // public static final double FRAME_WIDTH = 100;
-    // public static final double FRAME_HEIGHT = 100;
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
 
-    public static final double INTERVAL = 0.01;
+    public static final double INTERVAL = 0.01;//second
     
     public static ArrayList<Vehicle> getVehiclesList(HashMap vehiclesMap) {
         
