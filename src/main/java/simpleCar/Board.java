@@ -27,7 +27,7 @@ public class Board extends JPanel implements Runnable {
     
     // Parameters
     
-    private double interval; // in real life
+    private double interval; // in real life units
     
     // Components
     
@@ -64,14 +64,15 @@ public class Board extends JPanel implements Runnable {
         }
     }
     
-    public void passTime(double t) {
-        vehicles.forEach((vehicle) -> vehicle.passTime(t));
+    public void passTime(double time) {
+        vehicles.forEach((vehicle) -> vehicle.passTime(time));
     }
     
     // Swing methods
     
     @Override
     public void addNotify() {
+        
         super.addNotify();
 
         animator = new Thread(this);
@@ -81,6 +82,7 @@ public class Board extends JPanel implements Runnable {
     
     @Override
     public void paintComponent(Graphics graphics) {
+        
         super.paintComponent(graphics);
 
         vehicles.forEach((vehicle) -> drawVehicle(graphics, vehicle));
@@ -112,7 +114,7 @@ public class Board extends JPanel implements Runnable {
     @Override
     public void run() {
         
-        long startTime, timeDiff, correctedInterval;
+        long startTime, timeDifference, correctedInterval;
 
         startTime = System.currentTimeMillis();
 
@@ -121,22 +123,26 @@ public class Board extends JPanel implements Runnable {
             passTime(interval);
             repaint();
             
-            timeDiff = System.currentTimeMillis() - startTime;
-            correctedInterval = (int)Math.round(interval * Main.MILLISECONDS_PER_SECOND) - timeDiff;
+            timeDifference = System.currentTimeMillis() - startTime;
+            correctedInterval = (int)Math.round(interval * Main.MILLISECONDS_PER_SECOND) - timeDifference;
 
             // I don't think this would happen
             if(correctedInterval < 0) {
+                
                 System.out.printf("ERROR Board Sleep: %d.\n", correctedInterval);
 //                System.exit(0);
                 correctedInterval = 1;
+                
             }
 
             try {
                 Thread.sleep(correctedInterval);
             } catch (InterruptedException e) {
+                
                 String msg = String.format("Thread interrupted: %s", e.getMessage());
                 
                 JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                
             }
             
             startTime = System.currentTimeMillis();

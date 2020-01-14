@@ -15,8 +15,10 @@ public class Acceleration {
     private double orientation;
     
     public Acceleration(double magnitude, double orientation) {
+        
         this.magnitude = magnitude;
         this.orientation = orientation;
+        
     }
 
     public double getMagnitude() {

@@ -13,8 +13,8 @@ public abstract class Vehicle extends Body {
     
     // Constructors
     
-    public Vehicle(Size s, Position p, Velocity initV) {
-        super(s, p, initV);
+    public Vehicle(Size size, Position position, Velocity velocity) {
+        super(size, position, velocity);
     }
 
     public abstract Acceleration getAcceleration();
@@ -22,7 +22,6 @@ public abstract class Vehicle extends Body {
     // Auxillary methods
     
     public String toString() {
-        
         return String.format("Vehicle:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
                 this.getWidth(), this.getHeight(),
                 this.getXPosition(), this.getYPosition(),
