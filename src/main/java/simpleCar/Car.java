@@ -8,17 +8,19 @@ package simpleCar;
 import java.awt.Color;
 import java.util.ArrayList;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public class Car extends Vehicle {
     
     public static final Color COLOR = new Color(227, 86, 77);
     public static final double MAX_SPEED = 60;
     public static final double MAX_ACCELERATION = 8;
     
-    // all real time
     public static final double WIDTH = 4.5;
     public static final double HEIGHT = 1.8;
     public static final double XPOS = 0;
@@ -26,8 +28,6 @@ public class Car extends Vehicle {
     public static final double SPEED = 20;
     public static final double ORIENTATION = Math.toRadians(45);
 
-    // Generators
-    
     public static Car[] getCarsArray(int numCars) {
         
         Car[] cars = new Car[numCars];
@@ -52,8 +52,6 @@ public class Car extends Vehicle {
         return cars;
     }
     
-    // Constructors
-    
     public Car() {
         this(new Size(WIDTH, HEIGHT), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
     }
@@ -62,12 +60,17 @@ public class Car extends Vehicle {
         this(new Size(WIDTH, HEIGHT), position, velocity);
     }
     
+    /**
+     * The Car class inherits the Vehicle class and is parallel to the Bus class
+     * 
+     * @param size the size of the car
+     * @param position the position of the car
+     * @param velocity the velocity of the car
+     */
     private Car(Size size, Position position, Velocity velocity) {
         super(size, position, velocity);
     }
     
-    // Methods
-
     public Color getColor() {
         return COLOR;
     }

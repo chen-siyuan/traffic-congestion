@@ -7,10 +7,13 @@ package simpleCar;
 
 import java.lang.annotation.Documented;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 @Documented
 public @interface ClassPreamble {
     

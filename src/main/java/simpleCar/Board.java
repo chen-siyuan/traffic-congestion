@@ -27,17 +27,9 @@ public class Board extends JPanel implements Runnable {
     public static final Color COLOR = new Color(235, 209, 195);
 
     private Thread animator;
-    
-    // Parameters
-    
-    private double interval; // in real life units
-    
-    // Components
-    
+    private double interval;
     private ArrayList<Vehicle> vehicles;
     
-    // Constructors
-
     /**
      * @param interval number of real life seconds each frame stays
      */
@@ -51,8 +43,6 @@ public class Board extends JPanel implements Runnable {
         vehicles = new ArrayList<Vehicle>();
 
     }
-    
-    // traffic methods
     
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
@@ -73,8 +63,6 @@ public class Board extends JPanel implements Runnable {
     public void passTime(double time) {
         vehicles.forEach((vehicle) -> vehicle.passTime(time));
     }
-    
-    // Swing methods
     
     @Override
     public void addNotify() {
@@ -129,7 +117,7 @@ public class Board extends JPanel implements Runnable {
 
         startTime = System.currentTimeMillis();
 
-        while (true) {
+        while(true) {
 
             passTime(interval);
             repaint();
