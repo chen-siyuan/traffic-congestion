@@ -9,24 +9,29 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public class Main {
     
     public static final double PIXELS_PER_METER = 5;
     public static final double MILLISECONDS_PER_SECOND = 1000;
 
-    // in real life units
     public static final double PANEL_WIDTH = 100;//meter
     public static final double PANEL_HEIGHT = 100;//meter
-    
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
-
     public static final double INTERVAL = 0.01;//second
     
+    /**
+     * 
+     * @param vehiclesMap a HashMap object specifying the number of cars and buses wanted
+     * @return an ArrayList object containing the specified number of cars and buses
+     */
     public static ArrayList<Vehicle> getVehiclesList(HashMap vehiclesMap) {
         
         ArrayList<Vehicle> vehiclesList = new ArrayList<Vehicle>();
@@ -40,6 +45,7 @@ public class Main {
     public static void main(String[] args) {
         
         HashMap vehiclesMap = new HashMap();
+        
         vehiclesMap.put("car", 5);
         vehiclesMap.put("bus", 2);
         
@@ -60,6 +66,7 @@ public class Main {
             }
             
         });
+        
     }
     
 }

@@ -18,9 +18,11 @@ public class Acceleration {
     private double orientation;
     
     /**
-     * This class is used as a basis for the acceleration of other classes
-     * @param magnitude the length of the acceleration vector
-     * @param orientation the direction of the acceleration vector, starts from positive x and rotates counterclockwise
+     * This class is used as a basis for other classes
+     * 
+     * @param magnitude the length of the acceleration vector of the Body object
+     * @param orientation the direction of the acceleration vector of the Body object,
+     * starts from positive x and rotates counterclockwise
      */
     public Acceleration(double magnitude, double orientation) {
         

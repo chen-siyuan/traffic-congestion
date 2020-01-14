@@ -5,18 +5,29 @@
  */
 package simpleCar;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public class Size {
     
     private double width;
     private double height;
 
+    /**
+     * This class is used as a basis for other classes
+     * 
+     * @param width the width of the bounding box of The body object
+     * @param height the height of the bounding box of the Body object
+     */
     public Size(double width, double height) {
+        
         this.width = width;
         this.height = height;
+        
     }
 
     public double getWidth() {

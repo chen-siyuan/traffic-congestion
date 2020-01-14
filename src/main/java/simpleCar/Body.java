@@ -21,6 +21,14 @@ public abstract class Body {
     private Velocity velocity;
     private Acceleration acceleration;
 
+    /**
+     * The Body class describes all objects that have a size, a position, and a velocity
+     * The classes directly inheriting it are the Obstacle class and the Vehicle class
+     * 
+     * @param size the Size object of the Body object
+     * @param position the Position object of the Body object
+     * @param velocity the Velocity object of the Body object
+     */
     public Body(Size size, Position position, Velocity velocity) {
         
         this.size = size;
@@ -31,7 +39,7 @@ public abstract class Body {
     }
     
     /**
-     * Each class of descending objects have different ways of getting its acceleration
+     * Each of the inheriting classes have different ways of getting its acceleration
      * 
      * @return the Acceleration object
      */
@@ -41,74 +49,26 @@ public abstract class Body {
         return size;
     }
 
-    public double getWidth() {
-        return size.getWidth();
-    }
-
-    public double getHeight() {
-        return size.getHeight();
-    }
-
     public Position getPosition() {
         return position;
-    }
-
-    public double getXPosition() {
-        return position.getXPosition();
-    }
-
-    public double getYPosition() {
-        return position.getYPosition();
     }
 
     public Velocity getVelocity() {
         return velocity;
     }
 
-    public double getSpeed() {
-        return velocity.getSpeed();
-    }
-
-    public double getOrientation() {
-        return velocity.getOrientation();
-    }
-    
     public abstract Color getColor();
 
     public void setSize(Size size) {
         this.size = size;
     }
 
-    public void setWidth(double width) {
-        this.size.setWidth(width);
-    }
-
-    public void setHeight(double height) {
-        this.size.setHeight(height);
-    }
-
-    public void setPosition(Position pos) {
-        this.position = pos;
-    }
-
-    public void setXPosition(double xPos) {
-        this.position.setXPosition(xPos);
-    }
-
-    public void setYPosition(double yPos) {
-        this.position.setYPosition(yPos);
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public void setVelocity(Velocity velocity) {
         this.velocity = velocity;
-    }
-
-    public void setSpeed(double speed) {
-        this.velocity.setSpeed(speed);
-    }
-
-    public void setOrientation(double orientation) {
-        this.velocity.setOrientation(orientation);
     }
 
     public abstract String toString();

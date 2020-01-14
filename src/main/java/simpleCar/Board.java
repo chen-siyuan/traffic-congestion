@@ -96,14 +96,17 @@ public class Board extends JPanel implements Runnable {
         
         graphics2D.setColor(vehicle.getColor());
         
-        graphics2D.rotate(vehicle.getOrientation(),
-                (int)Math.round(vehicle.getXPosition() * Main.PIXELS_PER_METER),
-                (int)Math.round(vehicle.getYPosition() * Main.PIXELS_PER_METER));
+        graphics2D.rotate(vehicle.getVelocity().getOrientation(),
+                (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER),
+                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER));
         
-        graphics2D.fillRect((int)Math.round(vehicle.getXPosition() * Main.PIXELS_PER_METER) - (int)Math.round(vehicle.getWidth() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(vehicle.getYPosition() * Main.PIXELS_PER_METER - (int)Math.round(vehicle.getHeight() * Main.PIXELS_PER_METER / 2)),
-                (int)Math.round(vehicle.getWidth() * Main.PIXELS_PER_METER),
-                (int)Math.round(vehicle.getHeight() * Main.PIXELS_PER_METER));
+        graphics2D.fillRect(
+                (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
+                        - (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER
+                        - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
+                (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER),
+                (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER));
         
         graphics2D.setTransform(originalTransform);
         Toolkit.getDefaultToolkit().sync();
