@@ -21,8 +21,6 @@ public abstract class Body {
     private Velocity velocity;
     private Acceleration acceleration;
 
-    // Constructors
-    
     public Body(Size size, Position position, Velocity velocity) {
         
         this.size = size;
@@ -39,8 +37,6 @@ public abstract class Body {
      */
     public abstract Acceleration getAcceleration();
     
-    // Getters
-
     public Size getSize() {
         return size;
     }
@@ -79,8 +75,6 @@ public abstract class Body {
     
     public abstract Color getColor();
 
-    // Setters
-
     public void setSize(Size size) {
         this.size = size;
     }
@@ -117,14 +111,12 @@ public abstract class Body {
         this.velocity.setOrientation(orientation);
     }
 
-    // Auxillary methods
-    
     public abstract String toString();
     
-    // Actual Methods
-
-    // t is in real time
-    
-    public abstract void passTime(double t);
+    /**
+     * 
+     * @param time in real life units
+     */
+    public abstract void passTime(double time);
 
 }

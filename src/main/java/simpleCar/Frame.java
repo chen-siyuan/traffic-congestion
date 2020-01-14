@@ -9,18 +9,17 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public class Frame extends JFrame {
     
-    // Parameters
-    
-    private double interval; // in real life
+    private double interval;
     private Board board;
-    
-    // Constructor
     
     public Frame(double interval) {
         
@@ -28,8 +27,6 @@ public class Frame extends JFrame {
         board = new Board(interval);
         
     }
-    
-    // Getter
     
     public Board getBoard() {
         return board;
