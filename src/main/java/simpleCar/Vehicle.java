@@ -5,47 +5,48 @@
  */
 package simpleCar;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public abstract class Vehicle extends Body {
     
-    // Constructors
-    
+    /**
+     * The Vehicle class inherits the Body class and is parallel to the Obstacle class
+     * 
+     * @param size the size of the Vehicle
+     * @param position the initial position of the Vehicle
+     * @param velocity the initial velocity of the Vehicle
+     */
     public Vehicle(Size size, Position position, Velocity velocity) {
         super(size, position, velocity);
     }
 
     public abstract Acceleration getAcceleration();
     
-    // Auxillary methods
-    
     public String toString() {
         return String.format("Vehicle:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
-                this.getWidth(), this.getHeight(),
-                this.getXPosition(), this.getYPosition(),
-                this.getSpeed(), this.getOrientation());
+                this.getSize().getWidth(), this.getSize().getHeight(),
+                this.getPosition().getXPosition(), this.getPosition().getYPosition(),
+                this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
-    
-    // Actual Methods
-
-    // t is in real time
     
     public void passTime(double t) {
         
-        double xSpeed = getVelocity().getXSpeed() + getAcceleration().getXMagnitude() * t;
-        double ySpeed = getVelocity().getYSpeed() + getAcceleration().getYMagnitude() * t;
-        double speed = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
-        double orientation = Math.atan2(ySpeed, xSpeed);
+        double xSpeed = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * t;
+        double ySpeed = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * t;
+        
+        double newSpeed = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
+        double newOrientation = Math.atan2(ySpeed, xSpeed);
 
-        Velocity newVelocity = new Velocity(speed, orientation);
-        setVelocity(newVelocity);
+        setVelocity(new Velocity(newSpeed, newOrientation));
         
-        Position newPos = new Position(getPosition().getXPosition() + getVelocity().getXSpeed() * t,
-                getPosition().getYPosition() + getVelocity().getYSpeed() * t);
-        
-        setPosition(newPos);
+        setPosition(new Position(
+                getPosition().getXPosition() + getVelocity().getXMagnitude() * t,
+                getPosition().getYPosition() + getVelocity().getYMagnitude() * t));
         
     }
 

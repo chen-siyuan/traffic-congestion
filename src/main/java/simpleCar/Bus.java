@@ -64,8 +64,8 @@ public class Bus extends Vehicle {
      * The Bus class inherits the car class and is parallel to the Car class
      * 
      * @param size the size of the bus
-     * @param position the position of the bus
-     * @param velocity the velocity of the bus
+     * @param position the initial position of the bus
+     * @param velocity the initial velocity of the bus
      */
     private Bus(Size size, Position position, Velocity velocity) {
         super(size, position, velocity);
@@ -77,9 +77,9 @@ public class Bus extends Vehicle {
 
     public String toString() {
         return String.format("Bus:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
-                this.getWidth(), this.getHeight(),
-                this.getXPosition(), this.getYPosition(),
-                this.getSpeed(), this.getOrientation());
+                this.getSize().getWidth(), this.getSize().getHeight(),
+                this.getPosition().getXPosition(), this.getPosition().getYPosition(),
+                this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
 
     public Acceleration getAcceleration() {

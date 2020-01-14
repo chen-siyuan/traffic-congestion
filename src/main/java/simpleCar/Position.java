@@ -5,18 +5,29 @@
  */
 package simpleCar;
 
-/**
- *
- * @author chensiyuan
- */
+@ClassPreamble (
+        author = "Daniel Chen",
+        date = "01/14/2020",
+        currentRevision = 1,
+        lastModified = "01/14/2020",
+        lastModifiedBy = "Daniel Chen"
+)
 public class Position {
     
     private double xPosition;
     private double yPosition;
     
+    /**
+     * This class is used as a basis for other classes
+     * 
+     * @param xPosition the horizontal position of the Body object
+     * @param yPosition the vertical position of the Body object
+     */
     public Position(double xPosition, double yPosition) {
+        
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+        
     }
 
     public double getXPosition() {
