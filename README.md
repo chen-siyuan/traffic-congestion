@@ -21,7 +21,7 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
   - *Size*
   - *Position*
   - *Velocity*
-  - *Acceleration**
+  - *Acceleration*
 - Refer to the magnitude of Velocity as magnitude instead of speed
   - *velocity.getMagnitude()* instead of *velocity.getSpeed()*
 - Use same name variables but lowercase for parameters passed
