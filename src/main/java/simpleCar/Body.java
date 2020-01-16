@@ -10,8 +10,8 @@ import java.awt.Color;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "01/15/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Body {
@@ -78,5 +78,5 @@ public abstract class Body {
      * @param time in real life units
      */
     public abstract void passTime(double time);
-
+    
 }

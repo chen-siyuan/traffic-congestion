@@ -8,11 +8,16 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "01/15/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Position {
+    
+    public static double distanceBetween(Position position1, Position position2) {
+        return Math.sqrt(Math.pow(position1.getXPosition() - position2.getXPosition(), 2)
+                + Math.pow(position1.getYPosition() - position2.getYPosition(), 2));
+    }
     
     private double xPosition;
     private double yPosition;
@@ -44,6 +49,35 @@ public class Position {
 
     public void setYPosition(double yPosition) {
         this.yPosition = yPosition;
+    }
+    
+    /**
+     * Calculates the distance from this Position to the otherPosition
+     * 
+     * @param otherPosition the other point
+     * @return the distance between the two points
+     */
+    public double distanceTo(Position otherPosition) {
+        return Math.sqrt(Math.pow(xPosition - otherPosition.getXPosition(), 2)
+                + Math.pow(yPosition - otherPosition.getYPosition(), 2));
+    }
+    
+    /**
+     * Calculates the distance from this Position to the line connecting otherPosition1 and otherPosition2
+     * 
+     * @param otherPosition1 one point on the line
+     * @param otherPosition2 the other point on the line
+     * @return the distance between this point and the line
+     */
+    public double distanceTo(Position otherPosition1, Position otherPosition2) {
+        
+        double crossProduct = Math.abs(
+                (xPosition - otherPosition1.getXPosition()) * (otherPosition2.getYPosition() - otherPosition1.getYPosition())
+                - (yPosition - otherPosition1.getYPosition()) * (otherPosition2.getXPosition() - otherPosition1.getXPosition()));
+        
+        double baseLength = Position.distanceBetween(otherPosition1, otherPosition2);
+        
+        return crossProduct / baseLength;
     }
     
 }
