@@ -13,6 +13,7 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 
 - Always use full spelling when possible
   - *position* instead of *pos*
+  - *otherPosition1* and *otherPosition2* instead of *p1* and *p2*
   - *getCarsArray()* instead of *getCarsA()*
 - Do not put a space between condition sentences and conditions
   - if(condition) {}
