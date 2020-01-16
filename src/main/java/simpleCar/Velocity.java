@@ -8,8 +8,8 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "01/16/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Velocity {
@@ -20,12 +20,12 @@ public class Velocity {
     /**
      * This class is used as a basis for other classes
      * 
-     * @param speed the length of the velocity vector of the Body object
+     * @param magnitude the length of the velocity vector of the Body object
      * @param orientation the direction of the velocity vector of the Body object
      */
-    public Velocity(double speed, double orientation) {
+    public Velocity(double magnitude, double orientation) {
         
-        this.magnitude = speed;
+        this.magnitude = magnitude;
         this.orientation = orientation;
         
     }

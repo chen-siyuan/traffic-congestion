@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
-        lastModified = "01/15/2020",
+        currentRevision = 3,
+        lastModified = "01/16/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -69,7 +69,7 @@ public class Car extends Vehicle {
      * @param position the initial position of the car
      * @param velocity the initial velocity of the car
      */
-    private Car(Size size, Position position, Velocity velocity) {
+    public Car(Size size, Position position, Velocity velocity) {
         super(size, position, velocity);
     }
     
