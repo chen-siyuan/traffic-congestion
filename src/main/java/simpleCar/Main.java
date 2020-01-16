@@ -8,12 +8,13 @@ package simpleCar;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "01/15/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -46,10 +47,12 @@ public class Main {
         
         HashMap vehiclesMap = new HashMap();
         
-        vehiclesMap.put("car", 5);
-        vehiclesMap.put("bus", 2);
+        vehiclesMap.put("car", 1);
+        vehiclesMap.put("bus", 1);
         
         ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
+        
+        vehiclesList.get(0).getVelocity().setOrientation(135 * (Math.PI / 180));
         
         EventQueue.invokeLater(new Runnable() {
 
@@ -66,7 +69,13 @@ public class Main {
             }
             
         });
-        
+
+//        Position p1 = new Position(3, 4);
+//        Position p2 = new Position(5.5, -1);
+//        Position p3 = new Position(4, -3);
+//        
+//        System.out.println(p1.distanceTo(p2, p3));
+
     }
     
 }

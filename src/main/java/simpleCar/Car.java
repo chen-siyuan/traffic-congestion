@@ -11,15 +11,17 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "01/15/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
     
     public static final Color COLOR = new Color(227, 86, 77);
-    public static final double MAX_SPEED = 60;
-    public static final double MAX_ACCELERATION = 8;
+    public static final double MAX_VELOCITY_MAGNITUDE = 60;
+    public static final double MAX_ACCELERATION_MAGNITUDE = 8;
+    public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.5;
+    public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.5;
     
     public static final double WIDTH = 4.5;
     public static final double HEIGHT = 1.8;
@@ -34,7 +36,7 @@ public class Car extends Vehicle {
         
         for(int i=0; i < numCars; i++) {
             cars[i] = new Car(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
-                    new Velocity(Math.random() * MAX_SPEED / 2, Math.random() * 2 * Math.PI));
+                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI));
         }
         
         return cars;
@@ -46,7 +48,7 @@ public class Car extends Vehicle {
         
         for(int i=0; i < numCars; i++) {
             cars.add(new Car(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
-                    new Velocity(Math.random() * MAX_SPEED / 2, Math.random() * 2 * Math.PI)));
+                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI)));
         }
         
         return cars;
@@ -83,7 +85,12 @@ public class Car extends Vehicle {
     }
 
     public Acceleration getAcceleration() {
-        return new Acceleration(MAX_ACCELERATION, getVelocity().getOrientation());
+        return new Acceleration(MAX_ACCELERATION_MAGNITUDE, getVelocity().getOrientation());
+    }
+    
+    public Size getBoundingBoxSize() {
+        return new Size(getSize().getWidth() * BOUNDING_BOX_FACTOR_WIDTH,
+                getSize().getHeight() * BOUNDING_BOX_FACTOR_HEIGHT);
     }
 
 }

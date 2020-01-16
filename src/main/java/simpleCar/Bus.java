@@ -11,15 +11,17 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "01/15/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Bus extends Vehicle {
     
     public static final Color COLOR = new Color(84, 184, 96);
-    public static final double MAX_SPEED = 30;
-    public static final double MAX_ACCELERATION = 5;
+    public static final double MAX_VELOCITY_MAGNITUDE = 30;
+    public static final double MAX_ACCELERATION_MAGNITUDE = 5;
+    public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.5;
+    public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.5;
     
     public static final double WIDTH = 9;
     public static final double HEIGHT = 2.5;
@@ -34,7 +36,7 @@ public class Bus extends Vehicle {
         
         for(int i=0; i < numBuses; i++) {
             buses[i] = new Bus(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
-                    new Velocity(Math.random() * MAX_SPEED, Math.random() * 2 * Math.PI));
+                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE, Math.random() * 2 * Math.PI));
         }
         
         return buses;
@@ -46,7 +48,7 @@ public class Bus extends Vehicle {
         
         for(int i=0; i < numBuses; i++) {
             buses.add(new Bus(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
-                    new Velocity(Math.random() * MAX_SPEED, Math.random() * 2 * Math.PI)));
+                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE, Math.random() * 2 * Math.PI)));
         }
         
         return buses;
@@ -83,7 +85,12 @@ public class Bus extends Vehicle {
     }
 
     public Acceleration getAcceleration() {
-        return new Acceleration(MAX_ACCELERATION, getVelocity().getOrientation());
+        return new Acceleration(MAX_ACCELERATION_MAGNITUDE, getVelocity().getOrientation());
+    }
+    
+    public Size getBoundingBoxSize() {
+        return new Size(getSize().getWidth() * BOUNDING_BOX_FACTOR_WIDTH,
+                getSize().getHeight() * BOUNDING_BOX_FACTOR_HEIGHT);
     }
     
 }
