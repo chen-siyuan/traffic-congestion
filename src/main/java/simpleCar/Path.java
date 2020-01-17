@@ -16,32 +16,30 @@ import java.util.ArrayList;
 )
 public class Path {
     
-    private ArrayList<double[]> path = new ArrayList<double[]>();
-    private final double[] STAY = {-1, -1};
-    private int currentPoint = -1;
+    public static final Position END_OF_PATH = new Position(-1, -1); //this need to be discussed
+    
+    private ArrayList<Position> positions;
+    private int currentCount;
     private boolean loop;
     
-    public Path() {
-        this(false);
+    public Path(ArrayList<Position> positions) {
+        this(positions, false);
     }
     
-    public Path(boolean loop) {
+    public Path(ArrayList<Position> positions, boolean loop) {
+        
+        this.positions = positions;
         this.loop = loop;
-    }
-        
-    public Path(ArrayList<double[]> path, boolean loop) {
-        
-        this.path = path;
-        this.loop = loop;
+        currentCount = 0;
         
     }
     
-    public void setPath(ArrayList<double[]> path) {
-        this.path = path;
+    public ArrayList<Position> getPositions() {
+        return positions;
     }
     
-    public ArrayList<double[]> getPath() {
-        return path;
+    public void setPositions(ArrayList<Position> positions) {
+        this.positions = positions;
     }
     
     public boolean getLoop(){
@@ -52,17 +50,27 @@ public class Path {
         this.loop = loop;
     }
     
-    public double[] getNextPoint() {
+    /**
+     * 
+     * @return the position currentCount points to and then increment currentCount
+     * if loop is false this would return the last point, otherwise it checks if resetting is needed
+     */
+    public Position getNextPosition() {
         
-        currentPoint++;
+        Position currentPosition;
         
-        if(loop) {
-            currentPoint %= path.size();
-        } else if(currentPoint >= this.path.size()) {
-            return STAY;
+        if(currentCount < positions.size()) {
+            currentPosition = positions.get(currentCount);
+        } else {
+            currentPosition = positions.get(positions.size() - 1);
         }
         
-        return path.get(currentPoint);
+        currentCount++;
         
+        if(loop) {
+            currentCount %= positions.size();
+        }
+        
+        return currentPosition;
     }
 }
