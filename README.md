@@ -36,3 +36,5 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 - Use same name variables but lowercase for parameters passed
   - *passTime(Time time)* instead of *passTime(Time t)*
   - *Car(Size size, Position position, Velocity velocity)* instead of *Car(Size s, Position p, Velocity v)*
+- Changes that does not affect the execution of the code are subversions
+  - Style edit or *//comments* can be recorded as *currentRevision = 2* -> *currentRevision = 2.1*
