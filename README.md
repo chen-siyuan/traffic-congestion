@@ -6,10 +6,10 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 
 - Daniel Chen (programmer & team captain)
 - William Wu
-  -Programming the Path finding and Obstacle type classes.
-  -Creating the graphics and textures for the objects.
+  - Programming the Path finding and Obstacle type classes.
+  - Creating the graphics and textures for the objects.
 - Drew Kirk
-  -Programing the road class and lane detection classes.
+  - Programing the road class and lane detection classes.
 - Sam Monaghan
 
 ## Style guide
