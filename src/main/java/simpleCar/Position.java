@@ -8,9 +8,9 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
-        lastModified = "01/15/2020",
-        lastModifiedBy = "Daniel Chen"
+        currentRevision = 3,
+        lastModified = "01/17/2020",
+        lastModifiedBy = "William Wu"
 )
 public class Position {
     
