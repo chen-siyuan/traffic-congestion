@@ -5,10 +5,12 @@
  */
 package simpleCar;
 
+import java.awt.Color;
+
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
+        currentRevision = 4,
         lastModified = "01/17/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -19,6 +21,10 @@ public abstract class Vehicle extends Body {
         
         
         return true;
+    }
+    
+    public static Color getColor(Velocity velocity) {
+        return new Color(252, 186, 3);
     }
     
     /**
