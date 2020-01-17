@@ -11,6 +11,9 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 
 ## Style guide
 
+- Use the following branch names:
+  - *readme-edits* for editing this document
+  - *main-structure* for new classes and features
 - Always use full spelling when possible
   - *position* instead of *pos*
   - *otherPosition1* and *otherPosition2* instead of *p1* and *p2*
