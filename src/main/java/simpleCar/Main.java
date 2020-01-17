@@ -8,16 +8,17 @@ package simpleCar;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
+        currentRevision = 3.2,
         lastModified = "01/16/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
+    
+    public static final String RESOURCES_ADDRESS = "src/resources/";
     
     public static final double PIXELS_PER_METER = 5;
     public static final double MILLISECONDS_PER_SECOND = 1000;
@@ -47,7 +48,7 @@ public class Main {
         
         HashMap vehiclesMap = new HashMap();
         
-        vehiclesMap.put("car", 1);
+        vehiclesMap.put("car", 5);
         vehiclesMap.put("bus", 1);
         
         ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
@@ -81,6 +82,14 @@ public class Main {
 //                new Position(1, 3),
 //                new Velocity(10, 4.39)).forEach(
 //                        (position) -> System.out.printf("%f %f\n", position.getXPosition(), position.getYPosition()));
+
+//        BufferedImage carImage = null;
+//        
+//        try {
+//            carImage = ImageIO.read(new File("src/resources/Car.png"));
+//        } catch(IOException e) {
+//            System.out.println(e.getLocalizedMessage());
+//        }
             
 
     }

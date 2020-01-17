@@ -11,24 +11,31 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "01/16/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
+    
+    public static final String CAR_IMAGE_FILE_NAME = "Car.png";
     
     public static final Color COLOR = new Color(235, 209, 195);
 
     private Thread animator;
     private double interval;
     private ArrayList<Vehicle> vehicles;
+    private BufferedImage carImage; // will generalize later
     
     /**
      * @param interval number of real life seconds each frame stays
@@ -41,6 +48,16 @@ public class Board extends JPanel implements Runnable {
         
         this.interval = interval;
         vehicles = new ArrayList<Vehicle>();
+        
+        carImage = null;
+        try {
+            carImage = ImageIO.read(new File(Main.RESOURCES_ADDRESS + CAR_IMAGE_FILE_NAME));
+        } catch(IOException e) {
+            
+            System.out.println("Car Image Not Found");
+            System.exit(0);
+            
+        }
 
     }
     
@@ -100,13 +117,24 @@ public class Board extends JPanel implements Runnable {
                 (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER),
                 (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER));
         
-        graphics2D.fillRect(
+//        graphics2D.fillRect(
+//                (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
+//                        - (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+//                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER
+//                        - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
+//                (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER),
+//                (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER));
+        
+        graphics2D.drawImage(carImage,
                 (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
                         - (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER
-                        - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
+                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
+                        - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
                 (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER),
-                (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER));
+                (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER),
+                null);
+        
+        // Color could be passed as arg 5 to specify the color of transparent pixels in the image.
         
         graphics2D.setTransform(originalTransform);
         Toolkit.getDefaultToolkit().sync();
