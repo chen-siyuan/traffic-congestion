@@ -11,9 +11,9 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 2,
+        currentRevision = 3,
         lastModified = "01/17/2020",
-        lastModifiedBy = "Daniel Chen"
+        lastModifiedBy = "William Wu"
 )
 public class Pedestrian extends Obstacle{
     
@@ -102,8 +102,13 @@ public class Pedestrian extends Obstacle{
     }
     
     @Override
-    public void passTime() { // need edit
+    public void passTime(double time) { // need edit
         
+        for (int i = 0; i < time; i++) {
+            
+            
+        }
+
     }
     
 }

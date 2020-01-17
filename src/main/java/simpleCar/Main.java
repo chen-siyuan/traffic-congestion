@@ -28,6 +28,7 @@ public class Main {
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
     public static final double INTERVAL = 0.01;//second
+    public static final double THRESHOLD = 0.05;
     
     /**
      * 
