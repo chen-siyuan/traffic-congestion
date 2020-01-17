@@ -5,12 +5,14 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 ## Team Members & Roles
 
 - Daniel Chen (programmer & team captain)
-- William Wu
-  - Programming the Path finding and Obstacle type classes.
-  - Creating the graphics and textures for the objects.
-- Drew Kirk
-  - Programing the road class and lane detection classes.
-- Sam Monaghan
+  - Programming for collision detecting and prediction
+  - Programming signaling mechanism
+- William Wu (programmer)
+  - Programming the Path finding and Obstacle type classes
+  - Creating the graphics and textures for the objects
+- Drew Kirk (programmer)
+  - Programing the Road class and Lane detection mechanism
+- Sam Monaghan (researcher and data collector)
 
 ## Style guide
 
