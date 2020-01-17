@@ -8,9 +8,9 @@ package simpleCar;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 2,
+        currentRevision = 3,
         lastModified = "01/16/2020",
-        lastModifiedBy = "Daniel Chen"
+        lastModifiedBy = "William Wu"
 )
 public abstract class Obstacle extends Body {
     
