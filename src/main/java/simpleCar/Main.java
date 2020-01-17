@@ -12,8 +12,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.2,
-        lastModified = "01/16/2020",
+        currentRevision = 4,
+        lastModified = "01/17/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -60,7 +60,7 @@ public class Main {
             @Override
             public void run() {
 
-                Frame frame = new Frame(INTERVAL);
+                Frame frame = new Frame();
                 
                 frame.addVehicles(vehiclesList);
                 

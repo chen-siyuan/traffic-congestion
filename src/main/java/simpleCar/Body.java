@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
+        currentRevision = 4,
         lastModified = "01/16/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -116,6 +116,6 @@ public abstract class Body {
      * 
      * @param time in real life units
      */
-    public abstract void passTime(double time);
+    public abstract void passTime();
     
 }

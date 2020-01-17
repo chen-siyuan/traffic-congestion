@@ -12,20 +12,16 @@ import javax.swing.JFrame;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
+        currentRevision = 2,
         lastModified = "01/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
     
-    private double interval;
     private Board board;
     
-    public Frame(double interval) {
-        
-        this.interval = interval;
-        board = new Board(interval);
-        
+    public Frame() {
+        board = new Board();
     }
     
     public Board getBoard() {
