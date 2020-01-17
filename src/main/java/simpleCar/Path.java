@@ -7,10 +7,14 @@ package traffic;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author williamw
- */
+@ClassPreamble (
+        author = "William Wu",
+        date = "01/16/2020",
+        currentRevision = 1,
+        lastModified = "01/16/2020",
+        lastModifiedBy = "William Wu"
+)
+
 public class Path {
     
     private ArrayList<double[]> pathPoints = new ArrayList<>();
