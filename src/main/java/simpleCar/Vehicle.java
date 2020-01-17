@@ -8,8 +8,8 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
-        lastModified = "01/15/2020",
+        currentRevision = 3,
+        lastModified = "01/17/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
@@ -43,19 +43,19 @@ public abstract class Vehicle extends Body {
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
     
-    public void passTime(double t) {
+    public void passTime() {
         
-        double xSpeed = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * t;
-        double ySpeed = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * t;
+        double xMagnitude = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * Main.INTERVAL;
+        double yMagnitude = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * Main.INTERVAL;
         
-        double newSpeed = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
-        double newOrientation = Math.atan2(ySpeed, xSpeed);
+        double newMagnitude = Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2));
+        double newOrientation = Math.atan2(yMagnitude, xMagnitude);
 
-        setVelocity(new Velocity(newSpeed, newOrientation));
+        setVelocity(new Velocity(newMagnitude, newOrientation));
         
         setPosition(new Position(
-                getPosition().getXPosition() + getVelocity().getXMagnitude() * t,
-                getPosition().getYPosition() + getVelocity().getYMagnitude() * t));
+                getPosition().getXPosition() + getVelocity().getXMagnitude() * Main.INTERVAL,
+                getPosition().getYPosition() + getVelocity().getYMagnitude() * Main.INTERVAL));
         
     }
     

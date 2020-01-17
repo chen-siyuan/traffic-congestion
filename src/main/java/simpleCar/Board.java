@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
+        currentRevision = 3,
         lastModified = "01/16/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -33,20 +33,15 @@ public class Board extends JPanel implements Runnable {
     public static final Color COLOR = new Color(235, 209, 195);
 
     private Thread animator;
-    private double interval;
     private ArrayList<Vehicle> vehicles;
     private BufferedImage carImage; // will generalize later
     
-    /**
-     * @param interval number of real life seconds each frame stays
-     */
-    public Board(double interval) {
+    public Board() {
 
         setBackground(COLOR);
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER)));
         
-        this.interval = interval;
         vehicles = new ArrayList<Vehicle>();
         
         carImage = null;
@@ -77,8 +72,8 @@ public class Board extends JPanel implements Runnable {
         }
     }
     
-    public void passTime(double time) {
-        vehicles.forEach((vehicle) -> vehicle.passTime(time));
+    public void passTime() {
+        vehicles.forEach((vehicle) -> vehicle.passTime());
     }
     
     @Override
@@ -150,11 +145,11 @@ public class Board extends JPanel implements Runnable {
 
         while(true) {
 
-            passTime(interval);
+            passTime();
             repaint();
             
             timeDifference = System.currentTimeMillis() - startTime;
-            correctedInterval = (int)Math.round(interval * Main.MILLISECONDS_PER_SECOND) - timeDifference;
+            correctedInterval = (int)Math.round(Main.INTERVAL * Main.MILLISECONDS_PER_SECOND) - timeDifference;
 
             // I don't think this would happen
             if(correctedInterval < 0) {
