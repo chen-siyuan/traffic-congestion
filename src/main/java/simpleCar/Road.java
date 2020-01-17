@@ -10,7 +10,7 @@ package simpleCar;
         date = "01/17/2020",
         currentRevision = 1.1,
         lastModified = "01/17/2020",
-        lastModifiedBy = "Daniel Chen"
+        lastModifiedBy = "Apple"
 )
 public class Road {
     
