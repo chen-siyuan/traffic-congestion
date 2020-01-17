@@ -12,7 +12,7 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4,
+        currentRevision = 5,
         lastModified = "01/17/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -20,11 +20,11 @@ public class Main {
     
     public static final String RESOURCES_ADDRESS = "src/resources/";
     
-    public static final double PIXELS_PER_METER = 5;
+    public static final double PIXELS_PER_METER = 10;
     public static final double MILLISECONDS_PER_SECOND = 1000;
 
-    public static final double PANEL_WIDTH = 100;//meter
-    public static final double PANEL_HEIGHT = 100;//meter
+    public static final double PANEL_WIDTH = 50;//meter
+    public static final double PANEL_HEIGHT = 50;//meter
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
     public static final double INTERVAL = 0.01;//second
