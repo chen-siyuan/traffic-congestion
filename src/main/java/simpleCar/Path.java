@@ -11,9 +11,9 @@ import java.util.Arrays;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 3,
-        lastModified = "01/16/2020",
-        lastModifiedBy = "William Wu"
+        currentRevision = 3.1,
+        lastModified = "01/17/2020",
+        lastModifiedBy = "Daniel Chen"
 )
 public class Path {
     
@@ -28,24 +28,23 @@ public class Path {
     }
     
     public Path(boolean loop, Position... args) {
-        positions.addAll(Arrays.asList(args));
-        this.loop = loop;
+        this(loop, (ArrayList)Arrays.asList(args));
     }
     
     public Path(ArrayList<Position> positions) {
-        this(positions, false);
+        this(false, positions);
     }
     
     /**
      * A Path is an object that tracks the path of an Obstacle
      * 
-     * @param positions array list of positions
      * @param loop whether to loop the list of positions or not
+     * @param positions array list of positions
     **/
-    public Path(ArrayList<Position> positions, boolean loop) {
+    public Path(boolean loop, ArrayList<Position> positions) {
         
-        this.positions = positions;
         this.loop = loop;
+        this.positions = positions;
         currentCount = 0;
         
     }
@@ -89,4 +88,5 @@ public class Path {
         
         return currentPosition;
     }
+    
 }

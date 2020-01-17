@@ -11,9 +11,9 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 1,
-        lastModified = "01/16/2020",
-        lastModifiedBy = "William Wu"
+        currentRevision = 1.1,
+        lastModified = "01/17/2020",
+        lastModifiedBy = "Daniel Chen"
 )
 public class Pedestrian extends Obstacle{
     
@@ -22,8 +22,6 @@ public class Pedestrian extends Obstacle{
     public static final double MAX_ACCELERATION_MAGNITUDE = 9;
     public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.1;
     public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.1;
-    public static final double MAP_WIDTH = 500;
-    public static final double MAP_HEIGHT = 500;
     
     public static final double WIDTH = 0.7;
     public static final double HEIGHT = 0.2;
@@ -39,8 +37,8 @@ public class Pedestrian extends Obstacle{
         for(int i=0; i < numPedestrians; i++) {
             pedestrians[i] = new Pedestrian(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
                     new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI), 
-                    new Path(new Position(Math.random() * MAP_WIDTH, Math.random() * MAP_WIDTH),
-                            new Position(Math.random() * MAP_WIDTH, Math.random() * MAP_WIDTH)));
+                    new Path(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.PANEL_HEIGHT),
+                            new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.PANEL_HEIGHT)));
         }
         
         return pedestrians;
@@ -53,8 +51,8 @@ public class Pedestrian extends Obstacle{
         for(int i=0; i < numPedestrians; i++) {
             pedestrians.add(new Pedestrian(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
                     new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI), 
-                    new Path(new Position(Math.random() * MAP_WIDTH, Math.random() * MAP_WIDTH),
-                            new Position(Math.random() * MAP_WIDTH, Math.random() * MAP_WIDTH))));
+                    new Path(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.PANEL_HEIGHT),
+                            new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.PANEL_HEIGHT))));
         }
         
         return pedestrians;
@@ -113,6 +111,5 @@ public class Pedestrian extends Obstacle{
         
         
     }
-    
     
 }
