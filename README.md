@@ -12,6 +12,7 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
   - Creating the graphics and textures for the objects
 - Drew Kirk (programmer)
   - Programing the Road class and Lane detection mechanism
+  - Joses best friend
 - Sam Monaghan (researcher and data collector)
 
 ## Style guide
