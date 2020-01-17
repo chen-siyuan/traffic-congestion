@@ -13,6 +13,8 @@ package simpleCar;
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Obstacle extends Body {
+    
+    private Path path = new Path();
         
      /**
      * The Obstacle class inherits the Body class and is parallel to the Vehicle class
@@ -20,9 +22,11 @@ public abstract class Obstacle extends Body {
      * @param size the size of the Obstacle
      * @param position the initial position of the Obstacle
      * @param velocity the initial velocity of the Obstacle
+     * @param path the path which the Obstacle follows
      */
-    public Obstacle(Size size, Position position, Velocity velocity) {
+    public Obstacle(Size size, Position position, Velocity velocity, Path path) {
         super(size, position, velocity);
+        this.path = path;
     }
     
     @Override
