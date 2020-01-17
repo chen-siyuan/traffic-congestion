@@ -45,30 +45,30 @@ public class Main {
     
     public static void main(String[] args) {
         
-//        HashMap vehiclesMap = new HashMap();
-//        
-//        vehiclesMap.put("car", 1);
-//        vehiclesMap.put("bus", 1);
-//        
-//        ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
-//        
-//        vehiclesList.get(0).getVelocity().setOrientation(135 * (Math.PI / 180));
-//        
-//        EventQueue.invokeLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//
-//                Frame frame = new Frame(INTERVAL);
-//                
-//                frame.addVehicles(vehiclesList);
-//                
-//                frame.initUI();
-//                frame.setVisible(true);
-//
-//            }
-//            
-//        });
+        HashMap vehiclesMap = new HashMap();
+        
+        vehiclesMap.put("car", 1);
+        vehiclesMap.put("bus", 1);
+        
+        ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
+        
+        vehiclesList.get(0).getVelocity().setOrientation(135 * (Math.PI / 180));
+        
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+
+                Frame frame = new Frame(INTERVAL);
+                
+                frame.addVehicles(vehiclesList);
+                
+                frame.initUI();
+                frame.setVisible(true);
+
+            }
+            
+        });
 
 //        Position p1 = new Position(3, 4);
 //        Position p2 = new Position(5.5, -1);
@@ -76,11 +76,11 @@ public class Main {
 //        
 //        System.out.println(p1.distanceTo(p2, p3));
         
-        Body.getCornerPositions(
-                new Size(Math.sqrt(90), Math.sqrt(10)),
-                new Position(1, 3),
-                new Velocity(10, 4.39)).forEach(
-                        (position) -> System.out.printf("%f %f\n", position.getXPosition(), position.getYPosition()));
+//        Body.getCornerPositions(
+//                new Size(Math.sqrt(90), Math.sqrt(10)),
+//                new Position(1, 3),
+//                new Velocity(10, 4.39)).forEach(
+//                        (position) -> System.out.printf("%f %f\n", position.getXPosition(), position.getYPosition()));
             
 
     }
