@@ -12,8 +12,8 @@ package simpleCar;
         lastModified = "01/16/2020",
         lastModifiedBy = "William Wu"
 )
-
 public abstract class Obstacle extends Body{
+        
      /**
      * The Obstacle class inherits the Body class and is parallel to the Vehicle class
      * 
@@ -32,4 +32,6 @@ public abstract class Obstacle extends Body{
                 this.getPosition().getXPosition(), this.getPosition().getYPosition(),
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
+        
+        
 }
