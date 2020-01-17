@@ -102,13 +102,8 @@ public class Pedestrian extends Obstacle{
     }
     
     @Override
-    public void passTime(double time) { // need edit
+    public void passTime() { // need edit
         
-        for (int i = 0; i < time; i++) {
-            
-            
-        }
-
     }
     
 }
