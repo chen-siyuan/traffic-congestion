@@ -8,7 +8,7 @@ package simpleCar;
 @ClassPreamble (
         author = "Drew Kirk",
         date = "01/17/2020",
-        currentRevision = 1,
+        currentRevision = 1.1,
         lastModified = "01/17/2020",
         lastModifiedBy = "Drew Kirk"
 )
@@ -55,7 +55,7 @@ public class Road {
             }
         } 
         
-        return 0;
+        return 1;
     }
 
 }
