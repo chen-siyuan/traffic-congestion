@@ -10,22 +10,11 @@ import java.awt.Color;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4,
-        lastModified = "01/17/2020",
+        currentRevision = 4.1,
+        lastModified = "01/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
-    
-    public static boolean collided(Vehicle v1, Vehicle v2) {
-        
-        
-        
-        return true;
-    }
-    
-    public static Color getColor(Velocity velocity) {
-        return new Color(252, 186, 3);
-    }
     
     /**
      * The Vehicle class inherits the Body class and is parallel to the Obstacle class
@@ -41,6 +30,8 @@ public abstract class Vehicle extends Body {
     public abstract Acceleration getAcceleration();
     
     public abstract Size getBoundingBoxSize();
+    
+    public abstract Color getColor();
     
     public String toString() {
         return String.format("Vehicle:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",

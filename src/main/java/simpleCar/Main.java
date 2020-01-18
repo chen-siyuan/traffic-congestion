@@ -5,6 +5,7 @@
  */
 package simpleCar;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,19 +13,22 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5,
-        lastModified = "01/17/2020",
+        currentRevision = 5.1,
+        lastModified = "01/18/2020",
         lastModifiedBy = "William Wu"
 )
 public class Main {
     
     public static final String RESOURCES_ADDRESS = "src/resources/";
     
-    public static final double PIXELS_PER_METER = 10;
+    public static final Color SLOW_COLOR = new Color(255, 0, 0);
+    public static final Color FAST_COLOR = new Color(0, 0, 255);
+    
+    public static final double PIXELS_PER_METER = 5;
     public static final double MILLISECONDS_PER_SECOND = 1000;
 
-    public static final double PANEL_WIDTH = 50;//meter
-    public static final double PANEL_HEIGHT = 50;//meter
+    public static final double PANEL_WIDTH = 200;//meter
+    public static final double PANEL_HEIGHT = 200;//meter
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
     public static final double INTERVAL = 0.01;//second
@@ -54,7 +58,7 @@ public class Main {
         
         ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
         
-        vehiclesList.get(0).getVelocity().setOrientation(135 * (Math.PI / 180));
+        vehiclesList.get(0).getVelocity().setMagnitude(59);
         
         EventQueue.invokeLater(new Runnable() {
 

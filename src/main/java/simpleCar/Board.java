@@ -22,8 +22,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4,
-        lastModified = "01/16/2020",
+        currentRevision = 4.1,
+        lastModified = "01/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
@@ -127,7 +127,7 @@ public class Board extends JPanel implements Runnable {
                         - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
                 (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER),
                 (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER),
-                Vehicle.getColor(vehicle.getVelocity()),
+                vehicle.getColor(),
                 null);
         
         // Color could be passed as arg 5 to specify the color of transparent pixels in the image.
