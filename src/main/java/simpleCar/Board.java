@@ -30,15 +30,13 @@ public class Board extends JPanel implements Runnable {
     
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
     
-    public static final Color COLOR = new Color(235, 209, 195);
-
     private Thread animator;
     private ArrayList<Vehicle> vehicles;
     private BufferedImage carImage; // will generalize later
     
     public Board() {
 
-        setBackground(COLOR);
+        setBackground(Main.BOARD_COLOR);
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER)));
         
