@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
-        lastModified = "01/16/2020",
+        currentRevision = 4,
+        lastModified = "01/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -73,8 +73,27 @@ public class Car extends Vehicle {
         super(size, position, velocity);
     }
     
+    /**
+     * uses weighted average to determine the color
+     * 
+     * @return the Color object used by Board to paint the cars
+     */
     public Color getColor() {
-        return COLOR;
+        
+        double slowColorWeight;
+        double fastColorWeight = this.getVelocity().getMagnitude() / MAX_VELOCITY_MAGNITUDE;
+        
+        if(fastColorWeight > 1) {
+            fastColorWeight = 1;
+        } else if(fastColorWeight < 0) {
+            fastColorWeight = 0;
+        }
+        
+        slowColorWeight = 1 - fastColorWeight;
+        
+        return new Color((int)Math.round(Main.SLOW_COLOR.getRed() * slowColorWeight + Main.FAST_COLOR.getRed() * fastColorWeight),
+                (int)Math.round(Main.SLOW_COLOR.getGreen() * slowColorWeight + Main.FAST_COLOR.getGreen() * fastColorWeight),
+                (int)Math.round(Main.SLOW_COLOR.getBlue() * slowColorWeight + Main.FAST_COLOR.getBlue() * fastColorWeight));
     }
 
     public String toString() {
