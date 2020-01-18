@@ -86,9 +86,9 @@ public class Bus extends Vehicle {
         
         slowColorWeight = 1 - fastColorWeight;
         
-        return new Color((int)Math.round(Main.SLOW_COLOR.getRed() * slowColorWeight + Main.FAST_COLOR.getRed() * fastColorWeight),
-                (int)Math.round(Main.SLOW_COLOR.getGreen() * slowColorWeight + Main.FAST_COLOR.getGreen() * fastColorWeight),
-                (int)Math.round(Main.SLOW_COLOR.getBlue() * slowColorWeight + Main.FAST_COLOR.getBlue() * fastColorWeight));
+        return new Color((int)Math.round(Main.SLOW_VEHICLE_COLOR.getRed() * slowColorWeight + Main.FAST_VEHICLE_COLOR.getRed() * fastColorWeight),
+                (int)Math.round(Main.SLOW_VEHICLE_COLOR.getGreen() * slowColorWeight + Main.FAST_VEHICLE_COLOR.getGreen() * fastColorWeight),
+                (int)Math.round(Main.SLOW_VEHICLE_COLOR.getBlue() * slowColorWeight + Main.FAST_VEHICLE_COLOR.getBlue() * fastColorWeight));
     }
 
     public String toString() {
