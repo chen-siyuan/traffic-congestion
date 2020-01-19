@@ -5,7 +5,6 @@
  */
 package simpleCar;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,7 +21,7 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.1,
+        currentRevision = 5,
         lastModified = "01/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -33,8 +32,16 @@ public class Board extends JPanel implements Runnable {
     private Thread animator;
     private ArrayList<Vehicle> vehicles;
     private BufferedImage carImage; // will generalize later
+    private boolean record;
+    private int frameNumber;
+    private int frameCount;
     
-    public Board() {
+    /**
+     * 
+     * @param record whether or not the board is recorded by frame
+     * @param frameNumber total number of frames. insignificant if record is set to false
+     */
+    public Board(boolean record, int frameNumber) {
 
         setBackground(Main.BOARD_COLOR);
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
@@ -43,14 +50,20 @@ public class Board extends JPanel implements Runnable {
         vehicles = new ArrayList<Vehicle>();
         
         carImage = null;
+        
         try {
-            carImage = ImageIO.read(new File(Main.RESOURCES_ADDRESS + CAR_IMAGE_FILE_NAME));
+            carImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + CAR_IMAGE_FILE_NAME));
         } catch(IOException e) {
             
             System.out.println("Car Image Not Found");
             System.exit(0);
             
         }
+        
+        this.record = record;
+        this.frameNumber = frameNumber;
+        
+        frameCount = 0;
 
     }
     
@@ -88,9 +101,44 @@ public class Board extends JPanel implements Runnable {
     public void paintComponent(Graphics graphics) {
         
         super.paintComponent(graphics);
+        
+        Graphics2D graphics2D = (Graphics2D)graphics;
+        
+        if(record) {
+            
+            BufferedImage imageBuffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+            Graphics2D imageBufferGraphics2D = (Graphics2D)imageBuffer.createGraphics();
 
-        vehicles.forEach((vehicle) -> drawVehicle(graphics, vehicle));
-
+            vehicles.forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+        
+            graphics2D.drawImage(imageBuffer, 0, 0, this);
+        
+            File file = new File(Main.OUTPUT_ADDRESS
+                    + String.format("TRAFFIC_CONGESTION_FRAME_%0" + Integer.toString(Integer.toString(frameNumber).length()) + "d.png", frameCount));
+            
+            try {
+                ImageIO.write(imageBuffer, "PNG", file);
+            } catch (IOException e) {
+                
+                System.out.printf("ERROR WRITING IMAGE: %s", e.getMessage());
+                System.exit(0);
+                
+            }
+            
+            frameCount++;
+            
+            if(frameCount == frameNumber) {
+                
+                System.out.println("IMAGES GENERATION COMPLETED");
+                System.exit(0);
+                
+            }
+            
+        } else {
+            vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
+        }
+        
     }
     
     /**
@@ -98,9 +146,9 @@ public class Board extends JPanel implements Runnable {
      * @param graphics the graphics object to draw vehicles on
      * @param vehicle the vehicle to draw
      */
-    private void drawVehicle(Graphics graphics, Vehicle vehicle) {
+    private void drawVehicle(Graphics2D graphics2D, Vehicle vehicle) {
         
-        Graphics2D graphics2D = (Graphics2D)graphics;
+//        Graphics2D graphics2D = (Graphics2D)graphics;
         
         AffineTransform originalTransform = graphics2D.getTransform();
         
@@ -153,7 +201,7 @@ public class Board extends JPanel implements Runnable {
             // I don't think this would happen
             if(correctedInterval < 0) {
                 
-                System.out.printf("ERROR Board Sleep: %d.\n", correctedInterval);
+                System.out.printf("ERROR CALCULATING SLEEP: %d.\n", correctedInterval);
 //                System.exit(0);
                 correctedInterval = 1;
                 
@@ -163,7 +211,7 @@ public class Board extends JPanel implements Runnable {
                 Thread.sleep(correctedInterval);
             } catch (InterruptedException e) {
                 
-                String msg = String.format("Thread interrupted: %s", e.getMessage());
+                String msg = String.format("ERROR RUNNING THREAD: %s", e.getMessage());
                 
                 JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
                 
