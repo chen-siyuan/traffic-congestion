@@ -5,7 +5,6 @@
  */
 package simpleCar;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -33,8 +32,12 @@ public class Board extends JPanel implements Runnable {
     private Thread animator;
     private ArrayList<Vehicle> vehicles;
     private BufferedImage carImage; // will generalize later
+    private boolean record;
+    private int frameNumber;
+    private int frameCount;
     
-    public Board() {
+    
+    public Board(boolean record, int frameNumber) {
 
         setBackground(Main.BOARD_COLOR);
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
@@ -43,14 +46,20 @@ public class Board extends JPanel implements Runnable {
         vehicles = new ArrayList<Vehicle>();
         
         carImage = null;
+        
         try {
-            carImage = ImageIO.read(new File(Main.RESOURCES_ADDRESS + CAR_IMAGE_FILE_NAME));
+            carImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + CAR_IMAGE_FILE_NAME));
         } catch(IOException e) {
             
             System.out.println("Car Image Not Found");
             System.exit(0);
             
         }
+        
+        this.record = record;
+        this.frameNumber = frameNumber;
+        
+        frameCount = 0;
 
     }
     
@@ -88,9 +97,30 @@ public class Board extends JPanel implements Runnable {
     public void paintComponent(Graphics graphics) {
         
         super.paintComponent(graphics);
+        
+        Graphics2D graphics2D = (Graphics2D)graphics;
+        
+        if(record) {
+            
+            BufferedImage imageBuffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+            Graphics2D imageBufferGraphics2D = (Graphics2D)imageBuffer.createGraphics();
 
-        vehicles.forEach((vehicle) -> drawVehicle(graphics, vehicle));
-
+            vehicles.forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+        
+            graphics2D.drawImage(imageBuffer, 0, 0, this);
+        
+            File file = new File(Main.OUTPUT_ADDRESS + String.format("TRAFFIC_CONGESTION_FRAME_%5d.png", frameCount));
+            
+            try {
+                ImageIO.write(imageBuffer, "PNG", file);
+            } catch (IOException e) {
+            }
+            
+        } else {
+            vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
+        }
+        
     }
     
     /**
@@ -98,9 +128,9 @@ public class Board extends JPanel implements Runnable {
      * @param graphics the graphics object to draw vehicles on
      * @param vehicle the vehicle to draw
      */
-    private void drawVehicle(Graphics graphics, Vehicle vehicle) {
+    private void drawVehicle(Graphics2D graphics2D, Vehicle vehicle) {
         
-        Graphics2D graphics2D = (Graphics2D)graphics;
+//        Graphics2D graphics2D = (Graphics2D)graphics;
         
         AffineTransform originalTransform = graphics2D.getTransform();
         

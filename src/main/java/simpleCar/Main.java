@@ -15,11 +15,12 @@ import java.util.HashMap;
         date = "01/14/2020",
         currentRevision = 5.1,
         lastModified = "01/18/2020",
-        lastModifiedBy = "William Wu"
+        lastModifiedBy = "Daniel Chen"
 )
 public class Main {
     
-    public static final String RESOURCES_ADDRESS = "src/resources/";
+    public static final String ASSETS_ADDRESS = "assets/";
+    public static final String OUTPUT_ADDRESS = "output/";
     
     public static final Color BOARD_COLOR = new Color(214, 232, 202);
     
@@ -27,13 +28,13 @@ public class Main {
     public static final Color FAST_VEHICLE_COLOR = new Color(0, 0, 255);
     
     public static final double PIXELS_PER_METER = 10;
-    public static final double MILLISECONDS_PER_SECOND = 1000;
+    public static final double MILLISECONDS_PER_SECOND = 5000; //use this to change display render speed
 
     public static final double PANEL_WIDTH = 256;//meter
     public static final double PANEL_HEIGHT = 160;//meter
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
-    public static final double INTERVAL = 0.001;//second
+    public static final double INTERVAL = 0.01;//second
     public static final double THRESHOLD = 0.05;
     
     /**
