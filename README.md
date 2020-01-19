@@ -38,3 +38,9 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
   - *Car(Size size, Position position, Velocity velocity)* instead of *Car(Size s, Position p, Velocity v)*
 - Changes that does not affect the execution of the code are subversions
   - Style edit or *//comments* can be recorded as *currentRevision = 2* -> *currentRevision = 2.1*
+
+## Instructions
+
+If the *Frame* object has attribute *record* set to *true*, the images would be created under the folder *output*. Use the following command in iTerm to create a video file from the images.
+
+ffmpeg -framerate {*FRAME RATE*} -i TRAFFIC_CONGESTION_FRAME_%0{*NUMBER OF DIGITS*}d.png {*OUTPUT FILE NAME*}.mp4

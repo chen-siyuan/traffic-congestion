@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.1,
+        currentRevision = 5,
         lastModified = "01/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -36,7 +36,11 @@ public class Board extends JPanel implements Runnable {
     private int frameNumber;
     private int frameCount;
     
-    
+    /**
+     * 
+     * @param record whether or not the board is recorded by frame
+     * @param frameNumber total number of frames. insignificant if record is set to false
+     */
     public Board(boolean record, int frameNumber) {
 
         setBackground(Main.BOARD_COLOR);
@@ -110,11 +114,25 @@ public class Board extends JPanel implements Runnable {
         
             graphics2D.drawImage(imageBuffer, 0, 0, this);
         
-            File file = new File(Main.OUTPUT_ADDRESS + String.format("TRAFFIC_CONGESTION_FRAME_%5d.png", frameCount));
+            File file = new File(Main.OUTPUT_ADDRESS
+                    + String.format("TRAFFIC_CONGESTION_FRAME_%0" + Integer.toString(Integer.toString(frameNumber).length()) + "d.png", frameCount));
             
             try {
                 ImageIO.write(imageBuffer, "PNG", file);
             } catch (IOException e) {
+                
+                System.out.printf("ERROR WRITING IMAGE: %s", e.getMessage());
+                System.exit(0);
+                
+            }
+            
+            frameCount++;
+            
+            if(frameCount == frameNumber) {
+                
+                System.out.println("IMAGES GENERATION COMPLETED");
+                System.exit(0);
+                
             }
             
         } else {
@@ -183,7 +201,7 @@ public class Board extends JPanel implements Runnable {
             // I don't think this would happen
             if(correctedInterval < 0) {
                 
-                System.out.printf("ERROR Board Sleep: %d.\n", correctedInterval);
+                System.out.printf("ERROR CALCULATING SLEEP: %d.\n", correctedInterval);
 //                System.exit(0);
                 correctedInterval = 1;
                 
@@ -193,7 +211,7 @@ public class Board extends JPanel implements Runnable {
                 Thread.sleep(correctedInterval);
             } catch (InterruptedException e) {
                 
-                String msg = String.format("Thread interrupted: %s", e.getMessage());
+                String msg = String.format("ERROR RUNNING THREAD: %s", e.getMessage());
                 
                 JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
                 
