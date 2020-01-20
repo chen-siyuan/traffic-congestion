@@ -7,6 +7,7 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 - Daniel Chen (programmer & team captain)
   - Programming for collision detecting and prediction
   - Programming signaling mechanism
+  - Using Java Swing to implement the Graphic User Interface (video saving options as well)
 - William Wu (programmer)
   - Programming the Path finding and Obstacle type classes
   - Creating the graphics and textures for the objects
