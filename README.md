@@ -2,18 +2,24 @@
 
 This project is for the 2019-2020 Advanced Topics in Computer Science course at Tabor Academy. Four students seek to find a method to mitigate traffic congestion.
 
-## Team Members & Roles
+## Team Members & Responsibilities
 
-- Daniel Chen (programmer & team captain)
-  - Programming for collision detecting and prediction
-  - Programming signaling mechanism
-  - Using Java Swing to implement the Graphic User Interface (video saving options as well)
-- William Wu (programmer)
+### Daniel Chen (programmer & team captain)
+
+Daniel is responsible for the collision detection, the collision prediction, and the signaling mechanism.
+
+For the collision detection mechanism, Daniel is going to use coordinate and vector geometry to determine the positions of the bounding rectangles and whether or not they overlap. Once that is implemented, Daniel could achieve the collision prediction mechanism through detecting collision of two larger surrounding boxes. Regarding the signaling mechanism, Daniel is going to implement a signal system that will spread across the board.
+
+### William Wu (programmer)
+
   - Programming the Path finding and Obstacle type classes
   - Creating the graphics and textures for the objects
-- Drew Kirk (programmer)
+
+### Drew Kirk (programmer)
+
   - Programing the Road class and Lane detection mechanism
-- Sam Monaghan (researcher and data collector)
+  
+### Sam Monaghan (researcher and data collector)
 
 ## Style guide
 
