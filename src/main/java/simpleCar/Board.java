@@ -21,20 +21,23 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5,
-        lastModified = "01/18/2020",
+        currentRevision = 6,
+        lastModified = "02/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
     
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
+    public static final String BACKGROUND_IMAGE_FILE_NAME = "Background.png";
     
     private Thread animator;
     private ArrayList<Vehicle> vehicles;
-    private BufferedImage carImage; // will generalize later
     private boolean record;
     private int frameNumber;
     private int frameCount;
+    
+    private BufferedImage carImage;
+    private BufferedImage backgroundImage;
     
     /**
      * 
@@ -56,6 +59,17 @@ public class Board extends JPanel implements Runnable {
         } catch(IOException e) {
             
             System.out.println("Car Image Not Found");
+            System.exit(0);
+            
+        }
+        
+        backgroundImage = null;
+        
+        try {
+            backgroundImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + BACKGROUND_IMAGE_FILE_NAME));
+        } catch(IOException e) {
+            
+            System.out.println("Background Image Not Found");
             System.exit(0);
             
         }
@@ -103,6 +117,10 @@ public class Board extends JPanel implements Runnable {
         super.paintComponent(graphics);
         
         Graphics2D graphics2D = (Graphics2D)graphics;
+        
+        graphics2D.drawImage(backgroundImage, 0, 0,
+                (int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
+                (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER), this);
         
         if(record) {
             
