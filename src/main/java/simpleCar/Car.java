@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4,
-        lastModified = "01/18/2020",
+        currentRevision = 4.1,
+        lastModified = "02/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -104,7 +104,17 @@ public class Car extends Vehicle {
     }
 
     public Acceleration getAcceleration() {
-        return new Acceleration(MAX_ACCELERATION_MAGNITUDE, getVelocity().getOrientation());
+//        return new Acceleration(MAX_ACCELERATION_MAGNITUDE * 2, getVelocity().getOrientation() + Math.PI / 2);
+//        return new Acceleration(0, 0);
+        if(this.getPosition().getYPosition() > 100) {
+            return new Acceleration(0, 0);
+        } else {
+            if(this.getPosition().getXPosition() > 100) {
+                return new Acceleration(12.5, getVelocity().getOrientation() - Math.PI / 2);
+            } else {
+                return new Acceleration(0, 0);
+            }
+        }
     }
     
     public Size getBoundingBoxSize() {
