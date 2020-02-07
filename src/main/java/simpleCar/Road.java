@@ -5,12 +5,14 @@
  */
 package simpleCar;
 
+import java.util.ArrayList;
+
 @ClassPreamble (
         author = "Drew Kirk",
         date = "01/17/2020",
         currentRevision = 1.1,
         lastModified = "01/17/2020",
-        lastModifiedBy = "Apple"
+        lastModifiedBy = "Drew Kirk"
 )
 public class Road {
     
@@ -42,11 +44,16 @@ public class Road {
         
     }
     
-    public boolean inRoad(int xPos, int yPos) {
+    public boolean inRoad(Body body) {
         
         boolean inRoad = true;
         
-        if(this.road[0] > xPos || xPos > this.road[1]) {
+        ArrayList<Position> cornerPositions = new ArrayList<Position>();
+        for(int i = 0; i < 4; i++){
+            
+        }
+        
+        if(this.road[0] > Body.getCornerPositions(body.getSize(), body.getPosition(), body.getVelocity()).get(0) || xPos > this.road[1]) {
             inRoad = false;
         }
         
