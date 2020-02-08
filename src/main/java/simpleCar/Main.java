@@ -61,7 +61,7 @@ public class Main {
         
         ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
         
-        vehiclesList.get(0).setPosition(new Position(150, 150));
+        vehiclesList.get(0).setPosition(new Position(100, 150));
         vehiclesList.get(0).setVelocity(new Velocity(25, Math.PI * 3 / 2));
         
         EventQueue.invokeLater(new Runnable() {

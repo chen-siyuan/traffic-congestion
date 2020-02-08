@@ -106,11 +106,21 @@ public class Car extends Vehicle {
     public Acceleration getAcceleration() {
 //        return new Acceleration(MAX_ACCELERATION_MAGNITUDE * 2, getVelocity().getOrientation() + Math.PI / 2);
 //        return new Acceleration(0, 0);
+//        if(this.getPosition().getYPosition() > 100) {
+//            return new Acceleration(0, 0);
+//        } else {
+//            if(this.getPosition().getXPosition() > 50) {
+//                return new Acceleration(12.5, getVelocity().getOrientation() - Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//        }
+        
         if(this.getPosition().getYPosition() > 100) {
             return new Acceleration(0, 0);
         } else {
-            if(this.getPosition().getXPosition() > 100) {
-                return new Acceleration(12.5, getVelocity().getOrientation() - Math.PI / 2);
+            if(this.getPosition().getXPosition() < 200) {
+                return new Acceleration(6.25, getVelocity().getOrientation() + Math.PI / 2);
             } else {
                 return new Acceleration(0, 0);
             }
