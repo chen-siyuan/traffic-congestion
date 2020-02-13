@@ -6,20 +6,29 @@ This project is for the 2019-2020 Advanced Topics in Computer Science course at 
 
 ### Daniel Chen (programmer & team captain)
 
-Daniel is responsible for the collision detection, the collision prediction, and the signaling mechanism.
+**Program the collision detection and prediction mechanism and create the signaling mechanism.**
 
-For the collision detection mechanism, Daniel is going to use coordinate and vector geometry to determine the positions of the bounding rectangles and whether or not they overlap. Once that is implemented, Daniel could achieve the collision prediction mechanism through detecting collision of two larger surrounding boxes. Regarding the signaling mechanism, Daniel is going to implement a signal system that will spread across the board.
+I would work on implementing a collision detection and prediction mechanism using bounding boxes of multiple sizes and coordinate geometry. I would also draft a mechanism used for communication between cars and implement the signaling method eventually. I would help with the graphic user interface. I would proofread and edit other people’s programs and make sure that our progress is monitored and well-paced.
 
 ### William Wu (programmer)
 
-  - Programming the Path finding and Obstacle type classes
-  - Creating the graphics and textures for the objects
+**Program the Path finding and Obstacle type classes and create graphics.**
+
+Unlike the vehicles, obstacles such as pedestrians, drunk drivers, or wild animals benefit from a path finding system based on the fixed coordinates of the map. (Where as cars drive based on an acceleration vector and velocity vector and have no access to the map coordinates) Therefore, I will be programming the conditions each obstacle spawn and despawn (i.e. pedestrians will despawn after crossing a specific street), the behaviors they follow (i.e. a chicken may pause at the middle of the road for a couple of seconds, and a drunk driver may follow a certain type of path that loops). I would also create the graphics and textures of the objects eventually.
 
 ### Drew Kirk (programmer)
 
-  - Programing the Road class and Lane detection mechanism
-  
+**Program the road class and lane detection classes.**
+
+I will be programming the roads to be driven on. They will function as a set of rectangular “lanes”. Cars and obstacles will be able to be placed onto the plane of roads. The class will be tested by indicating which lane obstacles and cars are based on receiving their position. By the end of the trimester cars and obstacles (or points to signify them) will be able to be placed onto the map of roads.
+
 ### Sam Monaghan (researcher and data collector)
+
+**Data manipulation to display graphs in python, and manipulate data in java for velocity**
+
+We have a data file that displays traffic flow within the various streets of New York City. I will be manipulating that data set in python by grouping the set by street in order to show the various velocities of cars going through the busiest intersections and streets in New York during each time period of the day. Using these graphs, we will be able to compare our model to this control group, which will be formed on the basis of the numbers calculated by manipulating the data.
+
+In addition, we will need to be able to access these numbers through java, so I will also create a java file that reads the .csv file and proceeds to read the file line by line, parsing data into arrays and lists that will be accessed to calculate velocity and traffic flow, and will be used to run our control group model.
 
 ## Style guide
 
