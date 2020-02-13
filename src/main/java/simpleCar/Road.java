@@ -10,15 +10,15 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Drew Kirk",
         date = "01/17/2020",
-        currentRevision = 1.2,
-        lastModified = "01/17/2020",
+        currentRevision = 1.3,
+        lastModified = "02/13/2020",
         lastModifiedBy = "Drew Kirk"
 )
 public class Road {
     
     public int[] road = new int[5];
     
-    public void drawRoad(int laneNum,int length, boolean direction, int startPosX, int startPosY) {
+    public void drawRoad(int laneNum, int length, boolean direction, int startPosX, int startPosY) {
         
         if(direction == true) {
             
@@ -44,25 +44,25 @@ public class Road {
         
     }
     
-    public boolean inRoad(Body body) {
-        
-        boolean inRoad = true;
-        
-        ArrayList<Position> cornerPositions = new ArrayList<Position>();
-        for(int i = 0; i < 4; i++){
-            
-        }
-        
-        if(this.road[0] > Body.getCornerPositions(body.getSize(), body.getPosition(), body.getVelocity()).get(0) || xPos > this.road[1]) {
-            inRoad = false;
-        }
-        
-        if(this.road[2] > yPos || yPos > this.road[3]) {
-            inRoad = false;
-        }
-        
-        return inRoad;
-    }
+//    public boolean inRoad(Body body) {
+//        
+//        boolean inRoad = true;
+//        
+//        ArrayList<Position> cornerPositions = new ArrayList<Position>();
+//        for(int i = 0; i < 4; i++){
+//            
+//        }
+//        
+//        if(this.road[0] > Body.getCornerPositions(body.getSize(), body.getPosition(), body.getVelocity()).get(0) || xPos > this.road[1]) {
+//            inRoad = false;
+//        }
+//        
+//        if(this.road[2] > yPos || yPos > this.road[3]) {
+//            inRoad = false;
+//        }
+//        
+//        return inRoad;
+//    }
     
     public int inLane(int xPos, int yPos) {
         
