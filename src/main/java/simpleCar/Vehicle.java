@@ -5,21 +5,16 @@
  */
 package simpleCar;
 
+import java.awt.Color;
+
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
-        lastModified = "01/15/2020",
+        currentRevision = 4.1,
+        lastModified = "01/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
-    
-    public static boolean collided(Vehicle v1, Vehicle v2) {
-        
-        
-        
-        return true;
-    }
     
     /**
      * The Vehicle class inherits the Body class and is parallel to the Obstacle class
@@ -36,6 +31,8 @@ public abstract class Vehicle extends Body {
     
     public abstract Size getBoundingBoxSize();
     
+    public abstract Color getColor();
+    
     public String toString() {
         return String.format("Vehicle:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
                 this.getSize().getWidth(), this.getSize().getHeight(),
@@ -43,19 +40,19 @@ public abstract class Vehicle extends Body {
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
     
-    public void passTime(double t) {
+    public void passTime() {
         
-        double xSpeed = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * t;
-        double ySpeed = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * t;
+        double xMagnitude = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * Main.INTERVAL;
+        double yMagnitude = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * Main.INTERVAL;
         
-        double newSpeed = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
-        double newOrientation = Math.atan2(ySpeed, xSpeed);
+        double newMagnitude = Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2));
+        double newOrientation = Math.atan2(yMagnitude, xMagnitude);
 
-        setVelocity(new Velocity(newSpeed, newOrientation));
+        setVelocity(new Velocity(newMagnitude, newOrientation));
         
         setPosition(new Position(
-                getPosition().getXPosition() + getVelocity().getXMagnitude() * t,
-                getPosition().getYPosition() + getVelocity().getYMagnitude() * t));
+                getPosition().getXPosition() + getVelocity().getXMagnitude() * Main.INTERVAL,
+                getPosition().getYPosition() + getVelocity().getYMagnitude() * Main.INTERVAL));
         
     }
     

@@ -8,9 +8,9 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
-        lastModified = "01/15/2020",
-        lastModifiedBy = "Daniel Chen"
+        currentRevision = 3,
+        lastModified = "01/17/2020",
+        lastModifiedBy = "William Wu"
 )
 public class Position {
     
@@ -78,6 +78,14 @@ public class Position {
         double baseLength = Position.distanceBetween(otherPosition1, otherPosition2);
         
         return crossProduct / baseLength;
+    }
+    
+    public boolean onTheLine(Position startOfLine, Position endOfLine) {
+        if(distanceTo(startOfLine, endOfLine) <= Main.THRESHOLD) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
 }

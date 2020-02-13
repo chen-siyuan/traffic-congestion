@@ -5,7 +5,6 @@
  */
 package simpleCar;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,42 +21,63 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
-        lastModified = "01/16/2020",
+        currentRevision = 6,
+        lastModified = "02/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
     
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
+    public static final String BACKGROUND_IMAGE_FILE_NAME = "Background.png";
     
-    public static final Color COLOR = new Color(235, 209, 195);
-
     private Thread animator;
-    private double interval;
     private ArrayList<Vehicle> vehicles;
-    private BufferedImage carImage; // will generalize later
+    private boolean record;
+    private int frameNumber;
+    private int frameCount;
+    
+    private BufferedImage carImage;
+    private BufferedImage backgroundImage;
     
     /**
-     * @param interval number of real life seconds each frame stays
+     * 
+     * @param record whether or not the board is recorded by frame
+     * @param frameNumber total number of frames. insignificant if record is set to false
      */
-    public Board(double interval) {
+    public Board(boolean record, int frameNumber) {
 
-        setBackground(COLOR);
+        setBackground(Main.BOARD_COLOR);
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER)));
         
-        this.interval = interval;
         vehicles = new ArrayList<Vehicle>();
         
         carImage = null;
+        
         try {
-            carImage = ImageIO.read(new File(Main.RESOURCES_ADDRESS + CAR_IMAGE_FILE_NAME));
+            carImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + CAR_IMAGE_FILE_NAME));
         } catch(IOException e) {
             
             System.out.println("Car Image Not Found");
             System.exit(0);
             
         }
+        
+        backgroundImage = null;
+        
+        try {
+            backgroundImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + BACKGROUND_IMAGE_FILE_NAME));
+        } catch(IOException e) {
+            
+            System.out.println("Background Image Not Found");
+            System.exit(0);
+            
+        }
+        
+        this.record = record;
+        this.frameNumber = frameNumber;
+        
+        frameCount = 0;
 
     }
     
@@ -77,8 +97,8 @@ public class Board extends JPanel implements Runnable {
         }
     }
     
-    public void passTime(double time) {
-        vehicles.forEach((vehicle) -> vehicle.passTime(time));
+    public void passTime() {
+        vehicles.forEach((vehicle) -> vehicle.passTime());
     }
     
     @Override
@@ -95,9 +115,48 @@ public class Board extends JPanel implements Runnable {
     public void paintComponent(Graphics graphics) {
         
         super.paintComponent(graphics);
+        
+        Graphics2D graphics2D = (Graphics2D)graphics;
+        
+        graphics2D.drawImage(backgroundImage, 0, 0,
+                (int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
+                (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER), this);
+        
+        if(record) {
+            
+            BufferedImage imageBuffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        
+            Graphics2D imageBufferGraphics2D = (Graphics2D)imageBuffer.createGraphics();
 
-        vehicles.forEach((vehicle) -> drawVehicle(graphics, vehicle));
-
+            vehicles.forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+        
+            graphics2D.drawImage(imageBuffer, 0, 0, this);
+        
+            File file = new File(Main.OUTPUT_ADDRESS
+                    + String.format("TRAFFIC_CONGESTION_FRAME_%0" + Integer.toString(Integer.toString(frameNumber).length()) + "d.png", frameCount));
+            
+            try {
+                ImageIO.write(imageBuffer, "PNG", file);
+            } catch (IOException e) {
+                
+                System.out.printf("ERROR WRITING IMAGE: %s", e.getMessage());
+                System.exit(0);
+                
+            }
+            
+            frameCount++;
+            
+            if(frameCount == frameNumber) {
+                
+                System.out.println("IMAGES GENERATION COMPLETED");
+                System.exit(0);
+                
+            }
+            
+        } else {
+            vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
+        }
+        
     }
     
     /**
@@ -105,9 +164,9 @@ public class Board extends JPanel implements Runnable {
      * @param graphics the graphics object to draw vehicles on
      * @param vehicle the vehicle to draw
      */
-    private void drawVehicle(Graphics graphics, Vehicle vehicle) {
+    private void drawVehicle(Graphics2D graphics2D, Vehicle vehicle) {
         
-        Graphics2D graphics2D = (Graphics2D)graphics;
+//        Graphics2D graphics2D = (Graphics2D)graphics;
         
         AffineTransform originalTransform = graphics2D.getTransform();
         
@@ -132,6 +191,7 @@ public class Board extends JPanel implements Runnable {
                         - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
                 (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER),
                 (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER),
+                vehicle.getColor(),
                 null);
         
         // Color could be passed as arg 5 to specify the color of transparent pixels in the image.
@@ -150,16 +210,16 @@ public class Board extends JPanel implements Runnable {
 
         while(true) {
 
-            passTime(interval);
+            passTime();
             repaint();
             
             timeDifference = System.currentTimeMillis() - startTime;
-            correctedInterval = (int)Math.round(interval * Main.MILLISECONDS_PER_SECOND) - timeDifference;
+            correctedInterval = (int)Math.round(Main.INTERVAL * Main.MILLISECONDS_PER_SECOND) - timeDifference;
 
             // I don't think this would happen
             if(correctedInterval < 0) {
                 
-                System.out.printf("ERROR Board Sleep: %d.\n", correctedInterval);
+                System.out.printf("ERROR CALCULATING SLEEP: %d.\n", correctedInterval);
 //                System.exit(0);
                 correctedInterval = 1;
                 
@@ -169,7 +229,7 @@ public class Board extends JPanel implements Runnable {
                 Thread.sleep(correctedInterval);
             } catch (InterruptedException e) {
                 
-                String msg = String.format("Thread interrupted: %s", e.getMessage());
+                String msg = String.format("ERROR RUNNING THREAD: %s", e.getMessage());
                 
                 JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
                 

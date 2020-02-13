@@ -5,6 +5,7 @@
  */
 package simpleCar;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,22 +13,29 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.2,
-        lastModified = "01/16/2020",
+        currentRevision = 5.3,
+        lastModified = "02/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
     
-    public static final String RESOURCES_ADDRESS = "src/resources/";
+    public static final String ASSETS_ADDRESS = "assets/";
+    public static final String OUTPUT_ADDRESS = "output/";
+    
+    public static final Color BOARD_COLOR = new Color(214, 232, 202);
+    
+    public static final Color SLOW_VEHICLE_COLOR = new Color(255, 0, 0);
+    public static final Color FAST_VEHICLE_COLOR = new Color(0, 0, 255);
     
     public static final double PIXELS_PER_METER = 5;
-    public static final double MILLISECONDS_PER_SECOND = 1000;
+    public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
 
-    public static final double PANEL_WIDTH = 100;//meter
-    public static final double PANEL_HEIGHT = 100;//meter
+    public static final double PANEL_WIDTH = 250;//meter
+    public static final double PANEL_HEIGHT = 150;//meter
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
     public static final double INTERVAL = 0.01;//second
+    public static final double THRESHOLD = 0.05;
     
     /**
      * 
@@ -48,19 +56,20 @@ public class Main {
         
         HashMap vehiclesMap = new HashMap();
         
-        vehiclesMap.put("car", 5);
-        vehiclesMap.put("bus", 1);
+        vehiclesMap.put("car", 1);
+        vehiclesMap.put("bus", 0);
         
         ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
         
-        vehiclesList.get(0).getVelocity().setOrientation(135 * (Math.PI / 180));
+        vehiclesList.get(0).setPosition(new Position(100, 150));
+        vehiclesList.get(0).setVelocity(new Velocity(25, Math.PI * 3 / 2));
         
         EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
 
-                Frame frame = new Frame(INTERVAL);
+                Frame frame = new Frame(false, 250);
                 
                 frame.addVehicles(vehiclesList);
                 
@@ -91,6 +100,8 @@ public class Main {
 //            System.out.println(e.getLocalizedMessage());
 //        }
             
+
+//        System.out.println(String.format("test %0" + "3" + "d test", 7));
 
     }
     
