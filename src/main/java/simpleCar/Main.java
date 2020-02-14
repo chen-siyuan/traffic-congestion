@@ -13,8 +13,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5.3,
-        lastModified = "02/07/2020",
+        currentRevision = 6,
+        lastModified = "02/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -35,7 +35,7 @@ public class Main {
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
     public static final double INTERVAL = 0.01;//second
-    public static final double THRESHOLD = 0.05;
+    public static final double THRESHOLD = 0.5;
     
     /**
      * 
@@ -52,6 +52,15 @@ public class Main {
         return vehiclesList;
     }
     
+    public static ArrayList<Obstacle> getObstaclesList(HashMap obstaclesMap) {
+        
+        ArrayList<Obstacle> obstaclesList = new ArrayList<Obstacle>();
+        
+        obstaclesList.addAll(Pedestrian.getPedestriansList((int)obstaclesMap.get("pedestrian")));
+        
+        return obstaclesList;
+    }
+    
     public static void main(String[] args) {
         
         HashMap vehiclesMap = new HashMap();
@@ -64,6 +73,24 @@ public class Main {
         vehiclesList.get(0).setPosition(new Position(100, 150));
         vehiclesList.get(0).setVelocity(new Velocity(25, Math.PI * 3 / 2));
         
+        HashMap obstaclesMap = new HashMap();
+        
+        obstaclesMap.put("pedestrian", 1);
+        
+        ArrayList<Obstacle> obstaclesList = getObstaclesList(obstaclesMap);
+        
+        obstaclesList.get(0).setPosition(new Position(200, 100));
+        obstaclesList.get(0).setVelocity(new Velocity(50, Math.PI * 3 / 2));
+        obstaclesList.get(0).setPath(new Path(true,
+                new Position(200, 100),
+                new Position(175, 100),
+                new Position(175, 25),
+                new Position(100, 25),
+                new Position(100, 125),
+                new Position(150, 125),
+                new Position(150, 75),
+                new Position(200, 75)));
+        
         EventQueue.invokeLater(new Runnable() {
 
             @Override
@@ -72,6 +99,7 @@ public class Main {
                 Frame frame = new Frame(false, 250);
                 
                 frame.addVehicles(vehiclesList);
+                frame.addObstacles(obstaclesList);
                 
                 frame.initUI();
                 frame.setVisible(true);

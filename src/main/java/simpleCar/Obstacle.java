@@ -5,16 +5,18 @@
  */
 package simpleCar;
 
+import java.awt.Color;
+
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 4,
-        lastModified = "02/13/2020",
-        lastModifiedBy = "William Wu"
+        currentRevision = 4.1,
+        lastModified = "02/14/2020",
+        lastModifiedBy = "Daniel Chen"
 )
 public abstract class Obstacle extends Body {
     
-    protected Path path;
+    private Path path;
         
      /**
      * The Obstacle class inherits the Body class and is parallel to the Vehicle class
@@ -29,7 +31,18 @@ public abstract class Obstacle extends Body {
         this.path = path;
     }
     
-    @Override
+    public Path getPath() {
+        return path;
+    }
+    
+    public void setPath(Path path) {
+        this.path = path;
+    }
+    
+    public abstract Size getBoundingBoxSize();
+    
+    public abstract Color getColor();
+    
     public String toString() {
         return String.format("Obstacle:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
                 this.getSize().getWidth(), this.getSize().getHeight(),

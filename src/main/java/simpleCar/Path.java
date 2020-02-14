@@ -11,9 +11,9 @@ import java.util.Arrays;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 4.1,
+        currentRevision = 4.2,
         lastModified = "02/14/2020",
-        lastModifiedBy = "William Wu"
+        lastModifiedBy = "Daniel Chen"
 )
 public class Path {
     
@@ -28,7 +28,7 @@ public class Path {
     }
     
     public Path(boolean loop, Position... args) {
-        this(loop, (ArrayList)Arrays.asList(args));
+        this(loop, new ArrayList<Position>(Arrays.asList(args)));
     }
     
     public Path(ArrayList<Position> positions) {
@@ -91,7 +91,7 @@ public class Path {
      * if loop, reset currentCount at the end of the loop
      */
     public void incrementCount() {
-        currentCount++;
+        currentCount = standardize(currentCount + 1);
     }
     
     public int standardize(int count) {

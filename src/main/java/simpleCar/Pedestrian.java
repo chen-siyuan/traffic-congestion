@@ -11,23 +11,22 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 4,
-        lastModified = "02/13/2020",
-        lastModifiedBy = "William Wu"
+        currentRevision = 5,
+        lastModified = "02/14/2020",
+        lastModifiedBy = "Daniel Chen"
 )
 public class Pedestrian extends Obstacle {
     
     public static final Color COLOR = new Color(255, 138, 0);
     public static final double MAX_VELOCITY_MAGNITUDE = 12;
-    public static final double MAX_ACCELERATION_MAGNITUDE = 9;
     public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.1;
     public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.1;
     
-    public static final double WIDTH = 0.5;
-    public static final double HEIGHT = 0.5;
-    public static final double XPOS = 0;
-    public static final double YPOS = 0;
-    public static final double SPEED = 0;
+    public static final double WIDTH = 2;
+    public static final double HEIGHT = 2;
+    public static final double XPOS = 75;
+    public static final double YPOS = 75;
+    public static final double SPEED = 15;
     public static final double ORIENTATION = Math.toRadians(45);
     
     public static Pedestrian[] getPedestriansArray(int numPedestrians) {
@@ -78,12 +77,10 @@ public class Pedestrian extends Obstacle {
         super(size, position, velocity, path);
     }
     
-    @Override
     public Color getColor() {
         return COLOR;
     }
     
-    @Override
     public String toString() {
         return String.format("Pedestrian:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
                 this.getSize().getWidth(), this.getSize().getHeight(),
@@ -91,9 +88,13 @@ public class Pedestrian extends Obstacle {
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
     
-    @Override
+    /**
+     * The Pedestrian class shall not have an acceleration attribute
+     * 
+     * @return null
+     */
     public Acceleration getAcceleration() {
-        return new Acceleration(MAX_ACCELERATION_MAGNITUDE, getVelocity().getOrientation());
+        return null;
     }
     
     public Size getBoundingBoxSize() {
@@ -101,28 +102,25 @@ public class Pedestrian extends Obstacle {
                 getSize().getHeight() * BOUNDING_BOX_FACTOR_HEIGHT);
     }
     
-    @Override
     public void passTime() { 
         
-//        if(getPosition().onTheLine(path.getCurrentPosition(), path.getNextPosition())) {
-//            setVelocity(new Velocity(getVelocity().getMagnitude(),
-//                    getVelocity().CalculateOrientation(path.getCurrentPosition(), path.getNextPosition())));
-//            
-//            double xMagnitude = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * Main.INTERVAL;
-//            double yMagnitude = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * Main.INTERVAL;
-//            
-//            setPosition(new Position(
-//                    getPosition().getXPosition() + xMagnitude * Main.INTERVAL, 
-//                    getPosition().getYPosition() + yMagnitude * Main.INTERVAL));
-//            
-//            setVelocity(new Velocity(Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2)),
-//                    getVelocity().getOrientation()));
-//        } else {
-//            setPosition(path.getNextPosition());
-//            path.incrementCount();
-//            
-//            passTime();
-//        }
+        if(getPosition().onSegment(this.getPath().getCurrentPosition(), this.getPath().getNextPosition())) {
+            
+            this.setVelocity(new Velocity(this.getVelocity().getMagnitude(),
+                    this.getPath().getCurrentPosition().getOrientationToward(this.getPath().getNextPosition())));
+            
+            this.setPosition(new Position(getPosition().getXPosition() + this.getVelocity().getXMagnitude() * Main.INTERVAL,
+                    getPosition().getYPosition() + this.getVelocity().getYMagnitude() * Main.INTERVAL));
+            
+        } else {
+            
+            this.getPath().incrementCount();
+            
+            setPosition(this.getPath().getCurrentPosition());
+            
+            passTime();
+            
+        }
 
     }
     

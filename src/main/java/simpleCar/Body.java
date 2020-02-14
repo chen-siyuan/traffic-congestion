@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4,
-        lastModified = "01/16/2020",
+        currentRevision = 4.1,
+        lastModified = "02/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Body {
@@ -32,9 +32,6 @@ public abstract class Body {
         double halfDiagonal = Math.sqrt(Math.pow(size.getWidth(), 2) + Math.pow(size.getHeight(), 2)) / 2;
         double angle1 = velocity.getOrientation() + Math.atan2(size.getHeight(), size.getWidth());
         double angle2 = velocity.getOrientation() - Math.atan2(size.getHeight(), size.getWidth());
-        
-//        System.out.println(halfDiagonal);
-//        System.out.println(angle / Math.PI);
         
         cornerPositions.add(new Position(
                 position.getXPosition() + halfDiagonal * Math.cos(angle1),
@@ -92,6 +89,10 @@ public abstract class Body {
         return position;
     }
     
+    /**
+     * 
+     * @return the four Position of the corners of this Body in a random order.
+     */
     public ArrayList<Position> getCornerPositions() {
         
         ArrayList<Position> cornerPositions = new ArrayList<Position>();
@@ -99,9 +100,6 @@ public abstract class Body {
         double halfDiagonal = Math.sqrt(Math.pow(size.getWidth(), 2) + Math.pow(size.getHeight(), 2)) / 2;
         double angle1 = velocity.getOrientation() + Math.atan2(size.getHeight(), size.getWidth());
         double angle2 = velocity.getOrientation() - Math.atan2(size.getHeight(), size.getWidth());
-        
-//        System.out.println(halfDiagonal);
-//        System.out.println(angle / Math.PI);
         
         cornerPositions.add(new Position(
                 position.getXPosition() + halfDiagonal * Math.cos(angle1),
@@ -142,10 +140,6 @@ public abstract class Body {
 
     public abstract String toString();
     
-    /**
-     * 
-     * @param time in real life units
-     */
     public abstract void passTime();
     
 }

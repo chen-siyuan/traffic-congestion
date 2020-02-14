@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
-        lastModified = "01/18/2020",
+        currentRevision = 3.1,
+        lastModified = "02/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
@@ -45,6 +45,18 @@ public class Frame extends JFrame {
     
     public void addVehicles(ArrayList<Vehicle> vehicles) {
         board.addVehicles(vehicles);
+    }
+    
+    public void addObstacle(Obstacle obstacle) {
+        board.addObstacle(obstacle);
+    }
+    
+    public void addObstacles(Obstacle[] obstacles) {
+        board.addObstacles(obstacles);
+    }
+    
+    public void addObstacles(ArrayList<Obstacle> obstacles) {
+        board.addObstacles(obstacles);
     }
     
     public void initUI() {
