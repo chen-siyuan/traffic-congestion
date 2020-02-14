@@ -15,7 +15,7 @@ import java.util.ArrayList;
         lastModified = "01/17/2020",
         lastModifiedBy = "William Wu"
 )
-public class Pedestrian extends Obstacle{
+public class Pedestrian extends Obstacle {
     
     public static final Color COLOR = new Color(255, 138, 0);
     public static final double MAX_VELOCITY_MAGNITUDE = 12;

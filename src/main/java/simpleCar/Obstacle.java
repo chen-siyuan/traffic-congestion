@@ -14,7 +14,7 @@ package simpleCar;
 )
 public abstract class Obstacle extends Body {
     
-    private Path path = new Path();
+    private Path path;
         
      /**
      * The Obstacle class inherits the Body class and is parallel to the Vehicle class
