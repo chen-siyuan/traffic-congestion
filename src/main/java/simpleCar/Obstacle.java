@@ -8,13 +8,13 @@ package simpleCar;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 3,
-        lastModified = "01/16/2020",
+        currentRevision = 4,
+        lastModified = "02/13/2020",
         lastModifiedBy = "William Wu"
 )
 public abstract class Obstacle extends Body {
     
-    private Path path;
+    protected Path path;
         
      /**
      * The Obstacle class inherits the Body class and is parallel to the Vehicle class

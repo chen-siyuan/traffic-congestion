@@ -11,9 +11,9 @@ import java.util.Arrays;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 3.1,
-        lastModified = "01/17/2020",
-        lastModifiedBy = "Daniel Chen"
+        currentRevision = 4,
+        lastModified = "02/13/2020",
+        lastModifiedBy = "William Wu"
 )
 public class Path {
     
@@ -69,28 +69,57 @@ public class Path {
         this.loop = loop;
     }
     
-    /**
-     * 
-     * @return the position currentCount points to and then increment currentCount
-     * if loop is false this would return the last point, otherwise it checks if resetting is needed
-     */
-    public Position getNextPosition() {
-        
-        Position currentPosition;
-        
-        if(currentCount < positions.size()) {
-            currentPosition = positions.get(currentCount);
-        } else {
-            currentPosition = positions.get(positions.size() - 1);
-        }
-        
-        currentCount++;
-        
-        if(loop) {
-            currentCount %= positions.size();
-        }
-        
-        return currentPosition;
-    }
+//    /**
+//     * 
+//     * @return the position of the currentCount, does not change currentCount
+//     */
+//    public Position getCurrentPosition() {
+//        return positions.get(currentCount);
+//    }
+//    
+//    /**
+//     * 
+//     * @return the position of currentCount + 1, does not change currentCount
+//     * if loop is true, this would get the starting Position at the end of each loop
+//     */
+//    public Position getNextPosition() {
+//        
+//        int nextCount = currentCount + 1;
+//        Position nextPosition;
+//        
+//        if(nextCount < positions.size()) {
+//            return positions.get(nextCount);
+//            
+//        }
+//        
+//        if(loop) {
+//            nextCount %= positions.size();
+//        }
+//        
+//        if(nextCount < positions.size()) {
+//            nextPosition = positions.get(currentCount);
+//        } else {
+//            nextPosition = positions.get(positions.size() - 1);
+//        }
+//        
+//        return nextPosition;
+//    }
+//    
+//    /**
+//     * increases the currentCount by 1
+//     * if loop, reset currentCount at the end of the loop
+//     */
+//    public void incrementCount() {
+//        
+//        currentCount++;
+//        
+//        if(currentCount >= positions.size()) {
+//            currentCount = positions.size() - 1;
+//        }
+//        
+//        if(loop) {
+//            currentCount %= positions.size();
+//        }
+//    }
     
 }

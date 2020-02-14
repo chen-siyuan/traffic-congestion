@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 3,
-        lastModified = "01/17/2020",
+        currentRevision = 4,
+        lastModified = "02/13/2020",
         lastModifiedBy = "William Wu"
 )
 public class Pedestrian extends Obstacle {
@@ -23,8 +23,8 @@ public class Pedestrian extends Obstacle {
     public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.1;
     public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.1;
     
-    public static final double WIDTH = 0.7;
-    public static final double HEIGHT = 0.2;
+    public static final double WIDTH = 0.5;
+    public static final double HEIGHT = 0.5;
     public static final double XPOS = 0;
     public static final double YPOS = 0;
     public static final double SPEED = 0;
@@ -102,8 +102,28 @@ public class Pedestrian extends Obstacle {
     }
     
     @Override
-    public void passTime() { // need edit
+    public void passTime() { 
         
+//        if(getPosition().onTheLine(path.getCurrentPosition(), path.getNextPosition())) {
+//            setVelocity(new Velocity(getVelocity().getMagnitude(),
+//                    getVelocity().CalculateOrientation(path.getCurrentPosition(), path.getNextPosition())));
+//            
+//            double xMagnitude = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * Main.INTERVAL;
+//            double yMagnitude = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * Main.INTERVAL;
+//            
+//            setPosition(new Position(
+//                    getPosition().getXPosition() + xMagnitude * Main.INTERVAL, 
+//                    getPosition().getYPosition() + yMagnitude * Main.INTERVAL));
+//            
+//            setVelocity(new Velocity(Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2)),
+//                    getVelocity().getOrientation()));
+//        } else {
+//            setPosition(path.getNextPosition());
+//            path.incrementCount();
+//            
+//            passTime();
+//        }
+
     }
     
 }
