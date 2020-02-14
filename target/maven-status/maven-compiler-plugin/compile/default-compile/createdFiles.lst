@@ -15,5 +15,6 @@ zetcode/ThreadAnimationEx.class
 simpleCar/Car.class
 zetcode/Board.class
 simpleCar/Obstacle.class
+simpleCar/Lane.class
 simpleCar/Bus.class
 simpleCar/ClassPreamble.class
