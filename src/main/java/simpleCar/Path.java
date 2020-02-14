@@ -53,6 +53,10 @@ public class Path {
         return positions;
     }
     
+    public void setPositions(Position... args) {
+        this.positions = (ArrayList)Arrays.asList(args);
+    }
+    
     public void setPositions(ArrayList<Position> positions) {
         this.positions = positions;
     }
