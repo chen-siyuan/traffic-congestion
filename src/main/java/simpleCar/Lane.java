@@ -89,6 +89,11 @@ public class Lane {
         this.velocity = velocity;
     }
     
+    /**
+     * 
+     * @param otherPosition position to be tested for
+     * @return whether or not the rectangular region of this Lane contains the Position
+     */
     public boolean contains(Position otherPosition) {
         
         ArrayList<Position> cornerPositions = getCornerPositions();
@@ -132,10 +137,25 @@ public class Lane {
                 + otherPosition.distanceTo(cornerPositions.get(index2), cornerPositions.get(index3))
                 + otherPosition.distanceTo(cornerPositions.get(index3), cornerPositions.get(index0));
         
-//        if(sumDistances)
-
-        return true;
+        return Math.abs(sumDistances - size.getWidth() - size.getHeight()) <= Main.THRESHOLD;
+    }
+    
+    /**
+     * 
+     * @param body body to be tested for
+     * @return whether or not the rectangular region of this Lane contains all four corners of the Body
+     */
+    public boolean contains(Body body) {
         
+        for(Position otherPosition: body.getCornerPositions()) {
+            
+            if(!contains(otherPosition)) {
+                return false;
+            }
+            
+        }
+        
+        return true;
     }
     
 }
