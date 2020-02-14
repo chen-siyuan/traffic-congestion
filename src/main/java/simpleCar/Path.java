@@ -68,7 +68,7 @@ public class Path {
     public void setLoop(boolean loop) {
         this.loop = loop;
     }
-    
+
     /**
      * 
      * @return the position of the currentCount, does not change currentCount
@@ -106,5 +106,4 @@ public class Path {
         
         return count;
     }
-    
 }
