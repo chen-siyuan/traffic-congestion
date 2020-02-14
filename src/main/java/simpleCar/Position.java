@@ -8,8 +8,8 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
-        lastModified = "01/17/2020",
+        currentRevision = 3.1,
+        lastModified = "02/14/2020",
         lastModifiedBy = "William Wu"
 )
 public class Position {
@@ -76,6 +76,10 @@ public class Position {
                 - (yPosition - otherPosition1.getYPosition()) * (otherPosition2.getXPosition() - otherPosition1.getXPosition()));
         
         double baseLength = Position.distanceBetween(otherPosition1, otherPosition2);
+        
+        if(baseLength < Main.THRESHOLD) {
+            return distanceTo(otherPosition1);
+        }
         
         return crossProduct / baseLength;
     }

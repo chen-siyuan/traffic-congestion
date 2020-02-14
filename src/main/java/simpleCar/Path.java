@@ -11,13 +11,13 @@ import java.util.Arrays;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 4,
-        lastModified = "02/13/2020",
+        currentRevision = 4.1,
+        lastModified = "02/14/2020",
         lastModifiedBy = "William Wu"
 )
 public class Path {
     
-    public static final Position END_OF_PATH = new Position(-1, -1); //this need to be discussed
+    public static final Position END_OF_PATH = new Position(-1, -1);
     
     private ArrayList<Position> positions;
     private int currentCount;
@@ -74,7 +74,7 @@ public class Path {
      * @return the position of the currentCount, does not change currentCount
      */
     public Position getCurrentPosition() {
-        return positions.get(currentCount);
+        return positions.get(standardize(currentCount));
     }
     
     /**
@@ -83,20 +83,7 @@ public class Path {
      * if loop is true, this would get the starting Position at the end of each loop
      */
     public Position getNextPosition() {
-        int nextCount = currentCount + 1;
-        Position nextPosition;
-        
-        if(loop) {
-            nextCount %= positions.size();
-        }
-        
-        if(nextCount < positions.size()) {
-            nextPosition = positions.get(currentCount);
-        } else {
-            nextPosition = positions.get(positions.size() - 1);
-        }
-        
-        return nextPosition;
+        return positions.get(standardize(currentCount + 1));
     }
     
     /**
@@ -104,16 +91,20 @@ public class Path {
      * if loop, reset currentCount at the end of the loop
      */
     public void incrementCount() {
-        
         currentCount++;
-        
-        if(currentCount >= positions.size()) {
-            currentCount = positions.size() - 1;
-        }
+    }
+    
+    public int standardize(int count) {
         
         if(loop) {
-            currentCount %= positions.size();
+            count %= positions.size();
+        } else {
+            if(count >= positions.size()) {
+                count = positions.size() - 1;
+            }
         }
+        
+        return count;
     }
     
 }
