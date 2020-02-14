@@ -11,74 +11,63 @@ import java.util.ArrayList;
         author = "Drew Kirk",
         date = "01/17/2020",
         currentRevision = 1.1,
-        lastModified = "01/17/2020",
+        lastModified = "02/14/2020",
         lastModifiedBy = "Drew Kirk"
 )
 public class Road {
     
     public int[] road = new int[5];
     
-    public void drawRoad(int laneNum,int length, boolean direction, int startPosX, int startPosY) {
-        
+    public static int[] drawRoad(int laneNum,int length, boolean direction, int startPosX, int startPosY) {
+        int[] road = new int[6];
         if(direction == true) {
-            
-           this.road[0] = startPosX;
-           this.road[1] = this.road[0] + 10 * laneNum;
-           this.road[2] = startPosY;
-           this.road[3] = this.road[2] + length;
-           this.road[4] = 1;
-           this.road[5] = laneNum;
+           road[0] = startPosX;
+           road[1] = road[0] + 10 * laneNum;
+           road[2] = startPosY;
+           road[3] = road[2] + length;
+           road[4] = 1;
+           road[5] = laneNum;
            
         }
         
-        if(direction == true) {
+        if(direction == false) {
             
-           this.road[0] = startPosX;
-           this.road[1] = this.road[0] + length;
-           this.road[2] = startPosY;
-           this.road[3] = this.road[2] + 10 * laneNum;
-           this.road[4] = 2;
-           this.road[5] = laneNum;
+           road[0] = startPosX;
+           road[1] = road[0] + length;
+           road[2] = startPosY;
+           road[3] = road[2] + 10 * laneNum;
+           road[4] = 2;
+           road[5] = laneNum;
            
         }
-        
+      return road;  
     }
     
-    public boolean inRoad(Body body) {
+    public static int whichLane(int[] road) {
         
-        boolean inRoad = true;
-        
-        ArrayList<Position> cornerPositions = new ArrayList<Position>();
+
+        int[] carPos = new int[]{12,13,22,28};
+        ArrayList<Integer> cornerPositions = new ArrayList<Integer>();
         for(int i = 0; i < 4; i++){
-            
+            cornerPositions.add(carPos[i]);  
         }
-        
-        if(this.road[0] > Body.getCornerPositions(body.getSize(), body.getPosition(), body.getVelocity()).get(0) || xPos > this.road[1]) {
-            inRoad = false;
-        }
-        
-        if(this.road[2] > yPos || yPos > this.road[3]) {
-            inRoad = false;
-        }
-        
-        return inRoad;
-    }
-    
-    public int inLane(int xPos, int yPos) {
-        
-        if(this.road[4] == 1) {
-            
-            for(int i = 0; i < this.road[5]; i++) {
-                
-                if(this.road[0] + 10 * i > xPos || xPos > this.road[0] + 10 * i + 1) {
-                    // dosomething
-                }
-                
+        for(int i = 0; i < (road[5] - 1); i++){
+            if(road[4] == 2){
+            if((road[2] + 10 * i) < carPos[2] && road[2] + 10 * (i+1) > carPos[3] && 
+                road[0] < carPos[0] && road[1] > carPos[1]) {
+                        return i;
             }
-            
-        } 
-        
-        return 1;
-    }
+            }
+        else{
+            if((road[0] + 10 * i) < carPos[0] && road[0] + 10 * (i+1) > carPos[1] && 
+                road[2] < carPos[2] && road[3] > carPos[3]) {
+                        return i;   
+                }
+        }
+        }
+        return -1;
+    
+    
+}
 
 }
