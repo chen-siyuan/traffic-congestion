@@ -104,25 +104,26 @@ public class Pedestrian extends Obstacle {
     @Override
     public void passTime() { 
         
-        if(getPosition().onTheLine(path.getCurrentPosition(), path.getNextPosition())) {
-            setVelocity(new Velocity(getVelocity().getMagnitude(),
-                    getVelocity().CalculateOrientation(path.getCurrentPosition(), path.getNextPosition())));
-            
-            double xMagnitude = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * Main.INTERVAL;
-            double yMagnitude = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * Main.INTERVAL;
-            
-            setPosition(new Position(
-                    getPosition().getXPosition() + xMagnitude * Main.INTERVAL, 
-                    getPosition().getYPosition() + yMagnitude * Main.INTERVAL));
-            
-            setVelocity(new Velocity(Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2)),
-                    getVelocity().getOrientation()));
-        } else {
-            setPosition(path.getNextPosition());
-            path.incrementCount();
-            
-            passTime();
-        }
+//        if(getPosition().onTheLine(path.getCurrentPosition(), path.getNextPosition())) {
+//            setVelocity(new Velocity(getVelocity().getMagnitude(),
+//                    getVelocity().CalculateOrientation(path.getCurrentPosition(), path.getNextPosition())));
+//            
+//            double xMagnitude = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * Main.INTERVAL;
+//            double yMagnitude = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * Main.INTERVAL;
+//            
+//            setPosition(new Position(
+//                    getPosition().getXPosition() + xMagnitude * Main.INTERVAL, 
+//                    getPosition().getYPosition() + yMagnitude * Main.INTERVAL));
+//            
+//            setVelocity(new Velocity(Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2)),
+//                    getVelocity().getOrientation()));
+//        } else {
+//            setPosition(path.getNextPosition());
+//            path.incrementCount();
+//            
+//            passTime();
+//        }
+
     }
     
 }
