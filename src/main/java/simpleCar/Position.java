@@ -84,12 +84,8 @@ public class Position {
         return crossProduct / baseLength;
     }
     
-    public boolean onTheLine(Position startOfLine, Position endOfLine) {
-        if(distanceTo(startOfLine, endOfLine) <= Main.THRESHOLD) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean onTheLine(Position otherPosition1, Position otherPosition2) {
+        return distanceTo(otherPosition1, otherPosition2) <= Main.THRESHOLD;
     }
     
 }
