@@ -18,7 +18,19 @@ public class Road {
     
     public int[] road = new int[5];
     
-    public static int[] drawRoad(int laneNum,int length, boolean direction, int startPosX, int startPosY) {
+    private Size size;
+    private Position position;
+    private Velocity velocity;
+    
+    public Road(Size size, Position position, Velocity velocity) {
+        
+        this.size = size;
+        this.position = position;
+        this.velocity = velocity;
+        
+    }
+    
+    public static int[] drawRoad(int laneNum, int length, boolean direction, int startPosX, int startPosY) {
         int[] road = new int[6];
         if(direction == true) {
            road[0] = startPosX;

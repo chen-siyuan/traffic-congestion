@@ -91,6 +91,36 @@ public abstract class Body {
     public Position getPosition() {
         return position;
     }
+    
+    public ArrayList<Position> getCornerPositions() {
+        
+        ArrayList<Position> cornerPositions = new ArrayList<Position>();
+        
+        double halfDiagonal = Math.sqrt(Math.pow(size.getWidth(), 2) + Math.pow(size.getHeight(), 2)) / 2;
+        double angle1 = velocity.getOrientation() + Math.atan2(size.getHeight(), size.getWidth());
+        double angle2 = velocity.getOrientation() - Math.atan2(size.getHeight(), size.getWidth());
+        
+//        System.out.println(halfDiagonal);
+//        System.out.println(angle / Math.PI);
+        
+        cornerPositions.add(new Position(
+                position.getXPosition() + halfDiagonal * Math.cos(angle1),
+                position.getYPosition() + halfDiagonal * Math.sin(angle1)));
+        
+        cornerPositions.add(new Position(
+                position.getXPosition() - halfDiagonal * Math.cos(angle1),
+                position.getYPosition() - halfDiagonal * Math.sin(angle1)));
+        
+        cornerPositions.add(new Position(
+                position.getXPosition() + halfDiagonal * Math.cos(angle2),
+                position.getYPosition() + halfDiagonal * Math.sin(angle2)));
+        
+        cornerPositions.add(new Position(
+                position.getXPosition() - halfDiagonal * Math.cos(angle2),
+                position.getYPosition() - halfDiagonal * Math.sin(angle2)));
+        
+        return cornerPositions;
+    }
 
     public Velocity getVelocity() {
         return velocity;
