@@ -8,9 +8,9 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
-        lastModified = "02/13/2020",
-        lastModifiedBy = "William Wu"
+        currentRevision = 3.1,
+        lastModified = "02/14/2020",
+        lastModifiedBy = "Daniel Chen"
 )
 public class Velocity {
     
@@ -44,11 +44,6 @@ public class Velocity {
 
     public void setOrientation(double orientation) {
         this.orientation = orientation;
-    }
-    
-    public double CalculateOrientation(Position startOfLine, Position endOfLine) {
-        return Math.atan2((endOfLine.getYPosition() - startOfLine.getYPosition()),
-                (endOfLine.getXPosition() - startOfLine.getXPosition()));
     }
 
     public double getXMagnitude() {

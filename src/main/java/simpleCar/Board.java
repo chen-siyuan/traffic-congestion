@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6,
-        lastModified = "02/07/2020",
+        currentRevision = 7,
+        lastModified = "02/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
@@ -32,6 +32,7 @@ public class Board extends JPanel implements Runnable {
     
     private Thread animator;
     private ArrayList<Vehicle> vehicles;
+    private ArrayList<Obstacle> obstacles;
     private boolean record;
     private int frameNumber;
     private int frameCount;
@@ -51,6 +52,7 @@ public class Board extends JPanel implements Runnable {
                 (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER)));
         
         vehicles = new ArrayList<Vehicle>();
+        obstacles = new ArrayList<Obstacle>();
         
         carImage = null;
         
@@ -97,11 +99,27 @@ public class Board extends JPanel implements Runnable {
         }
     }
     
-    public void passTime() {
-        vehicles.forEach((vehicle) -> vehicle.passTime());
+    public void addObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
     }
     
-    @Override
+    public void addObstacles(Obstacle[] obstacles) {
+        for(Obstacle obstacle: obstacles) {
+            this.obstacles.add(obstacle);
+        }
+    }
+    
+    public void addObstacles(ArrayList<Obstacle> obstacles) {
+        for(Obstacle obstacle: obstacles) {
+            this.obstacles.add(obstacle);
+        }
+    }
+    
+    public void passTime() {
+        vehicles.forEach((vehicle) -> vehicle.passTime());
+        obstacles.forEach((obstacle) -> obstacle.passTime());
+    }
+    
     public void addNotify() {
         
         super.addNotify();
@@ -111,7 +129,6 @@ public class Board extends JPanel implements Runnable {
 
     }
     
-    @Override
     public void paintComponent(Graphics graphics) {
         
         super.paintComponent(graphics);
@@ -129,6 +146,7 @@ public class Board extends JPanel implements Runnable {
             Graphics2D imageBufferGraphics2D = (Graphics2D)imageBuffer.createGraphics();
 
             vehicles.forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+            obstacles.forEach((obstacle) -> drawObstacle(imageBufferGraphics2D, obstacle));
         
             graphics2D.drawImage(imageBuffer, 0, 0, this);
         
@@ -154,7 +172,10 @@ public class Board extends JPanel implements Runnable {
             }
             
         } else {
+            
             vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
+            obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
+            
         }
         
     }
@@ -201,7 +222,41 @@ public class Board extends JPanel implements Runnable {
 
     }
     
-    @Override
+    private void drawObstacle(Graphics2D graphics2D, Obstacle obstacle) {
+        
+        AffineTransform originalTransform = graphics2D.getTransform();
+        
+        graphics2D.setColor(obstacle.getColor());
+        
+        graphics2D.rotate(obstacle.getVelocity().getOrientation(),
+                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER),
+                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER));
+        
+        graphics2D.fillRect(
+                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
+                        - (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER
+                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
+                (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER),
+                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER));
+        
+//        graphics2D.drawImage(carImage,
+//                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
+//                        - (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+//                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
+//                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
+//                (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER),
+//                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER),
+//                obstacle.getColor(),
+//                null);
+        
+        // Color could be passed as arg 5 to specify the color of transparent pixels in the image.
+        
+        graphics2D.setTransform(originalTransform);
+        Toolkit.getDefaultToolkit().sync();
+
+    }
+    
     public void run() {
         
         long startTime, timeDifference, correctedInterval;

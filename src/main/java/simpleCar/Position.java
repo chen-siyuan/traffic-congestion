@@ -8,15 +8,20 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.1,
+        currentRevision = 4,
         lastModified = "02/14/2020",
-        lastModifiedBy = "William Wu"
+        lastModifiedBy = "Daniel Chen"
 )
 public class Position {
     
     public static double distanceBetween(Position position1, Position position2) {
         return Math.sqrt(Math.pow(position1.getXPosition() - position2.getXPosition(), 2)
                 + Math.pow(position1.getYPosition() - position2.getYPosition(), 2));
+    }
+    
+    public static double orientationBetween(Position position1, Position position2) {
+        return Math.atan2((position2.getYPosition() - position1.getYPosition()),
+                (position2.getXPosition() - position1.getXPosition()));
     }
     
     private double xPosition;
@@ -77,15 +82,20 @@ public class Position {
         
         double baseLength = Position.distanceBetween(otherPosition1, otherPosition2);
         
-        if(baseLength < Main.THRESHOLD) {
+        if(baseLength <= Main.THRESHOLD) {
             return distanceTo(otherPosition1);
         }
         
         return crossProduct / baseLength;
     }
     
-    public boolean onTheLine(Position otherPosition1, Position otherPosition2) {
-        return distanceTo(otherPosition1, otherPosition2) <= Main.THRESHOLD;
+    public boolean onSegment(Position otherPosition1, Position otherPosition2) {
+        return distanceTo(otherPosition1) + distanceTo(otherPosition2) - Position.distanceBetween(otherPosition1, otherPosition2) <= Main.THRESHOLD;
+    }
+    
+    public double getOrientationToward(Position otherPosition) {
+        return Math.atan2((otherPosition.getYPosition() - yPosition),
+                (otherPosition.getXPosition() - xPosition));
     }
     
 }

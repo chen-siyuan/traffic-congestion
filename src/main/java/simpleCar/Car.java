@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.1,
-        lastModified = "02/07/2020",
+        currentRevision = 4.2,
+        lastModified = "02/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -74,7 +74,7 @@ public class Car extends Vehicle {
     }
     
     /**
-     * uses weighted average to determine the color
+     * uses weighted average to determine the color, calculated based on speed
      * 
      * @return the Color object used by Board to paint the cars
      */
