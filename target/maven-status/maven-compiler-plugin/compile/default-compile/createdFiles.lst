@@ -1,4 +1,6 @@
 simpleCar/Velocity.class
+simpleCar/Pedestrian.class
+simpleCar/Path.class
 simpleCar/Size.class
 simpleCar/Main.class
 simpleCar/Board.class
@@ -12,5 +14,6 @@ simpleCar/Road.class
 zetcode/ThreadAnimationEx.class
 simpleCar/Car.class
 zetcode/Board.class
+simpleCar/Obstacle.class
 simpleCar/Bus.class
 simpleCar/ClassPreamble.class
