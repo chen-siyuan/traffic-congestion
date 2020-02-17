@@ -21,13 +21,14 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 7,
-        lastModified = "02/14/2020",
+        currentRevision = 8,
+        lastModified = "02/16/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
     
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
+    public static final String PEDESTRIAN_IMAGE_FILE_NAME = "Pedestrian.png";
     public static final String BACKGROUND_IMAGE_FILE_NAME = "Background.png";
     
     private Thread animator;
@@ -38,6 +39,7 @@ public class Board extends JPanel implements Runnable {
     private int frameCount;
     
     private BufferedImage carImage;
+    private BufferedImage pedestrianImage;
     private BufferedImage backgroundImage;
     
     /**
@@ -61,6 +63,17 @@ public class Board extends JPanel implements Runnable {
         } catch(IOException e) {
             
             System.out.println("Car Image Not Found");
+            System.exit(0);
+            
+        }
+        
+        pedestrianImage = null;
+        
+        try {
+            pedestrianImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + PEDESTRIAN_IMAGE_FILE_NAME));
+        } catch(IOException e) {
+            
+            System.out.println("Pedestrian Image Not Found");
             System.exit(0);
             
         }
@@ -232,23 +245,23 @@ public class Board extends JPanel implements Runnable {
                 (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER),
                 (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER));
         
-        graphics2D.fillRect(
-                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER
-                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
-                (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER),
-                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER));
-        
-//        graphics2D.drawImage(carImage,
+//        graphics2D.fillRect(
 //                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
 //                        - (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
-//                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
-//                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
+//                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER
+//                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
 //                (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER),
-//                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER),
-//                obstacle.getColor(),
-//                null);
+//                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER));
+        
+        graphics2D.drawImage(pedestrianImage,
+                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
+                        - (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
+                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER),
+                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER),
+                obstacle.getColor(),
+                null);
         
         // Color could be passed as arg 5 to specify the color of transparent pixels in the image.
         
