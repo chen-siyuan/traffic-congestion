@@ -21,13 +21,13 @@ public class Lane {
     
     private Size size;
     private Position position;
-    private Velocity velocity;
+    private double orientation;
     
-    public Lane(Size size, Position position, Velocity velocity) {
+    public Lane(Size size, Position position, double orientation) {
         
         this.size = size;
         this.position = position;
-        this.velocity = velocity;
+        this.orientation = orientation;
         
     }
     
@@ -44,8 +44,8 @@ public class Lane {
         ArrayList<Position> cornerPositions = new ArrayList<Position>();
         
         double halfDiagonal = Math.sqrt(Math.pow(size.getWidth(), 2) + Math.pow(size.getHeight(), 2)) / 2;
-        double angle1 = velocity.getOrientation() + Math.atan2(size.getHeight(), size.getWidth());
-        double angle2 = velocity.getOrientation() - Math.atan2(size.getHeight(), size.getWidth());
+        double angle1 = orientation + Math.atan2(size.getHeight(), size.getWidth());
+        double angle2 = orientation - Math.atan2(size.getHeight(), size.getWidth());
         
 //        System.out.println(halfDiagonal);
 //        System.out.println(angle / Math.PI);
@@ -69,26 +69,14 @@ public class Lane {
         return cornerPositions;
     }
 
-    public Velocity getVelocity() {
-        return velocity;
+    public double getOrientation() {
+        return orientation;
     }
 
     public Color getColor() {
         return COLOR;
     }
 
-    public void setSize(Size size) {
-        this.size = size;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public void setVelocity(Velocity velocity) {
-        this.velocity = velocity;
-    }
-    
     /**
      * 
      * @param otherPosition position to be tested for
