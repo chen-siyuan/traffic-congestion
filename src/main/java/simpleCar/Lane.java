@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 1,
-        lastModified = "02/14/2020",
+        currentRevision = 2,
+        lastModified = "02/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {

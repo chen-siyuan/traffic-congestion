@@ -8,8 +8,8 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.1,
-        lastModified = "02/14/2020",
+        currentRevision = 4,
+        lastModified = "02/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Velocity {

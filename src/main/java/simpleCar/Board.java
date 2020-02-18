@@ -21,15 +21,15 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8,
-        lastModified = "02/16/2020",
+        currentRevision = 8.1,
+        lastModified = "02/18/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
     
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
     public static final String PEDESTRIAN_IMAGE_FILE_NAME = "Pedestrian.png";
-    public static final String BACKGROUND_IMAGE_FILE_NAME = "Background.png";
+    public static final String BACKGROUND_IMAGE_FILE_NAME = "Background1.png";
     
     private Thread animator;
     private ArrayList<Vehicle> vehicles;

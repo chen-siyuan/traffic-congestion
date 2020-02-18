@@ -13,7 +13,7 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6,
+        currentRevision = 6.1,
         lastModified = "02/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -64,7 +64,7 @@ public class Main {
     public static void main(String[] args) {
         
 //        Road road = new Road(new Size(Math.sqrt(5), Math.sqrt(20)), new Position(2.5, 2), Velocity.velocityFromComponents(-1, 2), 2);
-        Road road = new Road(new Size(Math.sqrt(10), Math.sqrt(40)), new Position(3.5, 2.5), Velocity.orientationFromComponents(1, 3), 4);
+//        Road road = new Road(new Size(Math.sqrt(10), Math.sqrt(40)), new Position(3.5, 2.5), Velocity.orientationFromComponents(1, 3), 4);
         
         HashMap vehiclesMap = new HashMap();
         
