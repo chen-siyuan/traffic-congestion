@@ -63,6 +63,9 @@ public class Main {
     
     public static void main(String[] args) {
         
+//        Road road = new Road(new Size(Math.sqrt(5), Math.sqrt(20)), new Position(2.5, 2), Velocity.velocityFromComponents(-1, 2), 2);
+        Road road = new Road(new Size(Math.sqrt(10), Math.sqrt(40)), new Position(3.5, 2.5), Velocity.orientationFromComponents(1, 3), 4);
+        
         HashMap vehiclesMap = new HashMap();
         
         vehiclesMap.put("car", 1);

@@ -14,6 +14,19 @@ package simpleCar;
 )
 public class Velocity {
     
+    public static double magnitudeFromComponents(double xComponent, double yComponent) {
+        return Math.sqrt(Math.pow(xComponent, 2) + Math.pow(yComponent, 2));
+    }
+    
+    public static double orientationFromComponents(double xComponent, double yComponent) {
+        return Math.atan2(yComponent, xComponent);
+    }
+    
+    public static Velocity velocityFromComponents(double xComponent, double yComponent) {
+        return new Velocity(magnitudeFromComponents(xComponent, yComponent),
+                orientationFromComponents(xComponent, yComponent));
+    }
+    
     private double magnitude;
     private double orientation;
     
