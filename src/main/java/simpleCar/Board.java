@@ -29,7 +29,7 @@ public class Board extends JPanel implements Runnable {
     
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
     public static final String PEDESTRIAN_IMAGE_FILE_NAME = "Pedestrian.png";
-    public static final String BACKGROUND_IMAGE_FILE_NAME = "Background1.png";
+    public static final String BACKGROUND_IMAGE_FILE_NAME = "Background_final.png";
     
     private Thread animator;
     private ArrayList<Vehicle> vehicles;

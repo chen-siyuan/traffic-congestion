@@ -66,21 +66,19 @@ public class Main {
 //        Road road = new Road(new Size(Math.sqrt(5), Math.sqrt(20)), new Position(2.5, 2), Velocity.velocityFromComponents(-1, 2), 2);
 //        Road road = new Road(new Size(Math.sqrt(10), Math.sqrt(40)), new Position(3.5, 2.5), Velocity.orientationFromComponents(1, 3), 4);
 
-        Lane lane = new Lane(new Size(Math.sqrt(5), Math.sqrt(5)), new Position(-0.5, -0.5), Velocity.orientationFromComponents(1, 2));
-        
-        System.out.println(lane.getDetectionPosition().getXPosition());
-        System.out.println(lane.getDetectionPosition().getYPosition());
-        
-        System.out.println(lane.onLane(new Position(-1, -1)));
-        System.out.println(lane.inRange(new Position(-1, -1)));
-        
-        System.out.println(lane.onLane(new Position(2, -2)));
-        System.out.println(lane.inRange(new Position(2, -2)));
-        
-        System.out.println(lane.onLane(new Position(1, 1)));
-        System.out.println(lane.inRange(new Position(1, 1)));
-        
-        System.exit(0);
+//        Lane lane = new Lane(new Size(Math.sqrt(5), Math.sqrt(5)), new Position(-0.5, -0.5), Velocity.orientationFromComponents(1, 2));
+//        
+//        System.out.println(lane.getDetectionPosition().getXPosition());
+//        System.out.println(lane.getDetectionPosition().getYPosition());
+//        
+//        System.out.println(lane.onLane(new Position(-1, -1)));
+//        System.out.println(lane.inRange(new Position(-1, -1)));
+//        
+//        System.out.println(lane.onLane(new Position(2, -2)));
+//        System.out.println(lane.inRange(new Position(2, -2)));
+//        
+//        System.out.println(lane.onLane(new Position(1, 1)));
+//        System.out.println(lane.inRange(new Position(1, 1)));
         
         HashMap vehiclesMap = new HashMap();
         
