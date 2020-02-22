@@ -1,4 +1,4 @@
-# AT Comp Sci Project
+# Advanced Topics in Computer Science Project
 
 This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, consisting of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
 
