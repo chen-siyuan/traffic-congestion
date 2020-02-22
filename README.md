@@ -1,62 +1,113 @@
 # AT Comp Sci Project
 
-This project is for the 2019-2020 Advanced Topics in Computer Science course at Tabor Academy. Four students seek to find a method to mitigate traffic congestion.
+This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, consisting of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
 
-## Team Members & Responsibilities
+## Team Members & Individual Responsibilities
 
-### Daniel Chen (programmer & team captain)
+### Siyuan "Daniel" Chen - Team Captain, Programmer
 
-**Program the collision detection and prediction mechanism and create the signaling mechanism.**
+Daniel has the following responsibilities:
 
-I would work on implementing a collision detection and prediction mechanism using bounding boxes of multiple sizes and coordinate geometry. I would also draft a mechanism used for communication between cars and implement the signaling method eventually. I would help with the graphic user interface. I would proofread and edit other people’s programs and make sure that our progress is monitored and well-paced.
+- Developing the signaling mechanism for vehicles and obstacles.
+- Developing methods that require coordinate and vector geometry, e.g., inRange(), getOrientationBetween().
+- Developing the GUI, e.g., Frame, Board.
+- Developing major classes and components, e.g., Vehicle, Lane.
+- Maintaining the structure of the program through good use of the four fundamental classes, i.e., Size, Position, Velocity, Acceleration.
+- Editing teammates' programs and maintaining a coherent style and reasonable progress.
 
-### William Wu (programmer)
+### Yifan "William" Wu - Programmer
 
-**Program the Path finding and Obstacle type classes and create graphics.**
+William has the following responsibilities:
 
-Unlike the vehicles, obstacles such as pedestrians, drunk drivers, or wild animals benefit from a path finding system based on the fixed coordinates of the map. (Where as cars drive based on an acceleration vector and velocity vector and have no access to the map coordinates) Therefore, I will be programming the conditions each obstacle spawn and despawn (i.e. pedestrians will despawn after crossing a specific street), the behaviors they follow (i.e. a chicken may pause at the middle of the road for a couple of seconds, and a drunk driver may follow a certain type of path that loops). I would also create the graphics and textures of the objects eventually.
+- Designing GUI components, e.g., graphics for vehicles and obstacles.
+- Developing major classes and components, e.g., Obstacle.
+- Determining the signaling mechanism for vehicles and obstacles.
+- Testing existing mechanisms through extreme case analysis.
+- Revising and expanding classes and methods.
+- Providing valuable, constructive criticism to teammates.
 
-### Drew Kirk (programmer)
+### Andrew "Drew" Kirk - Programmer
 
-**Program the road class and lane detection classes.**
+Drew has the following responsibilities:
 
-I will be programming the roads to be driven on. They will function as a set of rectangular “lanes”. Cars and obstacles will be able to be placed onto the plane of roads. The class will be tested by indicating which lane obstacles and cars are based on receiving their position. By the end of the trimester cars and obstacles (or points to signify them) will be able to be placed onto the map of roads.
+- Developing classes and components.
+- Determining the signaling mechanism for vehicles and obstacles.
+- Revising and expanding classes and methods.
+- Analyzing viability of team plans and goals.
+- Providing valuable, constructive criticism to teammates.
 
-### Sam Monaghan (researcher and data collector)
+### Sam Monaghan - Researcher, Data Analyst
 
-**Data manipulation to display graphs in python, and manipulate data in java for velocity**
+Sam has the following responsibilities:
 
-We have a data file that displays traffic flow within the various streets of New York City. I will be manipulating that data set in python by grouping the set by street in order to show the various velocities of cars going through the busiest intersections and streets in New York during each time period of the day. Using these graphs, we will be able to compare our model to this control group, which will be formed on the basis of the numbers calculated by manipulating the data.
-
-In addition, we will need to be able to access these numbers through java, so I will also create a java file that reads the .csv file and proceeds to read the file line by line, parsing data into arrays and lists that will be accessed to calculate velocity and traffic flow, and will be used to run our control group model.
+- Gathering relevant data regarding traffic congestion.
+- Cleansing and organizing data to determine key parameters, e.g., average velocity, average number of cars per hour.
+- Analyzing data gathered and producing visualizations through Python.
+- Comparing preexisting traffic conditions with conditions illustrated by the simulation produced.
+- Integrating data collected into the simulation when needed.
+- Providing valuable, constructive criticism to teammates.
 
 ## Style guide
 
-- Use the following branch names:
-  - *readme-edits* for editing this document
-  - *main-structure* for new classes and features
-- Always use full spelling when possible
-  - *position* instead of *pos*
-  - *otherPosition1* and *otherPosition2* instead of *p1* and *p2*
-  - *getCarsArray()* instead of *getCarsA()*
-- Do not put a space between condition sentences and conditions
-  - if(condition) {}
-  - while(condition) {}
-- Use the four fundamental Classes
-  - *Size*
-  - *Position*
-  - *Velocity*
-  - *Acceleration*
-- Refer to the magnitude of Velocity as magnitude instead of speed
-  - *velocity.getMagnitude()* instead of *velocity.getSpeed()*
-- Use same name variables but lowercase for parameters passed
-  - *passTime(Time time)* instead of *passTime(Time t)*
-  - *Car(Size size, Position position, Velocity velocity)* instead of *Car(Size s, Position p, Velocity v)*
-- Changes that does not affect the execution of the code are subversions
-  - Style edit or *//comments* can be recorded as *currentRevision = 2* -> *currentRevision = 2.1*
+Always use full spelling when possible.
 
-## Instructions
+```java
+// Use
+public static double orientationBetween(Position position1, Position position2) {
+  return Math.atan2(
+    (position2.getYPosition() - position1.getYPosition()),
+    (position2.getXPosition() - position1.getXPosition()));
+}
+// Instead of
+public static double orttBetween(Position p1, Position p2) {
+  return Math.atan2(
+    (p2.getYPos() - p1.getYPos()),
+    (p2.getXPos() - p1.getXPos()));
+}
+```
 
-If the *Frame* object has attribute *record* set to *true*, the images would be created under the folder *output*. Use the following command in iTerm to create a video file from the images.
+Do not put a space between condition sentences and conditions; however, do put a space between conditions and curly brackets.
 
+```java
+// Use
+if(this.getPosition().getYPosition() > 100) {
+  return new Acceleration(0, 0);
+} else {
+
+  if(this.getPosition().getXPosition() < 200) {
+    return new Acceleration(6.25, getVelocity().getOrientation() + Math.PI / 2);
+  } else {
+    return new Acceleration(0, 0);
+  }
+
+}
+// Instead of
+if (this.getPosition().getYPosition() > 100) {
+  return new Acceleration(0, 0);
+} else {
+
+  if (this.getPosition().getXPosition() < 200){
+    return new Acceleration(6.25, getVelocity().getOrientation() + Math.PI / 2);
+  } else {
+    return new Acceleration(0, 0);
+  }
+
+}
+```
+
+Use the four fundamental Classes
+
+- *Size*
+- *Position*
+- *Velocity*
+- *Acceleration*
+
+If a mechanism is introduced, it should be recorded as a large version update; if a mechanism is revised, it should be recorded as a small version update. Style edit or comments should be recorded as small version updates.
+
+## Instructions for Output as Mp4
+
+When creating a *Frame* object, pass in attribute *record* as true and a valid *frameNumber*. The images would be created in the folder *output*. Use the following command line to create a video file from the images using *ffmpeg*.
+
+```cmd
 ffmpeg -framerate {*FRAME RATE*} -i TRAFFIC_CONGESTION_FRAME_%0{*NUMBER OF DIGITS*}d.png {*OUTPUT FILE NAME*}.mp4
+```
