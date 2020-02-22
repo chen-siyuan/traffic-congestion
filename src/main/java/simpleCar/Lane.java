@@ -144,8 +144,8 @@ public class Lane {
 
     /**
      * 
-     * @param otherPosition position to be tested for
-     * @return whether or not the rectangular region of this Lane onLane the Position
+     * @param otherPosition the position to be tested for
+     * @return whether or not the rectangular region of this Lane contains the Position
      */
     public boolean onLane(Position otherPosition) {
         
@@ -195,9 +195,9 @@ public class Lane {
     
     /**
      * 
-     * @param body body to be tested for
+     * @param body the body to be tested for
      * @param needAll need all points to be onLane to return true
-     * @return whether or not the rectangular region of this Lane onLane all four corners of the Body
+     * @return whether or not the rectangular region of this Lane contains all points or any point of this body
      */
     public boolean onLane(Body body, boolean needAll) {
         
@@ -212,6 +212,11 @@ public class Lane {
         return needAll;
     }
     
+    /**
+     * 
+     * @param otherPosition the position to be tested for
+     * @return whether or not the position is in the detection range(including the lane itself)
+     */
     public boolean inRange(Position otherPosition) {
         
         ArrayList<Position> detectionCornerPositions = getDetectionCornerPositions();
@@ -257,6 +262,25 @@ public class Lane {
         
         return Math.abs(sumDistances - getDetectionSize().getWidth() - getDetectionSize().getHeight()) <= Main.THRESHOLD;
         
+    }
+    
+    /**
+     * 
+     * @param body the body to be tested for
+     * @param needAll
+     * @return whether or not the range of detection (including the Lane itself) contains all points or any point of this body
+     */
+    public boolean inRange(Body body, boolean needAll) {
+        
+        for(Position otherPosition: body.getCornerPositions()) {
+            
+            if(inRange(otherPosition) != needAll) {
+                return !needAll;
+            }
+            
+        }
+        
+        return needAll;
     }
     
 }
