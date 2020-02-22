@@ -11,13 +11,24 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 2,
-        lastModified = "02/18/2020",
+        currentRevision = 3,
+        lastModified = "02/21/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
 
     public static final Color COLOR = new Color(92, 92, 92);
+    
+    /**
+     * determines which side the range of detection extends toward
+     */
+    public static boolean LEFT_DETECTION = true;
+    
+    /**
+     * This factor denotes the relative width of the extended portion of the lane that is being used for detection
+     * Note: doesn't include its original width; need to add 1 to get total size
+     */
+    public static final double DETECTION_RANGE_FACTOR = 2.;
     
     private Size size;
     private Position position;
@@ -34,9 +45,30 @@ public class Lane {
     public Size getSize() {
         return size;
     }
+    
+    /**
+     * 
+     * @return the size of the complete range of detection, including the lane itself
+     */
+    public Size getDetectionSize() {
+        return new Size(size.getHeight(), size.getWidth() * (1 + DETECTION_RANGE_FACTOR));
+    }
 
     public Position getPosition() {
         return position;
+    }
+    
+    /**
+     * 
+     * @return the center of the complete range of detection, including the lane itself
+     */
+    public Position getDetectionPosition() {
+        
+        double angle = orientation + (LEFT_DETECTION ? -1 : 1) * Math.PI / 2;
+        
+        return new Position(
+                position.getXPosition() + Math.cos(angle) * getDetectionSize().getWidth() * DETECTION_RANGE_FACTOR / 2,
+                position.getYPosition() + Math.sin(angle) * getDetectionSize().getWidth() * DETECTION_RANGE_FACTOR / 2);
     }
     
     public ArrayList<Position> getCornerPositions() {
@@ -68,6 +100,39 @@ public class Lane {
         
         return cornerPositions;
     }
+    
+    public ArrayList<Position> getDetectionCornerPositions() {
+        
+        Size detectionSize = getDetectionSize();
+        Position detectionPosition = getDetectionPosition();
+        
+        ArrayList<Position> cornerPositions = new ArrayList<Position>();
+        
+        double halfDiagonal = Math.sqrt(Math.pow(detectionSize.getWidth(), 2) + Math.pow(detectionSize.getHeight(), 2)) / 2;
+        double angle1 = orientation + Math.atan2(detectionSize.getHeight(), detectionSize.getWidth());
+        double angle2 = orientation - Math.atan2(detectionSize.getHeight(), detectionSize.getWidth());
+        
+//        System.out.println(halfDiagonal);
+//        System.out.println(angle / Math.PI);
+        
+        cornerPositions.add(new Position(
+                detectionPosition.getXPosition() + halfDiagonal * Math.cos(angle1),
+                detectionPosition.getYPosition() + halfDiagonal * Math.sin(angle1)));
+        
+        cornerPositions.add(new Position(
+                detectionPosition.getXPosition() - halfDiagonal * Math.cos(angle1),
+                detectionPosition.getYPosition() - halfDiagonal * Math.sin(angle1)));
+        
+        cornerPositions.add(new Position(
+                detectionPosition.getXPosition() + halfDiagonal * Math.cos(angle2),
+                detectionPosition.getYPosition() + halfDiagonal * Math.sin(angle2)));
+        
+        cornerPositions.add(new Position(
+                detectionPosition.getXPosition() - halfDiagonal * Math.cos(angle2),
+                detectionPosition.getYPosition() - halfDiagonal * Math.sin(angle2)));
+        
+        return cornerPositions;
+    }
 
     public double getOrientation() {
         return orientation;
@@ -80,9 +145,9 @@ public class Lane {
     /**
      * 
      * @param otherPosition position to be tested for
-     * @return whether or not the rectangular region of this Lane contains the Position
+     * @return whether or not the rectangular region of this Lane onLane the Position
      */
-    public boolean contains(Position otherPosition) {
+    public boolean onLane(Position otherPosition) {
         
         ArrayList<Position> cornerPositions = getCornerPositions();
         
@@ -131,19 +196,67 @@ public class Lane {
     /**
      * 
      * @param body body to be tested for
-     * @return whether or not the rectangular region of this Lane contains all four corners of the Body
+     * @param needAll need all points to be onLane to return true
+     * @return whether or not the rectangular region of this Lane onLane all four corners of the Body
      */
-    public boolean contains(Body body) {
+    public boolean onLane(Body body, boolean needAll) {
         
         for(Position otherPosition: body.getCornerPositions()) {
             
-            if(!contains(otherPosition)) {
-                return false;
+            if(onLane(otherPosition) != needAll) {
+                return !needAll;
             }
             
         }
         
-        return true;
+        return needAll;
+    }
+    
+    public boolean inRange(Position otherPosition) {
+        
+        ArrayList<Position> detectionCornerPositions = getDetectionCornerPositions();
+        
+        double maxLength = 0.;
+        int maxIndex = 0;
+        
+        for(int i=1; i < 4; i++) {
+            
+            if(detectionCornerPositions.get(0).distanceTo(detectionCornerPositions.get(i)) > maxLength) {
+                maxLength = detectionCornerPositions.get(0).distanceTo(detectionCornerPositions.get(i));
+                maxIndex = i;
+            }
+            
+        }
+        
+        int index0;
+        int index1;
+        int index2;
+        int index3;
+        
+        if(maxIndex == 1) {
+            index0 = 0;
+            index1 = 2;
+            index2 = 1;
+            index3 = 3;
+        } else if(maxIndex == 2) {
+            index0 = 0;
+            index1 = 1;
+            index2 = 2;
+            index3 = 3;
+        } else {
+            index0 = 0;
+            index1 = 1;
+            index2 = 3;
+            index3 = 2;
+        }
+        
+        double sumDistances = otherPosition.distanceTo(detectionCornerPositions.get(index0), detectionCornerPositions.get(index1))
+                + otherPosition.distanceTo(detectionCornerPositions.get(index1), detectionCornerPositions.get(index2))
+                + otherPosition.distanceTo(detectionCornerPositions.get(index2), detectionCornerPositions.get(index3))
+                + otherPosition.distanceTo(detectionCornerPositions.get(index3), detectionCornerPositions.get(index0));
+        
+        return Math.abs(sumDistances - getDetectionSize().getWidth() - getDetectionSize().getHeight()) <= Main.THRESHOLD;
+        
     }
     
 }
