@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 3,
-        lastModified = "02/21/2020",
+        currentRevision = 3.1,
+        lastModified = "02/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -28,7 +28,7 @@ public class Lane {
      * This factor denotes the relative width of the extended portion of the lane that is being used for detection
      * Note: doesn't include its original width; need to add 1 to get total size
      */
-    public static final double DETECTION_RANGE_FACTOR = 2.;
+    public static final double DETECTION_RANGE_FACTOR = 1.;
     
     private Size size;
     private Position position;

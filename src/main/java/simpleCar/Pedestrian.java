@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 5.1,
-        lastModified = "02/16/2020",
+        currentRevision = 5.2,
+        lastModified = "02/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Pedestrian extends Obstacle {
@@ -22,8 +22,8 @@ public class Pedestrian extends Obstacle {
     public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.1;
     public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.1;
     
-    public static final double WIDTH = 10;
-    public static final double HEIGHT = 10;
+    public static final double WIDTH = 4.5;
+    public static final double HEIGHT = 1.8;
     public static final double XPOS = 75;
     public static final double YPOS = 75;
     public static final double SPEED = 15;

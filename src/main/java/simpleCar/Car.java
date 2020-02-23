@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.2,
-        lastModified = "02/14/2020",
+        currentRevision = 5,
+        lastModified = "02/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -23,7 +23,7 @@ public class Car extends Vehicle {
     public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.5;
     public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.5;
     
-    public static final double WIDTH = 4.5;
+    public static final double WIDTH = 4;
     public static final double HEIGHT = 1.8;
     public static final double XPOS = 0;
     public static final double YPOS = 0;
@@ -104,27 +104,119 @@ public class Car extends Vehicle {
     }
 
     public Acceleration getAcceleration() {
-//        return new Acceleration(MAX_ACCELERATION_MAGNITUDE * 2, getVelocity().getOrientation() + Math.PI / 2);
-//        return new Acceleration(0, 0);
-//        if(this.getPosition().getYPosition() > 100) {
+        
+//        return new Acceleration(0, 0); // 1 to 1
+//
+//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 4
 //            return new Acceleration(0, 0);
 //        } else {
-//            if(this.getPosition().getXPosition() > 50) {
-//                return new Acceleration(12.5, getVelocity().getOrientation() - Math.PI / 2);
+//
+//            if(this.getPosition().getYPosition() > 200 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() - Math.PI / 2);
 //            } else {
 //                return new Acceleration(0, 0);
 //            }
+//
+//        }
+//        
+//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 2
+//            return new Acceleration(0, 0);
+//        } else {
+//
+//            if(this.getPosition().getYPosition() < 400 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() + Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//
 //        }
         
-        if(this.getPosition().getYPosition() > 100) {
+//        return new Acceleration(0, 0); // 2 to 2
+//
+//        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 2 to 1
+//            return new Acceleration(0, 0);
+//        } else {
+//
+//            if(this.getPosition().getXPosition() < 400 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() - Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//
+//        }
+//        
+//        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 2 to 3
+//            return new Acceleration(0, 0);
+//        } else {
+//
+//            if(this.getPosition().getXPosition() > 200 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() + Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//
+//        }
+        
+//        return new Acceleration(0, 0); // 3 to 3
+//
+//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 2
+//            return new Acceleration(0, 0);
+//        } else {
+//
+//            if(this.getPosition().getYPosition() < 400 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() - Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//
+//        }
+//        
+//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 4
+//            return new Acceleration(0, 0);
+//        } else {
+//
+//            if(this.getPosition().getYPosition() > 200 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() + Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//
+//        }
+
+//        return new Acceleration(0, 0); // 4 to 4
+//
+//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 4 to 3
+//            return new Acceleration(0, 0);
+//        } else {
+//
+//            if(this.getPosition().getXPosition() > 200 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() - Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//
+//        }
+//        
+        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 4 to 1
             return new Acceleration(0, 0);
         } else {
-            if(this.getPosition().getXPosition() < 200) {
-                return new Acceleration(6.25, getVelocity().getOrientation() + Math.PI / 2);
+
+            if(this.getPosition().getXPosition() < 400 / Main.PIXELS_PER_METER) {
+                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
+                        getVelocity().getOrientation() + Math.PI / 2);
             } else {
                 return new Acceleration(0, 0);
             }
+
         }
+        
     }
     
     public Size getBoundingBoxSize() {

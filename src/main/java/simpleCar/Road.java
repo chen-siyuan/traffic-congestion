@@ -5,13 +5,11 @@
  */
 package simpleCar;
 
-import java.util.ArrayList;
-
 @ClassPreamble (
         author = "Drew Kirk",
         date = "01/17/2020",
-        currentRevision = 3,
-        lastModified = "02/21/2020",
+        currentRevision = 3.1,
+        lastModified = "02/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Road {

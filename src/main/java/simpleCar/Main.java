@@ -13,8 +13,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6.2,
-        lastModified = "02/21/2020",
+        currentRevision = 7,
+        lastModified = "02/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -27,11 +27,11 @@ public class Main {
     public static final Color SLOW_VEHICLE_COLOR = new Color(255, 0, 0);
     public static final Color FAST_VEHICLE_COLOR = new Color(0, 0, 255);
     
-    public static final double PIXELS_PER_METER = 5;
+    public static final double PIXELS_PER_METER = 80. / 3;
     public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
 
-    public static final double PANEL_WIDTH = 250;//meter
-    public static final double PANEL_HEIGHT = 150;//meter
+    public static final double PANEL_WIDTH = 1000. / PIXELS_PER_METER; //meter
+    public static final double PANEL_HEIGHT = 600. / PIXELS_PER_METER; //meter
     public static final double FRAME_WIDTH = PANEL_WIDTH;
     public static final double FRAME_HEIGHT = PANEL_HEIGHT;
     public static final double INTERVAL = 0.01;//second
@@ -87,26 +87,35 @@ public class Main {
         
         ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
         
-        vehiclesList.get(0).setPosition(new Position(100, 150));
-        vehiclesList.get(0).setVelocity(new Velocity(25, Math.PI * 3 / 2));
+//        vehiclesList.get(0).setPosition(new Position(50 / PIXELS_PER_METER, 250 / PIXELS_PER_METER)); // 1
+//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 0 / 2));
         
-        HashMap obstaclesMap = new HashMap();
+//        vehiclesList.get(0).setPosition(new Position(350 / PIXELS_PER_METER, 50 / PIXELS_PER_METER)); // 2
+//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 1 / 2));
         
-        obstaclesMap.put("pedestrian", 1);
+//        vehiclesList.get(0).setPosition(new Position(950 / PIXELS_PER_METER, 350 / PIXELS_PER_METER)); // 3
+//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 2 / 2));
+//        
+        vehiclesList.get(0).setPosition(new Position(250 / PIXELS_PER_METER, 550 / PIXELS_PER_METER));
+        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 3 / 2));
         
-        ArrayList<Obstacle> obstaclesList = getObstaclesList(obstaclesMap);
-        
-        obstaclesList.get(0).setPosition(new Position(200, 100));
-        obstaclesList.get(0).setVelocity(new Velocity(50, Math.PI * 3 / 2));
-        obstaclesList.get(0).setPath(new Path(true,
-                new Position(200, 100),
-                new Position(175, 100),
-                new Position(175, 25),
-                new Position(100, 25),
-                new Position(100, 125),
-                new Position(150, 125),
-                new Position(150, 75),
-                new Position(200, 75)));
+//        HashMap obstaclesMap = new HashMap();
+//        
+//        obstaclesMap.put("pedestrian", 1);
+//        
+//        ArrayList<Obstacle> obstaclesList = getObstaclesList(obstaclesMap);
+//        
+//        obstaclesList.get(0).setPosition(new Position(20, 10));
+//        obstaclesList.get(0).setVelocity(new Velocity(5, Math.PI * 3 / 2));
+//        obstaclesList.get(0).setPath(new Path(true,
+//                new Position(20, 10),
+//                new Position(17, 10),
+//                new Position(17, 2),
+//                new Position(10, 2),
+//                new Position(10, 12),
+//                new Position(15, 12),
+//                new Position(15, 7),
+//                new Position(20, 7)));
         
         EventQueue.invokeLater(new Runnable() {
 
@@ -116,7 +125,7 @@ public class Main {
                 Frame frame = new Frame(false, 250);
                 
                 frame.addVehicles(vehiclesList);
-                frame.addObstacles(obstaclesList);
+//                frame.addObstacles(obstaclesList);
                 
                 frame.initUI();
                 frame.setVisible(true);
@@ -124,29 +133,6 @@ public class Main {
             }
             
         });
-
-//        Position p1 = new Position(3, 4);
-//        Position p2 = new Position(5.5, -1);
-//        Position p3 = new Position(4, -3);
-//        
-//        System.out.println(p1.distanceTo(p2, p3));
-        
-//        Body.getCornerPositions(
-//                new Size(Math.sqrt(90), Math.sqrt(10)),
-//                new Position(1, 3),
-//                new Velocity(10, 4.39)).forEach(
-//                        (position) -> System.out.printf("%f %f\n", position.getXPosition(), position.getYPosition()));
-
-//        BufferedImage carImage = null;
-//        
-//        try {
-//            carImage = ImageIO.read(new File("src/resources/Car.png"));
-//        } catch(IOException e) {
-//            System.out.println(e.getLocalizedMessage());
-//        }
-            
-
-//        System.out.println(String.format("test %0" + "3" + "d test", 7));
 
     }
     
