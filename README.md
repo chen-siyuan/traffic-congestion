@@ -33,6 +33,7 @@ Drew has the following responsibilities:
 - Developing classes and components.
 - Determining the signaling mechanism for vehicles and obstacles.
 - Revising and expanding classes and methods.
+- Producing presentations and proofs of concept.
 - Analyzing viability of team plans and goals.
 - Providing valuable, constructive criticism to teammates.
 
