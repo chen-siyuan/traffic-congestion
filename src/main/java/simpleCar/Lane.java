@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 3.1,
-        lastModified = "02/23/2020",
+        currentRevision = 3.2,
+        lastModified = "02/25/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -140,6 +140,18 @@ public class Lane {
 
     public Color getColor() {
         return COLOR;
+    }
+    
+    public void setSize(Size size) {
+        this.size = size;
+    }
+    
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+    
+    public void setOrientation(double orientation) {
+        this.orientation = orientation;
     }
 
     /**

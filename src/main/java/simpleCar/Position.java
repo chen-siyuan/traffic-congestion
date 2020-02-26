@@ -8,8 +8,8 @@ package simpleCar;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4,
-        lastModified = "02/14/2020",
+        currentRevision = 4.1,
+        lastModified = "02/25/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Position {
@@ -22,6 +22,37 @@ public class Position {
     public static double orientationBetween(Position position1, Position position2) {
         return Math.atan2((position2.getYPosition() - position1.getYPosition()),
                 (position2.getXPosition() - position1.getXPosition()));
+    }
+    
+    public static double distanceToRectangleAtAnAngle(Position pointPosition, double orientation, Position rectanglePosition, Size rectangleSize) {
+        
+        double xLowerBound = rectanglePosition.xPosition - rectangleSize.getWidth() / 2;
+        double xUpperBound = rectanglePosition.xPosition + rectangleSize.getWidth() / 2;
+        double yLowerBound = rectanglePosition.yPosition - rectangleSize.getHeight() / 2;
+        double yUpperBound = rectanglePosition.yPosition + rectangleSize.getHeight() / 2;
+        
+        if(orientation == Math.PI * 0 / 2) {
+            return xUpperBound - pointPosition.xPosition;
+        }
+        
+        if(orientation == Math.PI * 1 / 2) {
+            return yUpperBound - pointPosition.yPosition;
+        }
+        
+        if(orientation == Math.PI * 2 / 2) {
+            return -1 * (xLowerBound - pointPosition.xPosition);
+        }
+        
+        if(orientation == Math.PI * 3 / 2) {
+            return -1 * (yLowerBound - pointPosition.yPosition);
+        }
+        
+        double xLowerDistance = (xLowerBound - pointPosition.xPosition) / Math.cos(orientation);
+        double xUpperDistance = (xUpperBound - pointPosition.xPosition) / Math.cos(orientation);
+        double yLowerDistance = (yLowerBound - pointPosition.yPosition) / Math.sin(orientation);
+        double yUpperDistance = (yUpperBound - pointPosition.yPosition) / Math.sin(orientation);
+        
+        return 0;
     }
     
     private double xPosition;
