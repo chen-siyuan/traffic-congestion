@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 2.1,
+        currentRevision = 3,
         lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -52,6 +52,54 @@ public class Crossroad {
     
     public void setPosition(Position position) {
         this.position = position;
+    }
+    
+    /**
+     * 
+     * @param position the position of the point
+     * @return whether or not the position of the point is in the center of the crossroad
+     */
+    public boolean inCenter(Position position) {
+        
+        return (this.position.getXPosition() - this.laneWidth <= position.getXPosition())
+                && (this.position.getXPosition() + this.laneWidth >= position.getXPosition())
+                && (this.position.getYPosition() - this.laneWidth <= position.getYPosition())
+                && (this.position.getYPosition() + this.laneWidth >= position.getYPosition());
+        
+    }
+    
+    /**
+     * 
+     * @param vehicle the vehicle to be tested
+     * @return whether or not the center of the vehicle is in the turning area of the crossroad
+     */
+    public boolean inCenter(Vehicle vehicle) {
+        return inCenter(vehicle.getPosition());
+    }
+    
+    /**
+     * 
+     * @param vehicle
+     * @return the turning acceleration based on the vehicle, should be a combination of tangential and angular acceleration
+     */
+    public Acceleration getAcclerationTurning(Vehicle vehicle) {
+        return null;
+    }
+    
+    /**
+     * 
+     * @param vehicle
+     * @return the acceleration for the vehicle in this crossroad
+     */
+    public Acceleration getAccelerationFor(Vehicle vehicle) {
+        
+//        if(inCenter(vehicle)) {
+//            return getAccelerationTurning(vehicle);
+//        }
+//        
+//        assign to lane and get acceleration
+//            
+        return null;
     }
     
 }

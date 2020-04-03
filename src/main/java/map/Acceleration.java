@@ -8,11 +8,21 @@ package map;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Acceleration {
+    
+    public static Acceleration accelerationFromComponents(double xComponent, double yComponent) {
+        return new Acceleration(Velocity.magnitudeFromComponents(xComponent, yComponent),
+                Velocity.orientationFromComponents(xComponent, yComponent));
+    }
+    
+    public static Acceleration combineAccelerations(Acceleration acceleration1, Acceleration acceleration2) {
+        return accelerationFromComponents(acceleration1.getXMagnitude() + acceleration2.getXMagnitude(),
+                acceleration1.getYMagnitude() + acceleration2.getYMagnitude());
+    }
     
     private double magnitude;
     private double orientation;
