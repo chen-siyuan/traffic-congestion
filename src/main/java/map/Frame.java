@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.1,
-        lastModified = "02/14/2020",
+        currentRevision = 3.2,
+        lastModified = "04/02/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
@@ -68,7 +68,7 @@ public class Frame extends JFrame {
         setResizable(false);
         pack();
         
-        setTitle("Simple Car");
+        setTitle("Simulation");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -9,7 +9,6 @@ map/Main.class
 map/Crossroad.class
 map/Frame.class
 map/Body.class
-map/Main$1.class
 map/Obstacle.class
 map/Pedestrian.class
 map/Bus.class

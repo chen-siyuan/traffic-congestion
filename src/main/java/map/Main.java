@@ -13,8 +13,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 7,
-        lastModified = "02/23/2020",
+        currentRevision = 7.1,
+        lastModified = "04/02/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -63,41 +63,31 @@ public class Main {
     
     public static void main(String[] args) {
         
-//        Road road = new Road(new Size(Math.sqrt(5), Math.sqrt(20)), new Position(2.5, 2), Velocity.velocityFromComponents(-1, 2), 2);
-//        Road road = new Road(new Size(Math.sqrt(10), Math.sqrt(40)), new Position(3.5, 2.5), Velocity.orientationFromComponents(1, 3), 4);
-
-//        Lane lane = new Lane(new Size(Math.sqrt(5), Math.sqrt(5)), new Position(-0.5, -0.5), Velocity.orientationFromComponents(1, 2));
-//        
-//        System.out.println(lane.getDetectionPosition().getXPosition());
-//        System.out.println(lane.getDetectionPosition().getYPosition());
-//        
-//        System.out.println(lane.onLane(new Position(-1, -1)));
-//        System.out.println(lane.inRange(new Position(-1, -1)));
-//        
-//        System.out.println(lane.onLane(new Position(2, -2)));
-//        System.out.println(lane.inRange(new Position(2, -2)));
-//        
-//        System.out.println(lane.onLane(new Position(1, 1)));
-//        System.out.println(lane.inRange(new Position(1, 1)));
+        Crossroad crossRoad = new Crossroad(new Position(10, 10), 10);
         
-        HashMap vehiclesMap = new HashMap();
+        System.out.println(crossRoad.getLanes().get(1).getPosition().getXPosition());
+        System.out.println(crossRoad.getLanes().get(1).getPosition().getYPosition());
         
-        vehiclesMap.put("car", 1);
-        vehiclesMap.put("bus", 0);
+        System.out.println(crossRoad.getLanes().get(1).getSize().getWidth());
         
-        ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
+//        HashMap vehiclesMap = new HashMap();
+//        
+//        vehiclesMap.put("car", 1);
+//        vehiclesMap.put("bus", 0);
+//        
+//        ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
         
-//        vehiclesList.get(0).setPosition(new Position(50 / PIXELS_PER_METER, 250 / PIXELS_PER_METER)); // 1
+//        vehiclesList.get(0).setPosition(new Position(50 / PIXELS_PER_METER, 250 / PIXELS_PER_METER)); // 0
 //        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 0 / 2));
         
-//        vehiclesList.get(0).setPosition(new Position(350 / PIXELS_PER_METER, 50 / PIXELS_PER_METER)); // 2
+//        vehiclesList.get(0).setPosition(new Position(350 / PIXELS_PER_METER, 50 / PIXELS_PER_METER)); // 1
 //        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 1 / 2));
         
-//        vehiclesList.get(0).setPosition(new Position(950 / PIXELS_PER_METER, 350 / PIXELS_PER_METER)); // 3
+//        vehiclesList.get(0).setPosition(new Position(950 / PIXELS_PER_METER, 350 / PIXELS_PER_METER)); // 2
 //        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 2 / 2));
-//        
-        vehiclesList.get(0).setPosition(new Position(250 / PIXELS_PER_METER, 550 / PIXELS_PER_METER));
-        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 3 / 2));
+        
+//        vehiclesList.get(0).setPosition(new Position(250 / PIXELS_PER_METER, 550 / PIXELS_PER_METER)); // 3
+//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 3 / 2));
         
 //        HashMap obstaclesMap = new HashMap();
 //        
@@ -117,22 +107,22 @@ public class Main {
 //                new Position(15, 7),
 //                new Position(20, 7)));
         
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-
-                Frame frame = new Frame(false, 250);
-                
-                frame.addVehicles(vehiclesList);
-//                frame.addObstacles(obstaclesList);
-                
-                frame.initUI();
-                frame.setVisible(true);
-
-            }
-            
-        });
+//        EventQueue.invokeLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//
+//                Frame frame = new Frame(false, 250);
+//                
+//                frame.addVehicles(vehiclesList);
+////                frame.addObstacles(obstaclesList);
+//                
+//                frame.initUI();
+//                frame.setVisible(true);
+//
+//            }
+//            
+//        });
 
     }
     

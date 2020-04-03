@@ -10,26 +10,27 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 1,
-        lastModified = "02/25/2020",
+        currentRevision = 2,
+        lastModified = "04/02/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
     
     private double laneWidth;
     private Position position;
-    private double orientation;
     private ArrayList<Lane> lanes;
     
-    public Crossroad(double laneWidth, Position position, double orientation) {
+    public Crossroad(Position position, double laneWidth) {
         
-        this.laneWidth = laneWidth;
         this.position = position;
-        this.orientation = orientation;
+        this.laneWidth = laneWidth;
         
         this.lanes = new ArrayList<Lane>();
         
-        // Assign lanes
+        this.lanes.add(new Lane(new Size(Main.FRAME_WIDTH, laneWidth), new Position(0.5 * Main.FRAME_WIDTH, position.getYPosition() - 0.5 * laneWidth), Math.PI * 0 / 2));
+        this.lanes.add(new Lane(new Size(Main.FRAME_HEIGHT, laneWidth), new Position(position.getXPosition() + 0.5 * laneWidth, 0.5 * Main.FRAME_HEIGHT), Math.PI * 1 / 2));
+        this.lanes.add(new Lane(new Size(Main.FRAME_WIDTH, laneWidth), new Position(0.5 * Main.FRAME_WIDTH, position.getYPosition() + 0.5 * laneWidth), Math.PI * 2 / 2));
+        this.lanes.add(new Lane(new Size(Main.FRAME_HEIGHT, laneWidth), new Position(position.getXPosition() - 0.5 * laneWidth, 0.5 * Main.FRAME_HEIGHT), Math.PI * 3 / 2));
         
     }
     
@@ -39,10 +40,6 @@ public class Crossroad {
     
     public Position getPosition() {
         return position;
-    }
-    
-    public double getOrientation() {
-        return orientation;
     }
     
     public ArrayList<Lane> getLanes() {
@@ -55,10 +52,6 @@ public class Crossroad {
     
     public void setPosition(Position position) {
         this.position = position;
-    }
-    
-    public void setOrientation(double orientation) {
-        this.orientation = orientation;
     }
     
 }

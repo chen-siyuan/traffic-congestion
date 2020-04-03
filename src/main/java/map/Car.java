@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5,
-        lastModified = "02/23/2020",
+        currentRevision = 5.1,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -105,7 +105,7 @@ public class Car extends Vehicle {
 
     public Acceleration getAcceleration() {
         
-//        return new Acceleration(0, 0); // 1 to 1
+        return new Acceleration(0, 0); // 1 to 1
 //
 //        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 4
 //            return new Acceleration(0, 0);
@@ -204,18 +204,18 @@ public class Car extends Vehicle {
 //
 //        }
 //        
-        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 4 to 1
-            return new Acceleration(0, 0);
-        } else {
-
-            if(this.getPosition().getXPosition() < 400 / Main.PIXELS_PER_METER) {
-                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
-                        getVelocity().getOrientation() + Math.PI / 2);
-            } else {
-                return new Acceleration(0, 0);
-            }
-
-        }
+//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 4 to 1
+//            return new Acceleration(0, 0);
+//        } else {
+//
+//            if(this.getPosition().getXPosition() < 400 / Main.PIXELS_PER_METER) {
+//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
+//                        getVelocity().getOrientation() + Math.PI / 2);
+//            } else {
+//                return new Acceleration(0, 0);
+//            }
+//
+//        }
         
     }
     

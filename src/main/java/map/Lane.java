@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 3.2,
-        lastModified = "02/25/2020",
+        currentRevision = 3.3,
+        lastModified = "04/02/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -64,7 +64,7 @@ public class Lane {
      */
     public Position getDetectionPosition() {
         
-        double angle = orientation + (LEFT_DETECTION ? -1 : 1) * Math.PI / 2;
+        double angle = orientation + (LEFT_DETECTION ? 1 : -1) * Math.PI / 2;
         
         return new Position(
                 position.getXPosition() + Math.cos(angle) * getDetectionSize().getWidth() * DETECTION_RANGE_FACTOR / 2,
