@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.1,
-        lastModified = "02/14/2020",
+        currentRevision = 4.2,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Body {
@@ -29,9 +29,9 @@ public abstract class Body {
         
         ArrayList<Position> cornerPositions = new ArrayList<Position>();
         
-        double halfDiagonal = Math.sqrt(Math.pow(size.getWidth(), 2) + Math.pow(size.getHeight(), 2)) / 2;
-        double angle1 = velocity.getOrientation() + Math.atan2(size.getHeight(), size.getWidth());
-        double angle2 = velocity.getOrientation() - Math.atan2(size.getHeight(), size.getWidth());
+        double halfDiagonal = Math.sqrt(Math.pow(size.getAlong(), 2) + Math.pow(size.getAcross(), 2)) / 2;
+        double angle1 = velocity.getOrientation() + Math.atan2(size.getAcross(), size.getAlong());
+        double angle2 = velocity.getOrientation() - Math.atan2(size.getAcross(), size.getAlong());
         
         cornerPositions.add(new Position(
                 position.getXPosition() + halfDiagonal * Math.cos(angle1),
@@ -97,9 +97,9 @@ public abstract class Body {
         
         ArrayList<Position> cornerPositions = new ArrayList<Position>();
         
-        double halfDiagonal = Math.sqrt(Math.pow(size.getWidth(), 2) + Math.pow(size.getHeight(), 2)) / 2;
-        double angle1 = velocity.getOrientation() + Math.atan2(size.getHeight(), size.getWidth());
-        double angle2 = velocity.getOrientation() - Math.atan2(size.getHeight(), size.getWidth());
+        double halfDiagonal = Math.sqrt(Math.pow(size.getAlong(), 2) + Math.pow(size.getAcross(), 2)) / 2;
+        double angle1 = velocity.getOrientation() + Math.atan2(size.getAcross(), size.getAlong());
+        double angle2 = velocity.getOrientation() - Math.atan2(size.getAcross(), size.getAlong());
         
         cornerPositions.add(new Position(
                 position.getXPosition() + halfDiagonal * Math.cos(angle1),

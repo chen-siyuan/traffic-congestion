@@ -10,8 +10,8 @@ import java.awt.Color;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.1,
-        lastModified = "01/18/2020",
+        currentRevision = 4.2,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
@@ -35,7 +35,7 @@ public abstract class Vehicle extends Body {
     
     public String toString() {
         return String.format("Vehicle:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
-                this.getSize().getWidth(), this.getSize().getHeight(),
+                this.getSize().getAlong(), this.getSize().getAcross(),
                 this.getPosition().getXPosition(), this.getPosition().getYPosition(),
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }

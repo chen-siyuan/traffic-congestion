@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.1,
-        lastModified = "02/18/2020",
+        currentRevision = 8.2,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
@@ -50,8 +50,8 @@ public class Board extends JPanel implements Runnable {
     public Board(boolean record, int frameNumber) {
 
         setBackground(Main.BOARD_COLOR);
-        setPreferredSize(new Dimension((int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
-                (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER)));
+        setPreferredSize(new Dimension((int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
+                (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER)));
         
         vehicles = new ArrayList<Vehicle>();
         obstacles = new ArrayList<Obstacle>();
@@ -149,8 +149,8 @@ public class Board extends JPanel implements Runnable {
         Graphics2D graphics2D = (Graphics2D)graphics;
         
         graphics2D.drawImage(backgroundImage, 0, 0,
-                (int)Math.round(Main.PANEL_WIDTH * Main.PIXELS_PER_METER),
-                (int)Math.round(Main.PANEL_HEIGHT * Main.PIXELS_PER_METER), this);
+                (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
+                (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
         
         if(record) {
             
@@ -212,19 +212,19 @@ public class Board extends JPanel implements Runnable {
         
 //        graphics2D.fillRect(
 //                (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-//                        - (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+//                        - (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
 //                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER
-//                        - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
-//                (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER),
-//                (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER));
+//                        - (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER / 2)),
+//                (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER),
+//                (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER));
         
         graphics2D.drawImage(carImage,
                 (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+                        - (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
                 (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(vehicle.getSize().getWidth() * Main.PIXELS_PER_METER),
-                (int)Math.round(vehicle.getSize().getHeight() * Main.PIXELS_PER_METER),
+                        - (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER),
+                (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER),
                 vehicle.getColor(),
                 null);
         
@@ -247,19 +247,19 @@ public class Board extends JPanel implements Runnable {
         
 //        graphics2D.fillRect(
 //                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-//                        - (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+//                        - (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
 //                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER
-//                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2)),
-//                (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER),
-//                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER));
+//                        - (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER / 2)),
+//                (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER),
+//                (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER));
         
         graphics2D.drawImage(pedestrianImage,
                 (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER / 2),
+                        - (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
                 (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(obstacle.getSize().getWidth() * Main.PIXELS_PER_METER),
-                (int)Math.round(obstacle.getSize().getHeight() * Main.PIXELS_PER_METER),
+                        - (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER),
+                (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER),
                 obstacle.getColor(),
                 null);
         

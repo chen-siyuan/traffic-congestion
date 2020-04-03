@@ -8,8 +8,8 @@ package map;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.1,
-        lastModified = "02/25/2020",
+        currentRevision = 4.2,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Position {
@@ -26,10 +26,10 @@ public class Position {
     
     public static double distanceToRectangleAtAnAngle(Position pointPosition, double orientation, Position rectanglePosition, Size rectangleSize) {
         
-        double xLowerBound = rectanglePosition.xPosition - rectangleSize.getWidth() / 2;
-        double xUpperBound = rectanglePosition.xPosition + rectangleSize.getWidth() / 2;
-        double yLowerBound = rectanglePosition.yPosition - rectangleSize.getHeight() / 2;
-        double yUpperBound = rectanglePosition.yPosition + rectangleSize.getHeight() / 2;
+        double xLowerBound = rectanglePosition.xPosition - rectangleSize.getAlong() / 2;
+        double xUpperBound = rectanglePosition.xPosition + rectangleSize.getAlong() / 2;
+        double yLowerBound = rectanglePosition.yPosition - rectangleSize.getAcross() / 2;
+        double yUpperBound = rectanglePosition.yPosition + rectangleSize.getAcross() / 2;
         
         if(orientation == Math.PI * 0 / 2) {
             return xUpperBound - pointPosition.xPosition;

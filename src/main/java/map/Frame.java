@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.2,
-        lastModified = "04/02/2020",
+        currentRevision = 3.3,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
@@ -63,8 +63,8 @@ public class Frame extends JFrame {
         
         add(board);
         
-        setPreferredSize(new Dimension((int)Math.round(Main.FRAME_WIDTH * Main.PIXELS_PER_METER),
-                (int)Math.round(Main.FRAME_HEIGHT * Main.PIXELS_PER_METER)));
+        setPreferredSize(new Dimension((int)Math.round(Main.FRAME_ALONG * Main.PIXELS_PER_METER),
+                (int)Math.round(Main.FRAME_ACROSS * Main.PIXELS_PER_METER)));
         setResizable(false);
         pack();
         

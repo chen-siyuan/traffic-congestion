@@ -10,8 +10,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 2,
-        lastModified = "04/02/2020",
+        currentRevision = 2.1,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
@@ -27,10 +27,10 @@ public class Crossroad {
         
         this.lanes = new ArrayList<Lane>();
         
-        this.lanes.add(new Lane(new Size(Main.FRAME_WIDTH, laneWidth), new Position(0.5 * Main.FRAME_WIDTH, position.getYPosition() - 0.5 * laneWidth), Math.PI * 0 / 2));
-        this.lanes.add(new Lane(new Size(Main.FRAME_HEIGHT, laneWidth), new Position(position.getXPosition() + 0.5 * laneWidth, 0.5 * Main.FRAME_HEIGHT), Math.PI * 1 / 2));
-        this.lanes.add(new Lane(new Size(Main.FRAME_WIDTH, laneWidth), new Position(0.5 * Main.FRAME_WIDTH, position.getYPosition() + 0.5 * laneWidth), Math.PI * 2 / 2));
-        this.lanes.add(new Lane(new Size(Main.FRAME_HEIGHT, laneWidth), new Position(position.getXPosition() - 0.5 * laneWidth, 0.5 * Main.FRAME_HEIGHT), Math.PI * 3 / 2));
+        this.lanes.add(new Lane(new Size(Main.FRAME_ALONG, laneWidth), new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() - 0.5 * laneWidth), Math.PI * 0 / 2));
+        this.lanes.add(new Lane(new Size(Main.FRAME_ACROSS, laneWidth), new Position(position.getXPosition() + 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS), Math.PI * 1 / 2));
+        this.lanes.add(new Lane(new Size(Main.FRAME_ALONG, laneWidth), new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() + 0.5 * laneWidth), Math.PI * 2 / 2));
+        this.lanes.add(new Lane(new Size(Main.FRAME_ACROSS, laneWidth), new Position(position.getXPosition() - 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS), Math.PI * 3 / 2));
         
     }
     

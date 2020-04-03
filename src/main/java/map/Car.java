@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5.1,
+        currentRevision = 5.2,
         lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -20,11 +20,11 @@ public class Car extends Vehicle {
     public static final Color COLOR = new Color(227, 86, 77);
     public static final double MAX_VELOCITY_MAGNITUDE = 60;
     public static final double MAX_ACCELERATION_MAGNITUDE = 8;
-    public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.5;
-    public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.5;
+    public static final double BOUNDING_BOX_FACTOR_ALONG = 1.5;
+    public static final double BOUNDING_BOX_FACTOR_ACROSS = 1.5;
     
-    public static final double WIDTH = 4;
-    public static final double HEIGHT = 1.8;
+    public static final double ALONG = 4;
+    public static final double ACROSS = 1.8;
     public static final double XPOS = 0;
     public static final double YPOS = 0;
     public static final double SPEED = 20;
@@ -35,7 +35,7 @@ public class Car extends Vehicle {
         Car[] cars = new Car[numCars];
         
         for(int i=0; i < numCars; i++) {
-            cars[i] = new Car(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
+            cars[i] = new Car(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
                     new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI));
         }
         
@@ -47,7 +47,7 @@ public class Car extends Vehicle {
         ArrayList<Car> cars = new ArrayList<Car>();
         
         for(int i=0; i < numCars; i++) {
-            cars.add(new Car(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
+            cars.add(new Car(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
                     new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI)));
         }
         
@@ -55,11 +55,11 @@ public class Car extends Vehicle {
     }
     
     public Car() {
-        this(new Size(WIDTH, HEIGHT), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
+        this(new Size(ALONG, ACROSS), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
     }
     
     public Car(Position position, Velocity velocity) {
-        this(new Size(WIDTH, HEIGHT), position, velocity);
+        this(new Size(ALONG, ACROSS), position, velocity);
     }
     
     /**
@@ -98,7 +98,7 @@ public class Car extends Vehicle {
 
     public String toString() {
         return String.format("Car:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
-                this.getSize().getWidth(), this.getSize().getHeight(),
+                this.getSize().getAlong(), this.getSize().getAcross(),
                 this.getPosition().getXPosition(), this.getPosition().getYPosition(),
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
@@ -220,8 +220,8 @@ public class Car extends Vehicle {
     }
     
     public Size getBoundingBoxSize() {
-        return new Size(getSize().getWidth() * BOUNDING_BOX_FACTOR_WIDTH,
-                getSize().getHeight() * BOUNDING_BOX_FACTOR_HEIGHT);
+        return new Size(getSize().getAlong() * BOUNDING_BOX_FACTOR_ALONG,
+                getSize().getAcross() * BOUNDING_BOX_FACTOR_ACROSS);
     }
 
 }

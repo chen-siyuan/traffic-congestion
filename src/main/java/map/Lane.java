@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 3.3,
-        lastModified = "04/02/2020",
+        currentRevision = 3.4,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -51,7 +51,7 @@ public class Lane {
      * @return the size of the complete range of detection, including the lane itself
      */
     public Size getDetectionSize() {
-        return new Size(size.getHeight(), size.getWidth() * (1 + DETECTION_RANGE_FACTOR));
+        return new Size(size.getAlong(), size.getAcross() * (1 + DETECTION_RANGE_FACTOR));
     }
 
     public Position getPosition() {
@@ -67,17 +67,17 @@ public class Lane {
         double angle = orientation + (LEFT_DETECTION ? 1 : -1) * Math.PI / 2;
         
         return new Position(
-                position.getXPosition() + Math.cos(angle) * getDetectionSize().getWidth() * DETECTION_RANGE_FACTOR / 2,
-                position.getYPosition() + Math.sin(angle) * getDetectionSize().getWidth() * DETECTION_RANGE_FACTOR / 2);
+                position.getXPosition() + Math.cos(angle) * getDetectionSize().getAcross() * DETECTION_RANGE_FACTOR / 2,
+                position.getYPosition() + Math.sin(angle) * getDetectionSize().getAcross() * DETECTION_RANGE_FACTOR / 2);
     }
     
     public ArrayList<Position> getCornerPositions() {
         
         ArrayList<Position> cornerPositions = new ArrayList<Position>();
         
-        double halfDiagonal = Math.sqrt(Math.pow(size.getWidth(), 2) + Math.pow(size.getHeight(), 2)) / 2;
-        double angle1 = orientation + Math.atan2(size.getHeight(), size.getWidth());
-        double angle2 = orientation - Math.atan2(size.getHeight(), size.getWidth());
+        double halfDiagonal = Math.sqrt(Math.pow(size.getAlong(), 2) + Math.pow(size.getAcross(), 2)) / 2;
+        double angle1 = orientation + Math.atan2(size.getAcross(), size.getAlong());
+        double angle2 = orientation - Math.atan2(size.getAcross(), size.getAlong());
         
 //        System.out.println(halfDiagonal);
 //        System.out.println(angle / Math.PI);
@@ -108,9 +108,9 @@ public class Lane {
         
         ArrayList<Position> cornerPositions = new ArrayList<Position>();
         
-        double halfDiagonal = Math.sqrt(Math.pow(detectionSize.getWidth(), 2) + Math.pow(detectionSize.getHeight(), 2)) / 2;
-        double angle1 = orientation + Math.atan2(detectionSize.getHeight(), detectionSize.getWidth());
-        double angle2 = orientation - Math.atan2(detectionSize.getHeight(), detectionSize.getWidth());
+        double halfDiagonal = Math.sqrt(Math.pow(detectionSize.getAlong(), 2) + Math.pow(detectionSize.getAcross(), 2)) / 2;
+        double angle1 = orientation + Math.atan2(detectionSize.getAcross(), detectionSize.getAlong());
+        double angle2 = orientation - Math.atan2(detectionSize.getAcross(), detectionSize.getAlong());
         
 //        System.out.println(halfDiagonal);
 //        System.out.println(angle / Math.PI);
@@ -202,7 +202,7 @@ public class Lane {
                 + otherPosition.distanceTo(cornerPositions.get(index2), cornerPositions.get(index3))
                 + otherPosition.distanceTo(cornerPositions.get(index3), cornerPositions.get(index0));
         
-        return Math.abs(sumDistances - size.getWidth() - size.getHeight()) <= Main.THRESHOLD;
+        return Math.abs(sumDistances - size.getAlong() - size.getAcross()) <= Main.THRESHOLD;
     }
     
     /**
@@ -272,7 +272,7 @@ public class Lane {
                 + otherPosition.distanceTo(detectionCornerPositions.get(index2), detectionCornerPositions.get(index3))
                 + otherPosition.distanceTo(detectionCornerPositions.get(index3), detectionCornerPositions.get(index0));
         
-        return Math.abs(sumDistances - getDetectionSize().getWidth() - getDetectionSize().getHeight()) <= Main.THRESHOLD;
+        return Math.abs(sumDistances - getDetectionSize().getAlong() - getDetectionSize().getAcross()) <= Main.THRESHOLD;
         
     }
     

@@ -13,8 +13,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 7.1,
-        lastModified = "04/02/2020",
+        currentRevision = 7.2,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -30,10 +30,10 @@ public class Main {
     public static final double PIXELS_PER_METER = 80. / 3;
     public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
 
-    public static final double PANEL_WIDTH = 1000. / PIXELS_PER_METER; //meter
-    public static final double PANEL_HEIGHT = 600. / PIXELS_PER_METER; //meter
-    public static final double FRAME_WIDTH = PANEL_WIDTH;
-    public static final double FRAME_HEIGHT = PANEL_HEIGHT;
+    public static final double PANEL_ALONG = 1000. / PIXELS_PER_METER; //meter
+    public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER; //meter
+    public static final double FRAME_ALONG = PANEL_ALONG;
+    public static final double FRAME_ACROSS = PANEL_ACROSS;
     public static final double INTERVAL = 0.01;//second
     public static final double THRESHOLD = 0.5;
     
@@ -68,7 +68,7 @@ public class Main {
         System.out.println(crossRoad.getLanes().get(1).getPosition().getXPosition());
         System.out.println(crossRoad.getLanes().get(1).getPosition().getYPosition());
         
-        System.out.println(crossRoad.getLanes().get(1).getSize().getWidth());
+        System.out.println(crossRoad.getLanes().get(1).getSize().getAlong());
         
 //        HashMap vehiclesMap = new HashMap();
 //        

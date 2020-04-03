@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3,
-        lastModified = "01/18/2020",
+        currentRevision = 3.1,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Bus extends Vehicle {
@@ -20,11 +20,11 @@ public class Bus extends Vehicle {
     public static final Color COLOR = new Color(84, 184, 96);
     public static final double MAX_VELOCITY_MAGNITUDE = 30;
     public static final double MAX_ACCELERATION_MAGNITUDE = 5;
-    public static final double BOUNDING_BOX_FACTOR_WIDTH = 1.5;
-    public static final double BOUNDING_BOX_FACTOR_HEIGHT = 1.5;
+    public static final double BOUNDING_BOX_FACTOR_ALONG = 1.5;
+    public static final double BOUNDING_BOX_FACTOR_ACROSS = 1.5;
     
-    public static final double WIDTH = 9;
-    public static final double HEIGHT = 2.5;
+    public static final double ALONG = 9;
+    public static final double ACROSS = 2.5;
     public static final double XPOS = 0;
     public static final double YPOS = 0;
     public static final double SPEED = 20;
@@ -35,7 +35,7 @@ public class Bus extends Vehicle {
         Bus[] buses = new Bus[numBuses];
         
         for(int i=0; i < numBuses; i++) {
-            buses[i] = new Bus(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
+            buses[i] = new Bus(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
                     new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE, Math.random() * 2 * Math.PI));
         }
         
@@ -47,7 +47,7 @@ public class Bus extends Vehicle {
         ArrayList<Bus> buses = new ArrayList<Bus>();
         
         for(int i=0; i < numBuses; i++) {
-            buses.add(new Bus(new Position(Math.random() * Main.PANEL_WIDTH, Math.random() * Main.FRAME_HEIGHT),
+            buses.add(new Bus(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
                     new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE, Math.random() * 2 * Math.PI)));
         }
         
@@ -55,11 +55,11 @@ public class Bus extends Vehicle {
     }
     
     public Bus() {
-        this(new Size(WIDTH, HEIGHT), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
+        this(new Size(ALONG, ACROSS), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
     }
     
     public Bus(Position position, Velocity velocity) {
-        this(new Size(WIDTH, HEIGHT), position, velocity);
+        this(new Size(ALONG, ACROSS), position, velocity);
     }
     
     /**
@@ -93,7 +93,7 @@ public class Bus extends Vehicle {
 
     public String toString() {
         return String.format("Bus:\tSize: %.2f * %.2f;\tPos: (%.2f, %.2f);\tVelocity: %.2f at %.2f.",
-                this.getSize().getWidth(), this.getSize().getHeight(),
+                this.getSize().getAlong(), this.getSize().getAcross(),
                 this.getPosition().getXPosition(), this.getPosition().getYPosition(),
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
@@ -103,8 +103,8 @@ public class Bus extends Vehicle {
     }
     
     public Size getBoundingBoxSize() {
-        return new Size(getSize().getWidth() * BOUNDING_BOX_FACTOR_WIDTH,
-                getSize().getHeight() * BOUNDING_BOX_FACTOR_HEIGHT);
+        return new Size(getSize().getAlong() * BOUNDING_BOX_FACTOR_ALONG,
+                getSize().getAcross() * BOUNDING_BOX_FACTOR_ACROSS);
     }
     
 }

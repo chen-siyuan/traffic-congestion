@@ -8,42 +8,42 @@ package map;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 1,
-        lastModified = "01/14/2020",
+        currentRevision = 2,
+        lastModified = "04/03/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Size {
     
-    private double width;
-    private double height;
+    private double along;
+    private double across;
 
     /**
      * This class is used as a basis for other classes
      * 
-     * @param width the width of the bounding box of The body object
-     * @param height the height of the bounding box of the Body object
+     * @param along the primary direction of the bounding box of The body object
+     * @param across the secondary direction of the bounding box of the Body object
      */
-    public Size(double width, double height) {
+    public Size(double along, double across) {
         
-        this.width = width;
-        this.height = height;
+        this.along = along;
+        this.across = across;
         
     }
 
-    public double getWidth() {
-        return width;
+    public double getAlong() {
+        return along;
     }
 
-    public double getHeight() {
-        return height;
+    public double getAcross() {
+        return across;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
+    public void setAlong(double along) {
+        this.along = along;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public void setAcross(double across) {
+        this.across = across;
     }
     
 }
