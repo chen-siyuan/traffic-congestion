@@ -105,9 +105,9 @@ public class Car extends Vehicle {
 
     public Acceleration getAcceleration() {
         
-        return new Acceleration(0, 0); // 1 to 1
+//        return new Acceleration(0, 0); // 0 to 0
 //
-//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 4
+//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 0 to 3
 //            return new Acceleration(0, 0);
 //        } else {
 //
@@ -120,7 +120,7 @@ public class Car extends Vehicle {
 //
 //        }
 //        
-//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 2
+//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 0 to 1
 //            return new Acceleration(0, 0);
 //        } else {
 //
@@ -133,9 +133,9 @@ public class Car extends Vehicle {
 //
 //        }
         
-//        return new Acceleration(0, 0); // 2 to 2
+//        return new Acceleration(0, 0); // 1 to 1
 //
-//        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 2 to 1
+//        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 0
 //            return new Acceleration(0, 0);
 //        } else {
 //
@@ -148,22 +148,22 @@ public class Car extends Vehicle {
 //
 //        }
 //        
-//        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 2 to 3
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getXPosition() > 200 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() + Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
+        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 2
+            return new Acceleration(0, 0);
+        } else {
+
+            if(this.getPosition().getXPosition() > 200 / Main.PIXELS_PER_METER) {
+                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
+                        getVelocity().getOrientation() + Math.PI / 2);
+            } else {
+                return new Acceleration(0, 0);
+            }
+
+        }
         
-//        return new Acceleration(0, 0); // 3 to 3
+//        return new Acceleration(0, 0); // 2 to 2
 //
-//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 2
+//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 2 to 1
 //            return new Acceleration(0, 0);
 //        } else {
 //
@@ -176,7 +176,7 @@ public class Car extends Vehicle {
 //
 //        }
 //        
-//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 4
+//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 2 to 3
 //            return new Acceleration(0, 0);
 //        } else {
 //
@@ -189,9 +189,9 @@ public class Car extends Vehicle {
 //
 //        }
 
-//        return new Acceleration(0, 0); // 4 to 4
+//        return new Acceleration(0, 0); // 3 to 3
 //
-//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 4 to 3
+//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 2
 //            return new Acceleration(0, 0);
 //        } else {
 //
@@ -204,7 +204,7 @@ public class Car extends Vehicle {
 //
 //        }
 //        
-//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 4 to 1
+//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 0
 //            return new Acceleration(0, 0);
 //        } else {
 //

@@ -70,18 +70,18 @@ public class Main {
         
         System.out.println(crossRoad.getLanes().get(1).getSize().getAlong());
         
-//        HashMap vehiclesMap = new HashMap();
-//        
-//        vehiclesMap.put("car", 1);
-//        vehiclesMap.put("bus", 0);
-//        
-//        ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
+        HashMap vehiclesMap = new HashMap();
+        
+        vehiclesMap.put("car", 1);
+        vehiclesMap.put("bus", 0);
+        
+        ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
         
 //        vehiclesList.get(0).setPosition(new Position(50 / PIXELS_PER_METER, 250 / PIXELS_PER_METER)); // 0
 //        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 0 / 2));
         
-//        vehiclesList.get(0).setPosition(new Position(350 / PIXELS_PER_METER, 50 / PIXELS_PER_METER)); // 1
-//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 1 / 2));
+        vehiclesList.get(0).setPosition(new Position(350 / PIXELS_PER_METER, 50 / PIXELS_PER_METER)); // 1
+        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 1 / 2));
         
 //        vehiclesList.get(0).setPosition(new Position(950 / PIXELS_PER_METER, 350 / PIXELS_PER_METER)); // 2
 //        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 2 / 2));
@@ -107,22 +107,22 @@ public class Main {
 //                new Position(15, 7),
 //                new Position(20, 7)));
         
-//        EventQueue.invokeLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//
-//                Frame frame = new Frame(false, 250);
-//                
-//                frame.addVehicles(vehiclesList);
-////                frame.addObstacles(obstaclesList);
-//                
-//                frame.initUI();
-//                frame.setVisible(true);
-//
-//            }
-//            
-//        });
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+
+                Frame frame = new Frame(false, 250);
+                
+                frame.addVehicles(vehiclesList);
+//                frame.addObstacles(obstaclesList);
+                
+                frame.initUI();
+                frame.setVisible(true);
+
+            }
+            
+        });
 
     }
     
