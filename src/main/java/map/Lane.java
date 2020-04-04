@@ -22,7 +22,7 @@ public class Lane {
     /**
      * determines which side the range of detection extends toward
      */
-    public static boolean LEFT_DETECTION = true;
+    public static boolean LEFT_DETECTION = false;
     
     /**
      * This factor denotes the relative width of the extended portion of the lane that is being used for detection
