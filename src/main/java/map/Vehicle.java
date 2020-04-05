@@ -10,15 +10,15 @@ import java.awt.Color;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5,
-        lastModified = "04/03/2020",
+        currentRevision = 6,
+        lastModified = "04/05/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
     
     private Crossroad crossroad;
-    private int startingLane; // 0, 1, 2, 3
-    private int endingLane; // corresponds to +x, +y, -x, -y direction
+    private int origin; // 0, 1, 2, 3
+    private int destination; // corresponds to +x, +y, -x, -y direction
     
     /**
      * The Vehicle class inherits the Body class and is parallel to the Obstacle class
@@ -31,7 +31,7 @@ public abstract class Vehicle extends Body {
         super(size, position, velocity);
     }
     
-    public void assignCrossroad(Crossroad crossroad) {
+    public void setCrossroad(Crossroad crossroad) {
         this.crossroad = crossroad;
     }
     
@@ -39,20 +39,20 @@ public abstract class Vehicle extends Body {
         return crossroad;
     }
     
-    public void assignStartingLane(int startingLane) {
-        this.startingLane = startingLane;
+    public void setOrigin(int origin) {
+        this.origin = origin;
     }
     
-    public int getStartingLane() {
-        return startingLane;
+    public int getOrigin() {
+        return origin;
     }
     
-    public void assignEndingLane(int endingLane) {
-        this.endingLane = endingLane;
+    public void setDestination(int destination) {
+        this.destination = destination;
     }
     
-    public int getEndingLane() {
-        return endingLane;
+    public int getDestination() {
+        return destination;
     }
     
     public abstract Acceleration getAcceleration();

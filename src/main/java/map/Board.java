@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.2,
-        lastModified = "04/03/2020",
+        currentRevision = 8.3,
+        lastModified = "04/05/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
@@ -148,15 +148,15 @@ public class Board extends JPanel implements Runnable {
         
         Graphics2D graphics2D = (Graphics2D)graphics;
         
-        graphics2D.drawImage(backgroundImage, 0, 0,
-                (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
-                (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
-        
         if(record) {
             
             BufferedImage imageBuffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         
             Graphics2D imageBufferGraphics2D = (Graphics2D)imageBuffer.createGraphics();
+            
+            imageBufferGraphics2D.drawImage(backgroundImage, 0, 0,
+                (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
+                (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
 
             vehicles.forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
             obstacles.forEach((obstacle) -> drawObstacle(imageBufferGraphics2D, obstacle));
@@ -185,6 +185,10 @@ public class Board extends JPanel implements Runnable {
             }
             
         } else {
+            
+            graphics2D.drawImage(backgroundImage, 0, 0,
+                (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
+                (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
             
             vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
             obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
@@ -287,7 +291,7 @@ public class Board extends JPanel implements Runnable {
             // I don't think this would happen
             if(correctedInterval < 0) {
                 
-                System.out.printf("ERROR CALCULATING SLEEP: %d.\n", correctedInterval);
+                System.out.printf("WARNING: INTERVAL TOO SHORT: %d.\n", correctedInterval);
 //                System.exit(0);
                 correctedInterval = 1;
                 

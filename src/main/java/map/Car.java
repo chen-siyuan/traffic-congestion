@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5.3,
-        lastModified = "04/03/2020",
+        currentRevision = 6,
+        lastModified = "04/05/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -63,7 +63,7 @@ public class Car extends Vehicle {
     }
     
     /**
-     * The Car class inherits the Vehicle class and is parallel to the Bus class
+     * The Car class inherits the Vehicle class
      * 
      * @param size the size of the car
      * @param position the initial position of the car
@@ -104,120 +104,12 @@ public class Car extends Vehicle {
     }
 
     public Acceleration getAcceleration() {
-        return new Acceleration(0, 0);
-//        return this.getCrossroad().getAccelerationFor(this);
         
-//        return new Acceleration(0, 0); // 0 to 0
-//
-//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 0 to 3
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getYPosition() > 200 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() - Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
-//        
-//        if(this.getPosition().getXPosition() < 200 / Main.PIXELS_PER_METER) { // 0 to 1
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getYPosition() < 400 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() + Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
-        
-//        return new Acceleration(0, 0); // 1 to 1
-//
-//        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 0
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getXPosition() < 400 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() - Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
-//        
-//        if(this.getPosition().getYPosition() < 200 / Main.PIXELS_PER_METER) { // 1 to 2
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getXPosition() > 200 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() + Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
-//        
-//        return new Acceleration(0, 0); // 2 to 2
-//
-//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 2 to 1
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getYPosition() < 400 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() - Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
-//        
-//        if(this.getPosition().getXPosition() > 400 / Main.PIXELS_PER_METER) { // 2 to 3
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getYPosition() > 200 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() + Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
-
-//        return new Acceleration(0, 0); // 3 to 3
-//
-//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 2
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getXPosition() > 200 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (50 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() - Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
-//        
-//        if(this.getPosition().getYPosition() > 400 / Main.PIXELS_PER_METER) { // 3 to 0
-//            return new Acceleration(0, 0);
-//        } else {
-//
-//            if(this.getPosition().getXPosition() < 400 / Main.PIXELS_PER_METER) {
-//                return new Acceleration(Math.pow(this.getVelocity().getMagnitude(), 2) / (150 / Main.PIXELS_PER_METER),
-//                        getVelocity().getOrientation() + Math.PI / 2);
-//            } else {
-//                return new Acceleration(0, 0);
-//            }
-//
-//        }
+        if(this.getCrossroad() == null) {
+            return new Acceleration(0, 0);
+        } else {
+            return this.getCrossroad().getAccelerationFor(this);
+        }
         
     }
     

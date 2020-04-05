@@ -13,8 +13,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 7.2,
-        lastModified = "04/03/2020",
+        currentRevision = 8,
+        lastModified = "04/05/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -34,23 +34,8 @@ public class Main {
     public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER; //meter
     public static final double FRAME_ALONG = PANEL_ALONG;
     public static final double FRAME_ACROSS = PANEL_ACROSS;
-    public static final double INTERVAL = 0.01;//second
+    public static final double INTERVAL = 0.001;
     public static final double THRESHOLD = 0.5;
-    
-    /**
-     * 
-     * @param vehiclesMap a HashMap object specifying the number of cars and buses wanted
-     * @return an ArrayList object containing the specified number of cars and buses
-     */
-    public static ArrayList<Vehicle> getVehiclesList(HashMap vehiclesMap) {
-        
-        ArrayList<Vehicle> vehiclesList = new ArrayList<Vehicle>();
-        
-        vehiclesList.addAll(Car.getCarsList((int)vehiclesMap.get("car")));
-        vehiclesList.addAll(Bus.getBusesList((int)vehiclesMap.get("bus")));
-        
-        return vehiclesList;
-    }
     
     public static ArrayList<Obstacle> getObstaclesList(HashMap obstaclesMap) {
         
@@ -63,32 +48,10 @@ public class Main {
     
     public static void main(String[] args) {
         
-        Crossroad crossRoad = new Crossroad(new Position(10, 10), 10);
+        Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
-        System.out.println(crossRoad.getLanes().get(1).getPosition().getXPosition());
-        System.out.println(crossRoad.getLanes().get(1).getPosition().getYPosition());
-        
-        System.out.println(crossRoad.getLanes().get(1).getSize().getAlong());
-        
-        HashMap vehiclesMap = new HashMap();
-        
-        vehiclesMap.put("car", 1);
-        vehiclesMap.put("bus", 0);
-        
-        ArrayList<Vehicle> vehiclesList = getVehiclesList(vehiclesMap);
-        
-//        vehiclesList.get(0).setPosition(new Position(50 / PIXELS_PER_METER, 250 / PIXELS_PER_METER)); // 0
-//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 0 / 2));
-        
-        vehiclesList.get(0).setPosition(new Position(350 / PIXELS_PER_METER, 50 / PIXELS_PER_METER)); // 1
-        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 1 / 2));
-        
-//        vehiclesList.get(0).setPosition(new Position(950 / PIXELS_PER_METER, 350 / PIXELS_PER_METER)); // 2
-//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 2 / 2));
-        
-//        vehiclesList.get(0).setPosition(new Position(250 / PIXELS_PER_METER, 550 / PIXELS_PER_METER)); // 3
-//        vehiclesList.get(0).setVelocity(new Velocity(10, Math.PI * 3 / 2));
-        
+        crossRoad.addCar(0, 3);
+    
 //        HashMap obstaclesMap = new HashMap();
 //        
 //        obstaclesMap.put("pedestrian", 1);
@@ -112,9 +75,9 @@ public class Main {
             @Override
             public void run() {
 
-                Frame frame = new Frame(false, 250);
+                Frame frame = new Frame(false, 75);
                 
-                frame.addVehicles(vehiclesList);
+                frame.addVehicles(crossRoad.getVehicles());
 //                frame.addObstacles(obstaclesList);
                 
                 frame.initUI();
