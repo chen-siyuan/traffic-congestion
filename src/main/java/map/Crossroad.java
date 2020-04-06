@@ -6,12 +6,14 @@
 package map;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 4,
-        lastModified = "04/05/2020",
+        currentRevision = 5,
+        lastModified = "04/06/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
@@ -20,20 +22,32 @@ public class Crossroad {
     private Position position;
     private ArrayList<Lane> lanes;
     private ArrayList<Vehicle> vehicles;
+    private ArrayList<Obstacle> obstacles;
+    private ArrayList<Integer> states; // -1 for turning, 0, 1, 2, 3 for the lanes they are in
     
     public Crossroad(Position position, double laneWidth) {
         
         this.position = position;
         this.laneWidth = laneWidth;
         
-        this.lanes = new ArrayList<Lane>();
+        lanes = new ArrayList<Lane>();
         
-        this.lanes.add(new Lane(new Size(Main.FRAME_ALONG, laneWidth), new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() + 0.5 * laneWidth), Math.PI * 0 / 2));
-        this.lanes.add(new Lane(new Size(Main.FRAME_ACROSS, laneWidth), new Position(position.getXPosition() - 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS), Math.PI * 1 / 2));
-        this.lanes.add(new Lane(new Size(Main.FRAME_ALONG, laneWidth), new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() - 0.5 * laneWidth), Math.PI * 2 / 2));
-        this.lanes.add(new Lane(new Size(Main.FRAME_ACROSS, laneWidth), new Position(position.getXPosition() + 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS), Math.PI * 3 / 2));
+        lanes.add(new Lane(new Size(Main.FRAME_ALONG, laneWidth),
+                new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() + 0.5 * laneWidth),
+                Math.PI * 0 / 2, this));
+        lanes.add(new Lane(new Size(Main.FRAME_ACROSS, laneWidth),
+                new Position(position.getXPosition() - 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS),
+                Math.PI * 1 / 2, this));
+        lanes.add(new Lane(new Size(Main.FRAME_ALONG, laneWidth),
+                new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() - 0.5 * laneWidth),
+                Math.PI * 2 / 2, this));
+        lanes.add(new Lane(new Size(Main.FRAME_ACROSS, laneWidth),
+                new Position(position.getXPosition() + 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS),
+                Math.PI * 3 / 2, this));
         
-        this.vehicles = new ArrayList<Vehicle>();
+        vehicles = new ArrayList<Vehicle>();
+        obstacles = new ArrayList<Obstacle>();
+        states = new ArrayList<Integer>();
         
     }
     
@@ -75,7 +89,7 @@ public class Crossroad {
         }
         
         Car car = new Car();
-        car.getVelocity().setMagnitude(20);
+        car.getVelocity().setMagnitude(10);
         
         switch(origin) {
             
@@ -98,17 +112,25 @@ public class Crossroad {
                 
         }
         
-        
         car.setOrigin(origin);
         car.setDestination(destination);
         car.setCrossroad(this);
         
         vehicles.add(car);
+        states.add(Integer.valueOf((origin < 2) ? (origin + 2) : (origin - 2)));
         
     }
     
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
+    }
+    
+    public void addObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
+    }
+    
+    public ArrayList<Obstacle> getObstacles() {
+        return obstacles;
     }
     
     /**
@@ -139,7 +161,7 @@ public class Crossroad {
      * @param vehicle
      * @return the turning acceleration based on the vehicle, should be a combination of tangential and angular acceleration
      */
-    public Acceleration getAccelerationTurning(Vehicle vehicle) {
+    public Acceleration getAccelerationTurningFor(Vehicle vehicle) {
         
         if((vehicle.getOrigin() + vehicle.getDestination()) % 2 == 0) {
             return new Acceleration(0, 0);
@@ -161,17 +183,91 @@ public class Crossroad {
     /**
      * 
      * @param vehicle
+     * @return the acceleration for the vehicle driving on a straight lane; need to adjust based on other cars and obstacles
+     */
+    public Acceleration getAccelerationStraightFor(Vehicle vehicle) {
+        
+        int laneNum = states.get(vehicles.indexOf(vehicle));
+        boolean isAlong = laneNum % 2 == 0; // true: horizontal, false: vertical
+        boolean centerOccupied = false;
+        
+        ArrayList<Double> positions = new ArrayList<Double>();
+        
+        if(isAlong) {
+            
+            for(int i=0; i < states.size(); i++) {
+                
+                if(states.get(i) == laneNum) {
+                    positions.add(vehicles.get(i).getPosition().getXPosition());
+                }
+                
+                centerOccupied = centerOccupied || states.get(i) == -1;
+                
+            }
+            
+        } else {
+            
+            for(int i=0; i < states.size(); i++) {
+                
+                if(states.get(i) == laneNum) {
+                    positions.add(vehicles.get(i).getPosition().getYPosition());
+                }
+                
+                centerOccupied = centerOccupied || states.get(i) == -1;
+                
+            }
+            
+        }
+        
+        if(centerOccupied) {
+            
+            if(isAlong) {
+                
+                positions.add(position.getXPosition() - laneWidth);
+                positions.add(position.getXPosition() + laneWidth);
+                
+            } else {
+                
+                positions.add(position.getYPosition() - laneWidth);
+                positions.add(position.getYPosition() + laneWidth);
+                
+            }
+            
+        }
+        
+        Collections.sort(positions);
+        
+        Double[] p = new Double[positions.size()];
+        
+        positions.toArray(p);
+        
+        System.out.println(Arrays.toString(p));
+//        System.out.println(laneNum);
+        
+        return new Acceleration(0, 0);
+    }
+    
+    /**
+     * 
+     * @param vehicle
      * @return the acceleration for the vehicle in this crossroad
      */
     public Acceleration getAccelerationFor(Vehicle vehicle) {
         
+        int index = vehicles.indexOf(vehicle);
+        
         if(inCenter(vehicle)) {
-            return this.getAccelerationTurning(vehicle);
+            
+            states.set(index, Integer.valueOf(-1));
+            return this.getAccelerationTurningFor(vehicle);
+            
         }
-//        
-//        assign to lane and get acceleration
-//            
-        return new Acceleration(0, 0);
+        
+        if(states.get(vehicles.indexOf(vehicle)) == -1) {
+            states.set(index, Integer.valueOf(vehicle.getDestination()));
+        }
+        
+        return getAccelerationStraightFor(vehicle);
     }
     
 }

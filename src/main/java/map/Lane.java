@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 3.4,
-        lastModified = "04/03/2020",
+        currentRevision = 3.5,
+        lastModified = "04/06/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -33,12 +33,14 @@ public class Lane {
     private Size size;
     private Position position;
     private double orientation;
+    private Crossroad crossroad;
     
-    public Lane(Size size, Position position, double orientation) {
+    public Lane(Size size, Position position, double orientation, Crossroad crossroad) {
         
         this.size = size;
         this.position = position;
         this.orientation = orientation;
+        this.crossroad = crossroad;
         
     }
     
@@ -152,6 +154,10 @@ public class Lane {
     
     public void setOrientation(double orientation) {
         this.orientation = orientation;
+    }
+    
+    public Crossroad getCrossroad() {
+        return crossroad;
     }
 
     /**

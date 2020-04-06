@@ -13,8 +13,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8,
-        lastModified = "04/05/2020",
+        currentRevision = 8.1,
+        lastModified = "04/06/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -34,7 +34,7 @@ public class Main {
     public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER; //meter
     public static final double FRAME_ALONG = PANEL_ALONG;
     public static final double FRAME_ACROSS = PANEL_ACROSS;
-    public static final double INTERVAL = 1. / 128;
+    public static final double INTERVAL = 1. / 256;
     public static final double THRESHOLD = 0.5;
     
     public static ArrayList<Obstacle> getObstaclesList(HashMap obstaclesMap) {
@@ -50,7 +50,8 @@ public class Main {
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
-        crossRoad.addCar(1, 0);
+        crossRoad.addCar(1, 2);
+        crossRoad.addCar(0, 2);
     
 //        HashMap obstaclesMap = new HashMap();
 //        
@@ -75,7 +76,7 @@ public class Main {
             @Override
             public void run() {
 
-                Frame frame = new Frame(false, 512);
+                Frame frame = new Frame(false, 1024);
                 
                 frame.addVehicles(crossRoad.getVehicles());
 //                frame.addObstacles(obstaclesList);

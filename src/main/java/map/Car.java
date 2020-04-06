@@ -11,14 +11,14 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6,
-        lastModified = "04/05/2020",
+        currentRevision = 6.1,
+        lastModified = "04/06/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
     
     public static final Color COLOR = new Color(227, 86, 77);
-    public static final double MAX_VELOCITY_MAGNITUDE = 60;
+    public static final double MAX_VELOCITY_MAGNITUDE = 20; //meters per second
     public static final double MAX_ACCELERATION_MAGNITUDE = 8;
     public static final double BOUNDING_BOX_FACTOR_ALONG = 1.5;
     public static final double BOUNDING_BOX_FACTOR_ACROSS = 1.5;
