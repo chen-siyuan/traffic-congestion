@@ -34,7 +34,7 @@ public class Main {
     public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER; //meter
     public static final double FRAME_ALONG = PANEL_ALONG;
     public static final double FRAME_ACROSS = PANEL_ACROSS;
-    public static final double INTERVAL = 0.001;
+    public static final double INTERVAL = 1. / 128;
     public static final double THRESHOLD = 0.5;
     
     public static ArrayList<Obstacle> getObstaclesList(HashMap obstaclesMap) {
@@ -50,7 +50,7 @@ public class Main {
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
-        crossRoad.addCar(0, 3);
+        crossRoad.addCar(1, 0);
     
 //        HashMap obstaclesMap = new HashMap();
 //        
@@ -75,7 +75,7 @@ public class Main {
             @Override
             public void run() {
 
-                Frame frame = new Frame(false, 75);
+                Frame frame = new Frame(false, 512);
                 
                 frame.addVehicles(crossRoad.getVehicles());
 //                frame.addObstacles(obstaclesList);

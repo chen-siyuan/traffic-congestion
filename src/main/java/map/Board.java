@@ -164,22 +164,13 @@ public class Board extends JPanel implements Runnable {
             graphics2D.drawImage(imageBuffer, 0, 0, this);
         
             File file = new File(Main.OUTPUT_ADDRESS
-                    + String.format("TRAFFIC_CONGESTION_FRAME_%0" + Integer.toString(Integer.toString(frameNumber).length()) + "d.png", frameCount));
+                    + String.format("FRAME_%0" + Integer.toString(Integer.toString(frameNumber).length()) + "d.png", frameCount));
             
             try {
                 ImageIO.write(imageBuffer, "PNG", file);
             } catch (IOException e) {
                 
                 System.out.printf("ERROR WRITING IMAGE: %s", e.getMessage());
-                System.exit(0);
-                
-            }
-            
-            frameCount++;
-            
-            if(frameCount == frameNumber) {
-                
-                System.out.println("IMAGES GENERATION COMPLETED");
                 System.exit(0);
                 
             }
@@ -192,6 +183,15 @@ public class Board extends JPanel implements Runnable {
             
             vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
             obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
+            
+        }
+        
+        frameCount++;
+        
+        if(frameCount == frameNumber) {
+            
+            System.out.println(record ? "IMAGES GENERATION COMPLETED." : "SIMULATION COMPLETED.");
+            System.exit(0);
             
         }
         
