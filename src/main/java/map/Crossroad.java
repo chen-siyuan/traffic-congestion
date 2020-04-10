@@ -6,17 +6,18 @@
 package map;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 5,
-        lastModified = "04/06/2020",
+        currentRevision = 6,
+        lastModified = "04/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
+    
+    public static final double RANGE_OF_INTEREST = 10.;
     
     private double laneWidth;
     private Position position;
@@ -190,6 +191,7 @@ public class Crossroad {
         int laneNum = states.get(vehicles.indexOf(vehicle));
         boolean isAlong = laneNum % 2 == 0; // true: horizontal, false: vertical
         boolean centerOccupied = false;
+        double thisPosition = 0;
         
         ArrayList<Double> positions = new ArrayList<Double>();
         
@@ -205,6 +207,8 @@ public class Crossroad {
                 
             }
             
+            thisPosition = vehicle.getPosition().getXPosition();
+            
         } else {
             
             for(int i=0; i < states.size(); i++) {
@@ -216,6 +220,8 @@ public class Crossroad {
                 centerOccupied = centerOccupied || states.get(i) == -1;
                 
             }
+            
+            thisPosition = vehicle.getPosition().getYPosition();
             
         }
         
@@ -237,14 +243,64 @@ public class Crossroad {
         
         Collections.sort(positions);
         
-        Double[] p = new Double[positions.size()];
+        int index = positions.indexOf(thisPosition);
         
-        positions.toArray(p);
+        double frontGap;
+        double backGap;
         
-        System.out.println(Arrays.toString(p));
-//        System.out.println(laneNum);
+        if(laneNum > 1) {
+            
+            frontGap = thisPosition - (index > 0 ? positions.get(index - 1) : Double.MIN_VALUE);
+            backGap = (index < positions.size() -1 ? positions.get(index + 1) : Double.MAX_VALUE) - thisPosition;
+            
+        } else {
+            
+            frontGap = (index < positions.size() -1 ? positions.get(index + 1) : Double.MAX_VALUE) - thisPosition;
+            backGap = thisPosition - (index > 0 ? positions.get(index - 1) : Double.MIN_VALUE);
+            
+        }
+        
+        // If there is no vehicle in front then accelerate if possible
+        
+        if(frontGap > RANGE_OF_INTEREST) {
+            
+            if(vehicle.getClass().getName() == "map.Car") {
+                
+                if(vehicle.getVelocity().getMagnitude() < Car.MAX_VELOCITY_MAGNITUDE) {
+                    return new Acceleration(Car.MAX_ACCELERATION_MAGNITUDE, vehicle.getVelocity().getOrientation());
+                } else {
+                    return new Acceleration(0, 0);
+                }
+                
+            }
+            
+        }
+        
+        // Given that there is a vehicle in front, decelerate if there is no vehicle at back and if possible
+        
+        if(backGap > RANGE_OF_INTEREST) {
+            
+            if(vehicle.getClass().getName() == "map.Car") {
+                
+                if(vehicle.getVelocity().getMagnitude() > 0) {
+                    return new Acceleration(-Car.MAX_ACCELERATION_MAGNITUDE, vehicle.getVelocity().getOrientation());
+                } else {
+                    return new Acceleration(0, 0);
+                }
+                
+            }
+            
+        }
+        
+        // Given that there are vehicles both in front and at back, balance
         
         return new Acceleration(0, 0);
+        
+//        System.out.print(frontPosition);
+//        System.out.print(" ");
+//        System.out.println(backPosition);
+//        
+//        return new Acceleration(0, 0);
     }
     
     /**
