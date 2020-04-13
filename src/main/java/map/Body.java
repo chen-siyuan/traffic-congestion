@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.2,
-        lastModified = "04/03/2020",
+        currentRevision = 4.3,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Body {
@@ -55,7 +55,6 @@ public abstract class Body {
     private Size size;
     private Position position;
     private Velocity velocity;
-    private Acceleration acceleration;
 
     /**
      * The Body class describes all objects that have a size, a position, and a velocity
@@ -70,8 +69,7 @@ public abstract class Body {
         this.size = size;
         this.position = position;
         this.velocity = velocity;
-        this.acceleration = getAcceleration();
-        
+
     }
     
     /**

@@ -11,8 +11,8 @@ import java.util.Arrays;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 4.2,
-        lastModified = "02/14/2020",
+        currentRevision = 4.3,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Path {
@@ -54,7 +54,7 @@ public class Path {
     }
     
     public void setPositions(Position... args) {
-        this.positions = (ArrayList)Arrays.asList(args);
+        this.positions = (ArrayList<Position>)Arrays.asList(args);
     }
     
     public void setPositions(ArrayList<Position> positions) {

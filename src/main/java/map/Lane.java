@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 3.5,
-        lastModified = "04/06/2020",
+        currentRevision = 3.6,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -33,7 +33,7 @@ public class Lane {
     private Size size;
     private Position position;
     private double orientation;
-    private Crossroad crossroad;
+    private final Crossroad crossroad;
     
     public Lane(Size size, Position position, double orientation, Crossroad crossroad) {
         

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6.1,
-        lastModified = "04/06/2020",
+        currentRevision = 6.2,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -30,30 +30,6 @@ public class Car extends Vehicle {
     public static final double SPEED = 20;
     public static final double ORIENTATION = Math.toRadians(45);
 
-    public static Car[] getCarsArray(int numCars) {
-        
-        Car[] cars = new Car[numCars];
-        
-        for(int i=0; i < numCars; i++) {
-            cars[i] = new Car(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
-                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI));
-        }
-        
-        return cars;
-    }
-    
-    public static ArrayList<Car> getCarsList(int numCars) {
-        
-        ArrayList<Car> cars = new ArrayList<Car>();
-        
-        for(int i=0; i < numCars; i++) {
-            cars.add(new Car(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
-                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI)));
-        }
-        
-        return cars;
-    }
-    
     public Car() {
         this(new Size(ALONG, ACROSS), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
     }

@@ -11,8 +11,8 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 6,
-        lastModified = "04/10/2020",
+        currentRevision = 6.1,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
@@ -21,7 +21,7 @@ public class Crossroad {
     
     private double laneWidth;
     private Position position;
-    private ArrayList<Lane> lanes;
+    private final ArrayList<Lane> lanes;
     private ArrayList<Vehicle> vehicles;
     private ArrayList<Obstacle> obstacles;
     private ArrayList<Integer> states; // -1 for turning, 0, 1, 2, 3 for the lanes they are in
@@ -79,8 +79,8 @@ public class Crossroad {
     /**
      * Create a new Car in this Crossroad with origin and destination set. The origin could not be the same as the destination
      * 
-     * @param origin
-     * @param destination 
+     * @param origin 0, 1, 2, or 3
+     * @param destination 0, 1, 2, or 3
      */
     public void addCar(int origin, int destination) {
         
@@ -118,7 +118,7 @@ public class Crossroad {
         car.setCrossroad(this);
         
         vehicles.add(car);
-        states.add(Integer.valueOf((origin < 2) ? (origin + 2) : (origin - 2)));
+        states.add((origin < 2) ? (origin + 2) : (origin - 2));
         
     }
     
@@ -314,13 +314,13 @@ public class Crossroad {
         
         if(inCenter(vehicle)) {
             
-            states.set(index, Integer.valueOf(-1));
+            states.set(index, -1);
             return this.getAccelerationTurningFor(vehicle);
             
         }
         
         if(states.get(vehicles.indexOf(vehicle)) == -1) {
-            states.set(index, Integer.valueOf(vehicle.getDestination()));
+            states.set(index, vehicle.getDestination());
         }
         
         return getAccelerationStraightFor(vehicle);

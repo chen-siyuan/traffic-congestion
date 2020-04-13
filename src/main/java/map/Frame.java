@@ -12,18 +12,18 @@ import javax.swing.JFrame;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.3,
-        lastModified = "04/03/2020",
+        currentRevision = 3.4,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
     
-    private Board board;
-    private boolean record;
-    private int frameNumber;
+    private final Board board;
+    private final boolean record;
+    private final int frameNumber;
     
     public Frame(boolean record, int frameNumber) {
-        
+
         this.record = record;
         this.frameNumber = frameNumber;
         

@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.3,
-        lastModified = "04/05/2020",
+        currentRevision = 8.4,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
@@ -34,8 +34,8 @@ public class Board extends JPanel implements Runnable {
     private Thread animator;
     private ArrayList<Vehicle> vehicles;
     private ArrayList<Obstacle> obstacles;
-    private boolean record;
-    private int frameNumber;
+    private final boolean record;
+    private final int frameNumber;
     private int frameCount;
     
     private BufferedImage carImage;

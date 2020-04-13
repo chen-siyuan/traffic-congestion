@@ -13,8 +13,8 @@ import java.util.HashMap;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.2,
-        lastModified = "04/10/2020",
+        currentRevision = 8.3,
+        lastModified = "04/13/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -37,13 +37,8 @@ public class Main {
     public static final double INTERVAL = 1. / 256;
     public static final double THRESHOLD = 0.5;
     
-    public static ArrayList<Obstacle> getObstaclesList(HashMap obstaclesMap) {
-        
-        ArrayList<Obstacle> obstaclesList = new ArrayList<Obstacle>();
-        
-        obstaclesList.addAll(Pedestrian.getPedestriansList((int)obstaclesMap.get("pedestrian")));
-        
-        return obstaclesList;
+    public static ArrayList<Obstacle> getObstaclesList(HashMap<String, Integer> obstaclesMap) {
+        return new ArrayList<>(Pedestrian.getPedestriansList(obstaclesMap.get("pedestrian")));
     }
     
     public static void main(String[] args) {
@@ -55,7 +50,7 @@ public class Main {
         crossRoad.addCar(3, 2);
         crossRoad.addCar(0, 2);
     
-//        HashMap obstaclesMap = new HashMap();
+//        HashMap<String, Integer> obstaclesMap = new HashMap();
 //        
 //        obstaclesMap.put("pedestrian", 1);
 //        
@@ -73,21 +68,16 @@ public class Main {
 //                new Position(15, 7),
 //                new Position(20, 7)));
         
-        EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(() -> {
 
-            @Override
-            public void run() {
+            Frame frame = new Frame(false, 10240);
 
-                Frame frame = new Frame(false, 10240);
-                
-                frame.addVehicles(crossRoad.getVehicles());
+            frame.addVehicles(crossRoad.getVehicles());
 //                frame.addObstacles(obstaclesList);
-                
-                frame.initUI();
-                frame.setVisible(true);
 
-            }
-            
+            frame.initUI();
+            frame.setVisible(true);
+
         });
 
     }
