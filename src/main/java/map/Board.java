@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,8 +23,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.4,
-        lastModified = "04/13/2020",
+        currentRevision = 8.5,
+        lastModified = "04/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
@@ -49,7 +51,6 @@ public class Board extends JPanel implements Runnable {
      */
     public Board(boolean record, int frameNumber) {
 
-        setBackground(Main.BOARD_COLOR);
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER)));
         
@@ -101,15 +102,11 @@ public class Board extends JPanel implements Runnable {
     }
     
     public void addVehicles(Vehicle[] vehicles) {
-        for(Vehicle vehicle: vehicles) {
-            this.vehicles.add(vehicle);
-        }
+        Collections.addAll(this.vehicles, vehicles);
     }
     
     public void addVehicles(ArrayList<Vehicle> vehicles) {
-        for(Vehicle vehicle: vehicles) {
-            this.vehicles.add(vehicle);
-        }
+        this.vehicles.addAll(vehicles);
     }
     
     public void addObstacle(Obstacle obstacle) {
@@ -117,20 +114,16 @@ public class Board extends JPanel implements Runnable {
     }
     
     public void addObstacles(Obstacle[] obstacles) {
-        for(Obstacle obstacle: obstacles) {
-            this.obstacles.add(obstacle);
-        }
+        this.obstacles.addAll(Arrays.asList(obstacles));
     }
     
     public void addObstacles(ArrayList<Obstacle> obstacles) {
-        for(Obstacle obstacle: obstacles) {
-            this.obstacles.add(obstacle);
-        }
+        this.obstacles.addAll(obstacles);
     }
     
     public void passTime() {
-        vehicles.forEach((vehicle) -> vehicle.passTime());
-        obstacles.forEach((obstacle) -> obstacle.passTime());
+        vehicles.forEach(Vehicle::passTime);
+        obstacles.forEach(Body::passTime);
     }
     
     public void addNotify() {
@@ -152,7 +145,7 @@ public class Board extends JPanel implements Runnable {
             
             BufferedImage imageBuffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         
-            Graphics2D imageBufferGraphics2D = (Graphics2D)imageBuffer.createGraphics();
+            Graphics2D imageBufferGraphics2D = imageBuffer.createGraphics();
             
             imageBufferGraphics2D.drawImage(backgroundImage, 0, 0,
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
@@ -164,7 +157,7 @@ public class Board extends JPanel implements Runnable {
             graphics2D.drawImage(imageBuffer, 0, 0, this);
         
             File file = new File(Main.OUTPUT_ADDRESS
-                    + String.format("FRAME_%0" + Integer.toString(Integer.toString(frameNumber).length()) + "d.png", frameCount));
+                    + String.format("FRAME_%0" + Integer.toString(frameNumber).length() + "d.png", frameCount));
             
             try {
                 ImageIO.write(imageBuffer, "PNG", file);
@@ -199,7 +192,7 @@ public class Board extends JPanel implements Runnable {
     
     /**
      * 
-     * @param graphics the graphics object to draw vehicles on
+     * @param graphics2D the graphics object to draw vehicles on
      * @param vehicle the vehicle to draw
      */
     private void drawVehicle(Graphics2D graphics2D, Vehicle vehicle) {

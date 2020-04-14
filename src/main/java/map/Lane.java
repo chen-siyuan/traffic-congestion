@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 3.6,
-        lastModified = "04/13/2020",
+        currentRevision = 4,
+        lastModified = "04/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -22,13 +22,13 @@ public class Lane {
     /**
      * determines which side the range of detection extends toward
      */
-    public static boolean LEFT_DETECTION = false;
+    public static boolean RIGHT_DETECTION = true;
     
     /**
      * This factor denotes the relative width of the extended portion of the lane that is being used for detection
      * Note: doesn't include its original width; need to add 1 to get total size
      */
-    public static final double DETECTION_RANGE_FACTOR = 1.;
+    public static final double DETECTION_RANGE_FACTOR = 2.;
     
     private Size size;
     private Position position;
@@ -66,11 +66,11 @@ public class Lane {
      */
     public Position getDetectionPosition() {
         
-        double angle = orientation + (LEFT_DETECTION ? 1 : -1) * Math.PI / 2;
+        double angle = orientation + (RIGHT_DETECTION ? 1 : -1) * Math.PI / 2;
         
         return new Position(
-                position.getXPosition() + Math.cos(angle) * getDetectionSize().getAcross() * DETECTION_RANGE_FACTOR / 2,
-                position.getYPosition() + Math.sin(angle) * getDetectionSize().getAcross() * DETECTION_RANGE_FACTOR / 2);
+                position.getXPosition() + Math.cos(angle) * size.getAcross() * DETECTION_RANGE_FACTOR / 2,
+                position.getYPosition() + Math.sin(angle) * size.getAcross() * DETECTION_RANGE_FACTOR / 2);
     }
     
     public ArrayList<Position> getCornerPositions() {

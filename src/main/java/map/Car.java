@@ -11,27 +11,24 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6.2,
-        lastModified = "04/13/2020",
+        currentRevision = 6.3,
+        lastModified = "04/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
     
-    public static final Color COLOR = new Color(227, 86, 77);
-    public static final double MAX_VELOCITY_MAGNITUDE = 20; //meters per second
-    public static final double MAX_ACCELERATION_MAGNITUDE = 8;
+    public static final double MAX_VELOCITY_MAGNITUDE = 15; //meters per second
+    public static final double MAX_ACCELERATION_MAGNITUDE = 20;
     public static final double BOUNDING_BOX_FACTOR_ALONG = 1.5;
     public static final double BOUNDING_BOX_FACTOR_ACROSS = 1.5;
     
     public static final double ALONG = 4;
     public static final double ACROSS = 1.8;
-    public static final double XPOS = 0;
-    public static final double YPOS = 0;
     public static final double SPEED = 20;
     public static final double ORIENTATION = Math.toRadians(45);
 
     public Car() {
-        this(new Size(ALONG, ACROSS), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION));
+        this(new Size(ALONG, ACROSS), new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.PANEL_ACROSS), new Velocity(SPEED, ORIENTATION));
     }
     
     public Car(Position position, Velocity velocity) {
@@ -80,13 +77,7 @@ public class Car extends Vehicle {
     }
 
     public Acceleration getAcceleration() {
-        
-        if(this.getCrossroad() == null) {
-            return new Acceleration(0, 0);
-        } else {
-            return this.getCrossroad().getAccelerationFor(this);
-        }
-        
+        return this.getCrossroad().getAccelerationFor(this);
     }
     
     public Size getBoundingBoxSize() {

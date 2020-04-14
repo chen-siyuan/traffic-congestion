@@ -8,8 +8,8 @@ package map;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.2,
-        lastModified = "04/03/2020",
+        currentRevision = 4.3,
+        lastModified = "04/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Position {
@@ -18,41 +18,16 @@ public class Position {
         return Math.sqrt(Math.pow(position1.getXPosition() - position2.getXPosition(), 2)
                 + Math.pow(position1.getYPosition() - position2.getYPosition(), 2));
     }
-    
+
+    /**
+     *
+     * @param position1 p1
+     * @param position2 p2
+     * @return the angle of p2 with respect to p1
+     */
     public static double orientationBetween(Position position1, Position position2) {
         return Math.atan2((position2.getYPosition() - position1.getYPosition()),
                 (position2.getXPosition() - position1.getXPosition()));
-    }
-    
-    public static double distanceToRectangleAtAnAngle(Position pointPosition, double orientation, Position rectanglePosition, Size rectangleSize) {
-        
-        double xLowerBound = rectanglePosition.xPosition - rectangleSize.getAlong() / 2;
-        double xUpperBound = rectanglePosition.xPosition + rectangleSize.getAlong() / 2;
-        double yLowerBound = rectanglePosition.yPosition - rectangleSize.getAcross() / 2;
-        double yUpperBound = rectanglePosition.yPosition + rectangleSize.getAcross() / 2;
-        
-        if(orientation == Math.PI * 0 / 2) {
-            return xUpperBound - pointPosition.xPosition;
-        }
-        
-        if(orientation == Math.PI * 1 / 2) {
-            return yUpperBound - pointPosition.yPosition;
-        }
-        
-        if(orientation == Math.PI * 2 / 2) {
-            return -1 * (xLowerBound - pointPosition.xPosition);
-        }
-        
-        if(orientation == Math.PI * 3 / 2) {
-            return -1 * (yLowerBound - pointPosition.yPosition);
-        }
-        
-        double xLowerDistance = (xLowerBound - pointPosition.xPosition) / Math.cos(orientation);
-        double xUpperDistance = (xUpperBound - pointPosition.xPosition) / Math.cos(orientation);
-        double yLowerDistance = (yLowerBound - pointPosition.yPosition) / Math.sin(orientation);
-        double yUpperDistance = (yUpperBound - pointPosition.yPosition) / Math.sin(orientation);
-        
-        return 0;
     }
     
     private double xPosition;
@@ -128,5 +103,10 @@ public class Position {
         return Math.atan2((otherPosition.getYPosition() - yPosition),
                 (otherPosition.getXPosition() - xPosition));
     }
-    
+
+    @Override
+    public String toString() {
+        return String.format("Position: %.2f %.2f", xPosition * Main.PIXELS_PER_METER, yPosition * Main.PIXELS_PER_METER);
+    }
+
 }

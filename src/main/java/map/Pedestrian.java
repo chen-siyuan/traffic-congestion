@@ -11,51 +11,22 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 5.3,
-        lastModified = "04/03/2020",
+        currentRevision = 5.4,
+        lastModified = "04/14/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Pedestrian extends Obstacle {
     
     public static final Color COLOR = new Color(255, 138, 0);
-    public static final double MAX_VELOCITY_MAGNITUDE = 12;
     public static final double BOUNDING_BOX_FACTOR_ALONG = 1.1;
     public static final double BOUNDING_BOX_FACTOR_ACROSS = 1.1;
     
-    public static final double ALONG = 4.5;
-    public static final double ACROSS = 1.8;
+    public static final double ALONG = 1;
+    public static final double ACROSS = 1;
     public static final double XPOS = 75;
     public static final double YPOS = 75;
     public static final double SPEED = 15;
     public static final double ORIENTATION = Math.toRadians(45);
-    
-    public static Pedestrian[] getPedestriansArray(int numPedestrians) {
-        
-        Pedestrian[] pedestrians = new Pedestrian[numPedestrians];
-        
-        for(int i=0; i < numPedestrians; i++) {
-            pedestrians[i] = new Pedestrian(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
-                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI), 
-                    new Path(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.PANEL_ACROSS),
-                            new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.PANEL_ACROSS)));
-        }
-        
-        return pedestrians;
-    }
-    
-    public static ArrayList<Pedestrian> getPedestriansList(int numPedestrians) {
-        
-        ArrayList<Pedestrian> pedestrians = new ArrayList<>();
-        
-        for(int i=0; i < numPedestrians; i++) {
-            pedestrians.add(new Pedestrian(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.FRAME_ACROSS),
-                    new Velocity(Math.random() * MAX_VELOCITY_MAGNITUDE / 2, Math.random() * 2 * Math.PI), 
-                    new Path(new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.PANEL_ACROSS),
-                            new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.PANEL_ACROSS))));
-        }
-        
-        return pedestrians;
-    }
     
     public Pedestrian() {
         this(new Size(ALONG, ACROSS), new Position(XPOS, YPOS), new Velocity(SPEED, ORIENTATION), new Path());
@@ -102,7 +73,9 @@ public class Pedestrian extends Obstacle {
                 getSize().getAcross() * BOUNDING_BOX_FACTOR_ACROSS);
     }
     
-    public void passTime() { 
+    public void passTime() {
+
+        if(getPath() == null) return;
         
         if(getPosition().onSegment(this.getPath().getCurrentPosition(), this.getPath().getNextPosition())) {
             
