@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Car extends Vehicle {
     
     public static final double MAX_VELOCITY_MAGNITUDE = 15; //meters per second
-    public static final double MAX_ACCELERATION_MAGNITUDE = 20;
+    public static final double MAX_ACCELERATION_MAGNITUDE = 10;
     public static final double BOUNDING_BOX_FACTOR_ALONG = 1.5;
     public static final double BOUNDING_BOX_FACTOR_ACROSS = 1.5;
     

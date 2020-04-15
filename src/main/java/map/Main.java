@@ -26,7 +26,7 @@ public class Main {
     public static final Color FAST_VEHICLE_COLOR = new Color(255, 255, 255);
     
     public static final double PIXELS_PER_METER = 80. / 3;
-    public static final double MILLISECONDS_PER_SECOND = 3000; //use this to change display render speed
+    public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
 
     public static final double PANEL_ALONG = 1000. / PIXELS_PER_METER; //meter
     public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER; //meter
@@ -41,7 +41,7 @@ public class Main {
         
         crossRoad.addCar(1, 0);
         crossRoad.addCar(2, 0);
-//        crossRoad.addCar(3, 0);
+        crossRoad.addCar(3, 0);
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 //
