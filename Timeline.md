@@ -7,6 +7,7 @@ We would emphasize on the programming part for the next two weeks. We would focu
 - Avoid collision within the center of the intersection.
 - Test the system.
 - Write the support program which feeds data into the simulation.
+- **Decide which method to use to present the program: outside file input or java swing dialog box input?**
 
 ## Data
 
