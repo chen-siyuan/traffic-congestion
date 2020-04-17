@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="trafficCongestion" />
+        <module name="traffic-congestion" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="trafficCongestion" target="11" />
+      <module name="traffic-congestion" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
