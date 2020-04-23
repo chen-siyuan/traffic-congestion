@@ -5,7 +5,7 @@
  */
 package map;
 
-import java.awt.Color;
+import java.awt.*;
 
 @ClassPreamble (
         author = "Daniel Chen",
@@ -57,8 +57,6 @@ public abstract class Vehicle extends Body {
     
     public abstract Acceleration getAcceleration();
     
-    public abstract Size getBoundingBoxSize();
-    
     public abstract Color getColor();
     
     public String toString() {
@@ -69,12 +67,17 @@ public abstract class Vehicle extends Body {
     }
     
     public void passTime() {
+
+        Velocity velocity = getVelocity();
+        Acceleration acceleration = getAcceleration();
         
-        double xMagnitude = getVelocity().getXMagnitude() + getAcceleration().getXMagnitude() * Main.INTERVAL;
-        double yMagnitude = getVelocity().getYMagnitude() + getAcceleration().getYMagnitude() * Main.INTERVAL;
+        double xMagnitude = velocity.getXMagnitude() + acceleration.getXMagnitude() * Main.INTERVAL;
+        double yMagnitude = velocity.getYMagnitude() + acceleration.getYMagnitude() * Main.INTERVAL;
         
         double newMagnitude = Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2));
         double newOrientation = Math.atan2(yMagnitude, xMagnitude);
+
+        newMagnitude = Math.min(newMagnitude, Car.MAX_VELOCITY_MAGNITUDE);
 
         setVelocity(new Velocity(newMagnitude, newOrientation));
         

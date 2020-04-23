@@ -16,9 +16,10 @@ import java.util.Collections;
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
-    
-    public static final double RANGE_OF_INTEREST = 12.;
-    public static final double RANGE_OF_BUFFER = 4.;
+
+    public static final double RANGE_OF_SPAWN = 12.;
+    public static final double RANGE_OF_INTEREST = 8.;
+    public static final double RANGE_OF_BUFFER = 100.;
     
     private final double laneWidth;
     private final Position position;
@@ -26,6 +27,7 @@ public class Crossroad {
     private final ArrayList<Vehicle> vehicles;
     private final ArrayList<Obstacle> obstacles;
     private final ArrayList<Integer> states; // -1 for turning, 0, 1, 2, 3 for the lanes they are in
+    private final int[] spawns;
     
     public Crossroad(Position position, double laneWidth) {
         
@@ -34,16 +36,16 @@ public class Crossroad {
 
         lanes = new Lane[4];
 
-        lanes[0] = new Lane(new Size(Main.FRAME_ALONG, laneWidth),
+        lanes[0] = new Lane(new Size(Main.FRAME_ALONG + RANGE_OF_BUFFER * 2, laneWidth),
                 new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() + 0.5 * laneWidth),
                 Math.PI * 0 / 2, this);
-        lanes[1] = new Lane(new Size(Main.FRAME_ACROSS, laneWidth),
+        lanes[1] = new Lane(new Size(Main.FRAME_ACROSS + RANGE_OF_BUFFER * 2, laneWidth),
                 new Position(position.getXPosition() - 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS),
                 Math.PI * 1 / 2, this);
-        lanes[2] = new Lane(new Size(Main.FRAME_ALONG, laneWidth),
+        lanes[2] = new Lane(new Size(Main.FRAME_ALONG + RANGE_OF_BUFFER * 2, laneWidth),
                 new Position(0.5 * Main.FRAME_ALONG, position.getYPosition() - 0.5 * laneWidth),
                 Math.PI * 2 / 2, this);
-        lanes[3] = new Lane(new Size(Main.FRAME_ACROSS, laneWidth),
+        lanes[3] = new Lane(new Size(Main.FRAME_ACROSS + RANGE_OF_BUFFER * 2, laneWidth),
                 new Position(position.getXPosition() + 0.5 * laneWidth, 0.5 * Main.FRAME_ACROSS),
                 Math.PI * 3 / 2, this);
 
@@ -51,12 +53,8 @@ public class Crossroad {
         obstacles = new ArrayList<>();
         states = new ArrayList<>();
 
-//        for(Position p: lanes[0].getDetectionCornerPositions()) {
-//            System.out.println(p);
-//        }
-//
-//        System.out.println(lanes[0].inRange(new Position(0. / Main.PIXELS_PER_METER, 550. / Main.PIXELS_PER_METER)));
-        
+        spawns = new int[4];
+
     }
     
     public double getLaneWidth() {
@@ -70,6 +68,33 @@ public class Crossroad {
     public Lane[] getLanes() {
         return lanes;
     }
+
+    public Position getSpawnPosition(int origin) {
+
+        double xPosition;
+        double yPosition;
+
+        switch(origin) {
+            case 0:
+                xPosition = Main.FRAME_ALONG + spawns[0]++ * RANGE_OF_SPAWN;
+                yPosition = position.getYPosition() - laneWidth * 0.5;
+                return new Position(xPosition, yPosition);
+            case 1:
+                xPosition = position.getXPosition() + laneWidth * 0.5;
+                yPosition = Main.FRAME_ACROSS + spawns[1]++ * RANGE_OF_SPAWN;
+                return new Position(xPosition, yPosition);
+            case 2:
+                xPosition = - spawns[2]++ * RANGE_OF_SPAWN;
+                yPosition = position.getYPosition() + laneWidth * 0.5;
+                return new Position(xPosition, yPosition);
+            case 3:
+                xPosition = position.getXPosition() - laneWidth * 0.5;
+                yPosition = - spawns[3]++ * RANGE_OF_SPAWN;
+                return new Position(xPosition, yPosition);
+        }
+
+        return null;
+    }
     
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
@@ -81,32 +106,33 @@ public class Crossroad {
      * @param origin 0, 1, 2, or 3
      * @param destination 0, 1, 2, or 3
      */
-    public void addCar(int origin, int destination) {
+    public void spawnCar(int origin, int destination) {
         
-        if(origin == destination) {
-            System.out.println("ERROR: ORIGIN IS THE SAME AS THE DESTINATION.");
-            System.exit(0);
-        }
-        
+        if(origin == destination) destination = (origin + 2) % 4;
+
         Car car = new Car();
         car.getVelocity().setMagnitude(5 + 10 * Math.random());
         
         switch(origin) {
             
             case 0:
-                car.setPosition(new Position(Main.FRAME_ALONG + RANGE_OF_BUFFER, position.getYPosition() - laneWidth * 0.5));
+//                car.setPosition(new Position(Main.FRAME_ALONG + RANGE_OF_BUFFER, position.getYPosition() - laneWidth * 0.5));
+                car.setPosition(getSpawnPosition(0));
                 car.getVelocity().setOrientation(Math.PI * 2 / 2);
                 break;
             case 1:
-                car.setPosition(new Position(position.getXPosition() + laneWidth * 0.5, Main.FRAME_ACROSS + RANGE_OF_BUFFER));
+//                car.setPosition(new Position(position.getXPosition() + laneWidth * 0.5, Main.FRAME_ACROSS + RANGE_OF_BUFFER));
+                car.setPosition(getSpawnPosition(1));
                 car.getVelocity().setOrientation(Math.PI * 3 / 2);
                 break;
             case 2:
-                car.setPosition(new Position(-RANGE_OF_BUFFER, position.getYPosition() + laneWidth * 0.5));
+//                car.setPosition(new Position(-RANGE_OF_BUFFER, position.getYPosition() + laneWidth * 0.5));
+                car.setPosition(getSpawnPosition(2));
                 car.getVelocity().setOrientation(Math.PI * 0 / 2);
                 break;
             case 3:
-                car.setPosition(new Position(position.getXPosition() - laneWidth * 0.5, -RANGE_OF_BUFFER));
+//                car.setPosition(new Position(position.getXPosition() - laneWidth * 0.5, -RANGE_OF_BUFFER));
+                car.setPosition(getSpawnPosition(3));
                 car.getVelocity().setOrientation(Math.PI * 1 / 2);
                 break;
                 
@@ -193,18 +219,16 @@ public class Crossroad {
         
         if(isAlong) {
             
-            for(int i=0; i < states.size(); i++) {
-                if(states.get(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false)) positions.add(vehicles.get(i).getPosition().getXPosition());
-            }
-            
+            for(int i=0; i < states.size(); i++) if(states.get(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))
+                positions.add(vehicles.get(i).getPosition().getXPosition());
+
             thisPosition = vehicle.getPosition().getXPosition();
             
         } else {
             
-            for(int i=0; i < states.size(); i++) {
-                if(states.get(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false)) positions.add(vehicles.get(i).getPosition().getYPosition());
-            }
-            
+            for(int i=0; i < states.size(); i++) if(states.get(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))
+                positions.add(vehicles.get(i).getPosition().getYPosition());
+
             thisPosition = vehicle.getPosition().getYPosition();
             
         }
@@ -213,65 +237,60 @@ public class Crossroad {
 
         int index = positions.indexOf(thisPosition);
 
-        if(vehicle.getOrigin() == 2) {
-            System.out.print(positions.size() + " ");
-            System.out.println(index);
-        }
-
-        
         double frontGap;
         double backGap;
         
         if(laneNum > 1) {
-            frontGap = thisPosition - (index > 0 ? positions.get(index - 1) : Double.MIN_VALUE);
-            backGap = (index < positions.size() -1 ? positions.get(index + 1) : Double.MAX_VALUE) - thisPosition;
+            frontGap = thisPosition - (index > 0 ? positions.get(index - 1) : -Double.MAX_VALUE);
+            backGap = (index < positions.size() -1 ? positions.get(index + 1) : Double.MAX_VALUE / 2) - thisPosition;
         } else {
-            frontGap = (index < positions.size() -1 ? positions.get(index + 1) : Double.MAX_VALUE) - thisPosition;
-            backGap = thisPosition - (index > 0 ? positions.get(index - 1) : Double.MIN_VALUE);
+            frontGap = (index < positions.size() -1 ? positions.get(index + 1) : Double.MAX_VALUE / 2) - thisPosition;
+            backGap = thisPosition - (index > 0 ? positions.get(index - 1) : -Double.MAX_VALUE / 2);
         }
-        
-        // If there is no vehicle in front then accelerate to max speed if possible
-        
-        if(frontGap > RANGE_OF_INTEREST) {
-            
-            if(vehicle.getClass().getName().equals("map.Car")) {
-                
-                if(vehicle.getVelocity().getMagnitude() < Car.MAX_VELOCITY_MAGNITUDE) {
+
+//        if(laneNum == 1) System.out.println(frontGap);
+
+        if("map.Car".equals(vehicle.getClass().getName())) {
+
+            // If there is no vehicle in front then accelerate to max speed if possible
+
+            if(frontGap > RANGE_OF_INTEREST) {
+                if (vehicle.getVelocity().getMagnitude() < Car.MAX_VELOCITY_MAGNITUDE) {
                     return new Acceleration(Car.MAX_ACCELERATION_MAGNITUDE, vehicle.getVelocity().getOrientation());
                 } else {
                     return new Acceleration(0, 0);
                 }
-                
             }
-            
-        }
-        
-        // Given that there is a vehicle in front, decelerate if there is no vehicle at back and if possible
-        
-        if(backGap > RANGE_OF_INTEREST) {
-            
-            if(vehicle.getClass().getName().equals("map.Car")) {
-                
-                if(vehicle.getVelocity().getMagnitude() > 0.5) {
-                    System.out.print(vehicle.getOrigin());
-                    System.out.println("d");
-                    return new Acceleration(-Car.MAX_ACCELERATION_MAGNITUDE * 2, vehicle.getVelocity().getOrientation());
+
+            // Given that there is a vehicle in front, decelerate if there is no vehicle at back and if possible
+
+            if(backGap > RANGE_OF_INTEREST) {
+                if(vehicle.getVelocity().getMagnitude() > Car.MAX_ACCELERATION_MAGNITUDE * Main.INTERVAL) {
+                    return new Acceleration(Car.MAX_ACCELERATION_MAGNITUDE, Math.PI + vehicle.getVelocity().getOrientation());
                 } else {
                     return new Acceleration(0, 0);
                 }
-                
             }
-            
-        }
-        
-        // Given that there are vehicles both in front and at back, balance
 
-        if(backGap > frontGap) {
-            return new Acceleration(-Car.MAX_ACCELERATION_MAGNITUDE * 2, vehicle.getVelocity().getOrientation());
-        } else {
-            return new Acceleration(Car.MAX_ACCELERATION_MAGNITUDE, vehicle.getVelocity().getOrientation());
+            // Given that there are vehicles both in front and at back, balance
+
+            if(backGap > frontGap) {
+                if(vehicle.getVelocity().getMagnitude() > Car.MAX_ACCELERATION_MAGNITUDE * Main.INTERVAL) {
+                    return new Acceleration(Car.MAX_ACCELERATION_MAGNITUDE, Math.PI + vehicle.getVelocity().getOrientation());
+                } else {
+                    return new Acceleration(0, 0);
+                }
+            } else {
+                if (vehicle.getVelocity().getMagnitude() < Car.MAX_VELOCITY_MAGNITUDE) {
+                    return new Acceleration(Car.MAX_ACCELERATION_MAGNITUDE, vehicle.getVelocity().getOrientation());
+                } else {
+                    return new Acceleration(0, 0);
+                }
+            }
+
         }
 
+        return null;
     }
     
     /**

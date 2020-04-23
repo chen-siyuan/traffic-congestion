@@ -7,9 +7,7 @@ package trafficInterfaceTEST;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
-import javafx.scene.shape.Circle;
 
 /**
  *
@@ -23,7 +21,7 @@ public class Animator extends JPanel{
     final int SPEED = 20;
     ArrayList<int[]> allCir = new ArrayList<>();
     
-    ImageIcon bg = new ImageIcon("/Users/williamw/NetBeansProjects/TrafficInterface/src/trafficinterface/FinalBG.png");
+    ImageIcon bg = new ImageIcon("assets/Background_final.png");
     
     public Animator() {
     }
@@ -37,9 +35,9 @@ public class Animator extends JPanel{
         super.paintComponent(g);
         this.setBackground(Color.GREEN);
         bg.paintIcon(this, g, 0, 0);
-        for (int i = 0; i < allCir.size(); i++) {
+        for (int[] ints : allCir) {
             g.setColor(new Color(255, 130, 0));
-            g.fillOval(allCir.get(i)[0], allCir.get(i)[1], 40, 40);
+            g.fillOval(ints[0], ints[1], 40, 40);
         }
     }
 
@@ -54,8 +52,8 @@ public class Animator extends JPanel{
         repaint();
         
         double delay = (3600.0 / (double)amount) * 1000.0;
-        System.out.println(delay);
-        System.out.println(counter);
+//        System.out.println(delay);
+//        System.out.println(counter);
         if (counter > delay) {
             Spawner s = new Spawner();
             s.spawn();

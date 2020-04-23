@@ -7,8 +7,6 @@ package map;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 @ClassPreamble (
         author = "Daniel Chen",
@@ -39,9 +37,35 @@ public class Main {
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
-        crossRoad.addCar(1, 0);
-        crossRoad.addCar(2, 0);
-        crossRoad.addCar(3, 0);
+        crossRoad.spawnCar(1, 0);
+        crossRoad.spawnCar(2, 0);
+        crossRoad.spawnCar(3, 0);
+        crossRoad.spawnCar(0, 2);
+        crossRoad.spawnCar(0, 3);
+        crossRoad.spawnCar(1, 2);
+        crossRoad.spawnCar(1, 3);
+        crossRoad.spawnCar(3, 2);
+        crossRoad.spawnCar(0, 1);
+        crossRoad.spawnCar(2, 3);
+        crossRoad.spawnCar(1, 2);
+        crossRoad.spawnCar(0, 1);
+        crossRoad.spawnCar(2, 1);
+        crossRoad.spawnCar(2, 1);
+        crossRoad.spawnCar(1, 2);
+        crossRoad.spawnCar(0, 3);
+        crossRoad.spawnCar(0, 3);
+        crossRoad.spawnCar(0, 3);
+//        crossRoad.spawnCar(0, 3);
+//        crossRoad.spawnCar(0, 3);
+//        crossRoad.spawnCar(0, 3);
+//        crossRoad.spawnCar(0, 1);
+//        crossRoad.spawnCar(0, 3);
+//        crossRoad.spawnCar(0, 2);
+//        crossRoad.spawnCar(0, 3);
+//        crossRoad.spawnCar(0, 2);
+//        crossRoad.spawnCar(0, 1);
+//        crossRoad.spawnCar(0, 3);
+//        crossRoad.spawnCar(0, 1);
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 //
@@ -61,7 +85,7 @@ public class Main {
         
         EventQueue.invokeLater(() -> {
 
-            Frame frame = new Frame(false, 1024);
+            Frame frame = new Frame(false, 1048576);
 
             frame.addVehicles(crossRoad.getVehicles());
 //            frame.addObstacles(obstaclesList);

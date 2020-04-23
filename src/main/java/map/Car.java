@@ -18,17 +18,15 @@ import java.util.ArrayList;
 public class Car extends Vehicle {
     
     public static final double MAX_VELOCITY_MAGNITUDE = 15; //meters per second
-    public static final double MAX_ACCELERATION_MAGNITUDE = 10;
-    public static final double BOUNDING_BOX_FACTOR_ALONG = 1.5;
-    public static final double BOUNDING_BOX_FACTOR_ACROSS = 1.5;
-    
+    public static final double MAX_ACCELERATION_MAGNITUDE = 15;
+
     public static final double ALONG = 4;
     public static final double ACROSS = 1.8;
     public static final double SPEED = 20;
     public static final double ORIENTATION = Math.toRadians(45);
 
     public Car() {
-        this(new Size(ALONG, ACROSS), new Position(Math.random() * Main.PANEL_ALONG, Math.random() * Main.PANEL_ACROSS), new Velocity(SPEED, ORIENTATION));
+        this(new Size(ALONG, ACROSS), new Position(Math.random() * Main.FRAME_ALONG, Math.random() * Main.FRAME_ACROSS), new Velocity(SPEED, ORIENTATION));
     }
     
     public Car(Position position, Velocity velocity) {
@@ -80,9 +78,4 @@ public class Car extends Vehicle {
         return this.getCrossroad().getAccelerationFor(this);
     }
     
-    public Size getBoundingBoxSize() {
-        return new Size(getSize().getAlong() * BOUNDING_BOX_FACTOR_ALONG,
-                getSize().getAcross() * BOUNDING_BOX_FACTOR_ACROSS);
-    }
-
 }
