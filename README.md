@@ -19,7 +19,8 @@ Daniel has the following responsibilities:
 
 William has the following responsibilities:
 
-- Designing GUI components, e.g., graphics for vehicles and obstacles.
+- Designing graphics, e.g., images for vehicles and obstacles.
+- Designing and Developing GUI interface for demonstration, e.g., Slider, Textfield.
 - Developing major classes and components, e.g., Obstacle.
 - Determining the signaling mechanism for vehicles and obstacles.
 - Testing existing mechanisms through extreme case analysis.
