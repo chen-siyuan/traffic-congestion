@@ -10,6 +10,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javafx.scene.shape.Circle;
+import map.ClassPreamble;
+
+@ClassPreamble (
+        author = "WilliamWu",
+        date = "04/23/2020",
+        currentRevision = 1,
+        lastModified = "04/23/2020",
+        lastModifiedBy = "WilliamWu"
+)
 
 /**
  *
