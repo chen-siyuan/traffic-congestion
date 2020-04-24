@@ -10,8 +10,8 @@ import java.awt.*;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6,
-        lastModified = "04/05/2020",
+        currentRevision = 6.1,
+        lastModified = "04/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {

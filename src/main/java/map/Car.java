@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6.3,
-        lastModified = "04/14/2020",
+        currentRevision = 6.4,
+        lastModified = "04/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
