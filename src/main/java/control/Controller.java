@@ -1,29 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trafficInterfaceTEST;
+package control;
+
+import map.ClassPreamble;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import map.ClassPreamble;
 
 @ClassPreamble (
-        author = "WilliamWu",
+        author = "William Wu",
         date = "04/23/2020",
         currentRevision = 1,
         lastModified = "04/23/2020",
-        lastModifiedBy = "WilliamWu"
+        lastModifiedBy = "William Wu"
 )
-/**
- *
- * @author williamw
- */
 public class Controller extends JPanel {
     
     JSlider amountSlider, TSSlider;

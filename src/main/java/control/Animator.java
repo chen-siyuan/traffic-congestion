@@ -1,18 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trafficInterfaceTEST;
+package control;
+
+import map.ClassPreamble;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-/**
- *
- * @author williamw
- */
+@ClassPreamble(
+        author = "William Wu",
+        date = "04/23/2020",
+        currentRevision = 1,
+        lastModified = "04/23/2020",
+        lastModifiedBy = "William Wu"
+)
 public class Animator extends JPanel{
     
     int amount = 15000;
