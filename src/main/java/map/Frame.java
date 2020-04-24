@@ -1,8 +1,5 @@
 package map;
 
-import control.Controller;
-import control.Slider;
-
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -10,34 +7,36 @@ import javax.swing.JFrame;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 3.4,
-        lastModified = "04/13/2020",
+        currentRevision = 4,
+        lastModified = "04/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
-    
-    private final Board board;
+
+    private final DisplayPanel displayPanel;
+    private final ControlPanel controlPanel;
     private final boolean record;
 
     public Frame(boolean record, int frameNumber) {
         this.record = record;
-        board = new Board(record, frameNumber);
+        displayPanel = new DisplayPanel(record, frameNumber);
+        controlPanel = new ControlPanel();
     }
     
     public void addVehicles(ArrayList<Vehicle> vehicles) {
-        board.addVehicles(vehicles);
+        displayPanel.addVehicles(vehicles);
     }
     
     public void addObstacle(Obstacle obstacle) {
-        board.addObstacle(obstacle);
+        displayPanel.addObstacle(obstacle);
     }
     
     public void addObstacles(Obstacle[] obstacles) {
-        board.addObstacles(obstacles);
+        displayPanel.addObstacles(obstacles);
     }
     
     public void addObstacles(ArrayList<Obstacle> obstacles) {
-        board.addObstacles(obstacles);
+        displayPanel.addObstacles(obstacles);
     }
     
     public void initUI() {
@@ -68,14 +67,14 @@ public class Frame extends JFrame {
         gridBagConstraints.weighty = 1;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        add(board, gridBagConstraints);
+        add(displayPanel, gridBagConstraints);
 
-        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        add(new Slider(), gridBagConstraints);
+        add(controlPanel, gridBagConstraints);
 
         pack();
 

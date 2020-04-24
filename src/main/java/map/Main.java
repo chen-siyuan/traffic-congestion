@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.5,
+        currentRevision = 8.6,
         lastModified = "04/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -21,10 +21,11 @@ public class Main {
     public static final double PIXELS_PER_METER = 80. / 3;
     public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
 
-    public static final double PANEL_ALONG = 1000. / PIXELS_PER_METER; //meter
-    public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER; //meter
-    public static final double FRAME_ALONG = 1200. / PIXELS_PER_METER;
-    public static final double FRAME_ACROSS = PANEL_ACROSS;
+    public static final double FRAME_BUFFER = 25. / PIXELS_PER_METER;
+    public static final double PANEL_ALONG = 1000. / PIXELS_PER_METER;
+    public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER;
+    public static final double FRAME_ALONG = 1075. / PIXELS_PER_METER;
+    public static final double FRAME_ACROSS = 622. / PIXELS_PER_METER;
     public static final double INTERVAL = 1. / 256;
     public static final double THRESHOLD = 0.5;
     
@@ -48,19 +49,19 @@ public class Main {
         crossRoad.spawnCar(2, 1);
         crossRoad.spawnCar(1, 2);
         crossRoad.spawnCar(0, 3);
+        crossRoad.spawnCar(1, 0);
+        crossRoad.spawnCar(1, 0);
+        crossRoad.spawnCar(2, 3);
+        crossRoad.spawnCar(2, 3);
+        crossRoad.spawnCar(2, 0);
+        crossRoad.spawnCar(3, 1);
+        crossRoad.spawnCar(3, 3);
+        crossRoad.spawnCar(3, 2);
+        crossRoad.spawnCar(0, 0);
+        crossRoad.spawnCar(1, 2);
+        crossRoad.spawnCar(3, 1);
         crossRoad.spawnCar(0, 3);
-        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 1);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 2);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 2);
-//        crossRoad.spawnCar(0, 1);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 1);
+        crossRoad.spawnCar(0, 1);
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 //

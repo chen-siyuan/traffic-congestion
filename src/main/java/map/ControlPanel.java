@@ -1,31 +1,24 @@
-package control;
-
-import map.ClassPreamble;
+package map;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
 @ClassPreamble(
         author = "William Wu",
         date = "04/23/2020",
-        currentRevision = 1,
+        currentRevision = 2,
         lastModified = "04/23/2020",
-        lastModifiedBy = "William Wu"
+        lastModifiedBy = "Daniel Chen"
 )
-public class Slider extends JPanel {
+public class ControlPanel extends JPanel {
     
     private final JSlider slider;
     private final JTextField textField;
-    private JPanel panel;
-    
-    private double playSpeed;
 
-    public Slider() {
+    private int rawSpeed;
+
+    public ControlPanel() {
         
         slider = new JSlider(JSlider.VERTICAL, -40 ,40, 0);
         textField = new JTextField("0");
@@ -50,13 +43,14 @@ public class Slider extends JPanel {
         slider.setPaintLabels(true);
 
         slider.addChangeListener(event -> {
-            playSpeed = slider.getValue();
-            textField.setText(Double.toString(Math.random()));
+            rawSpeed = slider.getValue();
+            textField.setText(String.format("%.2f", convertToPlaySpeed(rawSpeed)));
         });
 
         textField.addActionListener(event -> {
-            playSpeed = Integer.parseInt(textField.getText());
-            slider.setValue(3);
+            rawSpeed = convertToRawSpeed(checkInputRawSpeed(textField.getText()));
+            slider.setValue(rawSpeed);
+            textField.setText(String.format("%.2f", convertToPlaySpeed(rawSpeed)));
         });
 
         setLayout(new GridBagLayout());
@@ -84,5 +78,27 @@ public class Slider extends JPanel {
         add(slider, gridBagConstraints);
 
     }
-    
+
+    public double convertToPlaySpeed(int rawSpeed) {
+        return Math.pow(10, rawSpeed / 40.);
+    }
+
+    public int convertToRawSpeed(double playSpeed) {
+
+        if(playSpeed > 10.) return 40;
+        if(playSpeed < 0.1) return -40;
+
+        return (int)Math.round(Math.log10(playSpeed) * 40);
+    }
+
+    public double checkInputRawSpeed(String string) {
+
+        try {
+            return Double.parseDouble(string);
+        } catch(NumberFormatException exception) {
+            return 1.;
+        }
+
+    }
+
 }

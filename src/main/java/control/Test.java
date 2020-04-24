@@ -8,11 +8,11 @@ import java.awt.*;
 @ClassPreamble (
         author = "William Wu",
         date = "04/23/2020",
-        currentRevision = 1,
+        currentRevision = 1.1,
         lastModified = "04/23/2020",
-        lastModifiedBy = "William Wu"
+        lastModifiedBy = "Daniel Chen"
 )
-public class Main {
+public class Test {
     
     static int tickSpeed = 20;
     static int amount = 15000;

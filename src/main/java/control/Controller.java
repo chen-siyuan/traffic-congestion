@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
 @ClassPreamble (
         author = "William Wu",
         date = "04/23/2020",
-        currentRevision = 1,
+        currentRevision = 1.1,
         lastModified = "04/23/2020",
-        lastModifiedBy = "William Wu"
+        lastModifiedBy = "Daniel Chen"
 )
 public class Controller extends JPanel {
     
@@ -134,8 +134,5 @@ public class Controller extends JPanel {
             TSSlider.setValue(TS);
         }
     }
-    
-    
+
 }
-
-

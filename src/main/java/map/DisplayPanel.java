@@ -18,11 +18,11 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.6,
+        currentRevision = 9,
         lastModified = "04/23/2020",
         lastModifiedBy = "Daniel Chen"
 )
-public class Board extends JPanel implements Runnable {
+public class DisplayPanel extends JPanel implements Runnable {
 
     public static boolean vehicleOnBoard(Vehicle vehicle) {
         return vehicle.getPosition().getXPosition() >= 0
@@ -50,7 +50,7 @@ public class Board extends JPanel implements Runnable {
      * @param record whether or not the board is recorded by frame
      * @param frameNumber total number of frames. insignificant if record is set to false
      */
-    public Board(boolean record, int frameNumber) {
+    public DisplayPanel(boolean record, int frameNumber) {
 
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER)));
@@ -174,6 +174,10 @@ public class Board extends JPanel implements Runnable {
             
             vehicles.forEach((vehicle) -> {if(vehicleOnBoard(vehicle)) drawVehicle(graphics2D, vehicle);});
             obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
+
+//            graphics2D.drawImage(backgroundImage, 300, 300,
+//                    (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
+//                    (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
 
         }
         
