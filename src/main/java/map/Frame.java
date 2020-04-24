@@ -1,6 +1,9 @@
 package map;
 
-import java.awt.Dimension;
+import control.Controller;
+import control.Slider;
+
+import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -15,27 +18,10 @@ public class Frame extends JFrame {
     
     private final Board board;
     private final boolean record;
-    private final int frameNumber;
-    
-    public Frame(boolean record, int frameNumber) {
 
+    public Frame(boolean record, int frameNumber) {
         this.record = record;
-        this.frameNumber = frameNumber;
-        
         board = new Board(record, frameNumber);
-        
-    }
-    
-    public Board getBoard() {
-        return board;
-    }
-    
-    public void addVehicle(Vehicle vehicle) {
-        board.addVehicle(vehicle);
-    }
-    
-    public void addVehicles(Vehicle[] vehicles) {
-        board.addVehicles(vehicles);
     }
     
     public void addVehicles(ArrayList<Vehicle> vehicles) {
@@ -55,17 +41,43 @@ public class Frame extends JFrame {
     }
     
     public void initUI() {
-        
-        add(board);
-        
-        setPreferredSize(new Dimension((int)Math.round(Main.FRAME_ALONG * Main.PIXELS_PER_METER),
-                (int)Math.round(Main.FRAME_ACROSS * Main.PIXELS_PER_METER)));
-        setResizable(false);
-        pack();
-        
+
         setTitle("Simulation");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        if(record) {
+            setPreferredSize(new Dimension(
+                    (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
+                    (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER)));
+        } else {
+            setPreferredSize(new Dimension(
+                    (int)Math.round(Main.FRAME_ALONG * Main.PIXELS_PER_METER),
+                    (int)Math.round(Main.FRAME_ACROSS * Main.PIXELS_PER_METER)));
+        }
+
+        setResizable(false);
+
+//        add(board);
+
+        setLayout(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 10;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        add(board, gridBagConstraints);
+
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        add(new Slider(), gridBagConstraints);
+
+        pack();
 
     }
 

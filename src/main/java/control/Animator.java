@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class Animator extends JPanel{
     
     int amount = 15000;
-    int tickSpeed = 20;
-    int counter = 0;
+    int interval;
+    int totalTimeElapsed = 0;
     final int SPEED = 20;
     ArrayList<int[]> allCir = new ArrayList<>();
     
@@ -26,9 +26,9 @@ public class Animator extends JPanel{
     public Animator() {
     }
     
-    public void getData(int a, int ts){
+    public void getData(int a, int interval){
         this.amount = a;
-        this.tickSpeed = ts;
+        this.interval = interval;
     }
     
     public void paintComponent (Graphics g) {
@@ -42,6 +42,7 @@ public class Animator extends JPanel{
     }
 
     public void update() {
+
         for (int i = 0; i < allCir.size(); i++) {
             int[] temp = allCir.get(i);
             temp[0] += temp[2] * SPEED;
@@ -54,14 +55,15 @@ public class Animator extends JPanel{
         double delay = (3600.0 / (double)amount) * 1000.0;
 //        System.out.println(delay);
 //        System.out.println(counter);
-        if (counter > delay) {
+        if (totalTimeElapsed > delay) {
             Spawner s = new Spawner();
             s.spawn();
-            counter = 0;
+            totalTimeElapsed = 0;
         }
         else {
-            counter += tickSpeed;
+            totalTimeElapsed += interval;
         }
+
     }
     
     class Spawner {

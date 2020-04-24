@@ -23,14 +23,20 @@ import javax.swing.JPanel;
         lastModifiedBy = "Daniel Chen"
 )
 public class Board extends JPanel implements Runnable {
+
+    public static boolean vehicleOnBoard(Vehicle vehicle) {
+        return vehicle.getPosition().getXPosition() >= 0
+                && vehicle.getPosition().getXPosition() <= Main.PANEL_ALONG
+                && vehicle.getPosition().getYPosition() >= 0
+                && vehicle.getPosition().getYPosition() <= Main.PANEL_ACROSS;
+    }
     
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
     public static final String PEDESTRIAN_IMAGE_FILE_NAME = "Pedestrian.png";
     public static final String BACKGROUND_IMAGE_FILE_NAME = "Background_final.png";
-    
-    private Thread animator;
-    private ArrayList<Vehicle> vehicles;
-    private ArrayList<Obstacle> obstacles;
+
+    private final ArrayList<Vehicle> vehicles;
+    private final ArrayList<Obstacle> obstacles;
     private final boolean record;
     private final int frameNumber;
     private int frameCount;
@@ -49,8 +55,8 @@ public class Board extends JPanel implements Runnable {
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER)));
         
-        vehicles = new ArrayList<Vehicle>();
-        obstacles = new ArrayList<Obstacle>();
+        vehicles = new ArrayList<>();
+        obstacles = new ArrayList<>();
         
         carImage = null;
         
@@ -125,7 +131,7 @@ public class Board extends JPanel implements Runnable {
         
         super.addNotify();
 
-        animator = new Thread(this);
+        Thread animator = new Thread(this);
         animator.start();
 
     }
@@ -139,7 +145,6 @@ public class Board extends JPanel implements Runnable {
         if(record) {
             
             BufferedImage imageBuffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-        
             Graphics2D imageBufferGraphics2D = imageBuffer.createGraphics();
             
             imageBufferGraphics2D.drawImage(backgroundImage, 0, 0,
@@ -157,10 +162,8 @@ public class Board extends JPanel implements Runnable {
             try {
                 ImageIO.write(imageBuffer, "PNG", file);
             } catch (IOException e) {
-                
                 System.out.printf("ERROR WRITING IMAGE: %s", e.getMessage());
                 System.exit(0);
-                
             }
             
         } else {
@@ -169,18 +172,16 @@ public class Board extends JPanel implements Runnable {
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
             
-            vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
+            vehicles.forEach((vehicle) -> {if(vehicleOnBoard(vehicle)) drawVehicle(graphics2D, vehicle);});
             obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
-            
+
         }
         
         frameCount++;
         
         if(frameCount == frameNumber) {
-            
             System.out.println(record ? "IMAGES GENERATION COMPLETED." : "SIMULATION COMPLETED.");
             System.exit(0);
-            
         }
         
     }
@@ -191,8 +192,6 @@ public class Board extends JPanel implements Runnable {
      * @param vehicle the vehicle to draw
      */
     private void drawVehicle(Graphics2D graphics2D, Vehicle vehicle) {
-        
-//        Graphics2D graphics2D = (Graphics2D)graphics;
         
         AffineTransform originalTransform = graphics2D.getTransform();
         
@@ -219,8 +218,6 @@ public class Board extends JPanel implements Runnable {
                 (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER),
                 vehicle.getColor(),
                 null);
-        
-        // Color could be passed as arg 5 to specify the color of transparent pixels in the image.
         
         graphics2D.setTransform(originalTransform);
         Toolkit.getDefaultToolkit().sync();
@@ -278,21 +275,15 @@ public class Board extends JPanel implements Runnable {
 
             // I don't think this would happen
             if(correctedInterval < 0) {
-                
                 System.out.printf("WARNING: INTERVAL TOO SHORT: %d.\n", correctedInterval);
-//                System.exit(0);
                 correctedInterval = 1;
-                
             }
 
             try {
                 Thread.sleep(correctedInterval);
             } catch (InterruptedException e) {
-                
                 String msg = String.format("ERROR RUNNING THREAD: %s", e.getMessage());
-                
                 JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
-                
             }
             
             startTime = System.currentTimeMillis();

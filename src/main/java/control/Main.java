@@ -12,7 +12,7 @@ import java.awt.*;
         lastModified = "04/23/2020",
         lastModifiedBy = "William Wu"
 )
-public class TrafficInterface {
+public class Main {
     
     static int tickSpeed = 20;
     static int amount = 15000;

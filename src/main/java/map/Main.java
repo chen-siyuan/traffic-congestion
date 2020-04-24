@@ -23,7 +23,7 @@ public class Main {
 
     public static final double PANEL_ALONG = 1000. / PIXELS_PER_METER; //meter
     public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER; //meter
-    public static final double FRAME_ALONG = PANEL_ALONG;
+    public static final double FRAME_ALONG = 1200. / PIXELS_PER_METER;
     public static final double FRAME_ACROSS = PANEL_ACROSS;
     public static final double INTERVAL = 1. / 256;
     public static final double THRESHOLD = 0.5;
