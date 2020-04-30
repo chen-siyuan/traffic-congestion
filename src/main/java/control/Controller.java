@@ -120,21 +120,21 @@ public class Controller extends JPanel {
         gbc.gridy = 5;
         controlPanel.add(minSpeedTF, gbc);
         
-        gbc.fill = GridBagConstraints.NONE;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 6;
         controlPanel.add(startButton, gbc);
         
-        gbc.fill = GridBagConstraints.NONE;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 7;
         controlPanel.add(pauseButton, gbc);
         
-        gbc.fill = GridBagConstraints.NONE;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
