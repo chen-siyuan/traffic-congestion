@@ -1,138 +1,229 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package control;
 
-import map.ClassPreamble;
-
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import map.ClassPreamble;
 
 @ClassPreamble (
         author = "William Wu",
         date = "04/23/2020",
-        currentRevision = 1.1,
-        lastModified = "04/23/2020",
-        lastModifiedBy = "Daniel Chen"
+        currentRevision = 2,
+        lastModified = "04/30/2020",
+        lastModifiedBy = "William Wu"
 )
+
+/**
+ *
+ * @author williamw
+ */
 public class Controller extends JPanel {
     
-    JSlider amountSlider, TSSlider;
-    JTextField amountTF, TSTF;
-    JLabel amountLabel, TSLabel;
-    JPanel amounts, TSs;
+    JSlider ASSlider;
+    JTextField amountTF, maxSpeedTF, minSpeedTF;
+    JButton startButton, pauseButton, resetButton;
+    JLabel amountLabel, maxSpeedLabel, minSpeedLabel, ASLabel, ASFixedLabel;
+    JPanel controlPanel, ASPanel;
     
-    public int amount, TS;
+    public int amount, maxSpeed, minSpeed, AS;
+    private boolean start=false, pause=false, reset=false;
     
-    public Controller () {
+    public Controller (int amount, int maxSpeed, int minSpeed, int AS) {
         
-        amountSlider = new JSlider(JSlider.VERTICAL, 0 ,90000, 15000);
-        amountSlider.setMajorTickSpacing(5000);
-        amountSlider.setPaintTicks(true);
-        TSSlider = new JSlider(JSlider.VERTICAL, -15, 100, 0);
-        TSSlider.setMajorTickSpacing(5);
-        TSSlider.setPaintTicks(true);
+        this.amount = amount;
+        this.maxSpeed = maxSpeed;
+        this.minSpeed = minSpeed;
+        this.AS = AS;
         
-        amountTF = new JTextField("15000");
-        TSTF = new JTextField("20");
+        ASSlider = new JSlider(JSlider.VERTICAL, -3, 12, this.AS);
+        ASSlider.setMajorTickSpacing(1);
+        ASSlider.setPaintTicks(true);
+        
+        amountTF = new JTextField("" + amount);
+        maxSpeedTF = new JTextField("" + maxSpeed);
+        minSpeedTF = new JTextField("" + minSpeed);
+        
+        startButton = new JButton("Start");
+        pauseButton = new JButton("Pause");
+        resetButton = new JButton("Reset");
+        
+        Start s = new Start();
+        Pause p = new Pause();
+        Reset r = new Reset();
+        startButton.addActionListener(s);
+        pauseButton.addActionListener(p);
+        resetButton.addActionListener(r);
         
         amountLabel = new JLabel("Amount: ");
-        TSLabel = new JLabel("Tick Speed: ");
-        
-        event e = new event();
-        amountSlider.addChangeListener(e);
-        TSSlider.addChangeListener(e);
-        
-        action a = new action();
-        amountTF.addActionListener(a);
-        TSTF.addActionListener(a);
+        maxSpeedLabel = new JLabel("Max Speed kph: ");
+        minSpeedLabel = new JLabel("Min Speed kph: ");
+        ASFixedLabel = new JLabel("Animation Speed: ");
+        ASLabel = new JLabel("" + (1 + 0.25 * this.AS));
         
         this.setLayout(new GridLayout(1,2));
         
-        amounts = new JPanel();
-        TSs = new JPanel();
+        controlPanel = new JPanel();
+        ASPanel = new JPanel();
         
-        this.add(amounts);
-        this.add(TSs);
+        this.add(controlPanel);
+        this.add(ASPanel);
         
         
-        amounts.setLayout(new GridBagLayout());
-        TSs.setLayout(new GridBagLayout());
+        controlPanel.setLayout(new GridBagLayout());
+        ASPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 1;
-        gbc.weighty = 0;
+        gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        amounts.add(amountLabel, gbc);
+        controlPanel.add(amountLabel, gbc);
         
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.ipadx = 50;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         gbc.weighty = 0;
         gbc.gridx = 0;
         gbc.gridy = 1;
-        amounts.add(amountTF, gbc);
+        controlPanel.add(amountTF, gbc);
         
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipadx = 0;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 2;
-        amounts.add(amountSlider, gbc);
+        controlPanel.add(maxSpeedLabel, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+        gbc.weighty = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        controlPanel.add(maxSpeedTF, gbc);
         
         gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        controlPanel.add(minSpeedLabel, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+        gbc.weighty = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        controlPanel.add(minSpeedTF, gbc);
+        
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        controlPanel.add(startButton, gbc);
+        
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        controlPanel.add(pauseButton, gbc);
+        
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        controlPanel.add(resetButton, gbc);
+        
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         gbc.weighty = 0;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        TSs.add(TSLabel, gbc);
+        ASPanel.add(ASFixedLabel, gbc);
         
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.ipadx = 50;
+        gbc.fill = GridBagConstraints.CENTER;
         gbc.weightx = 1;
         gbc.weighty = 0;
         gbc.gridx = 0;
         gbc.gridy = 1;
-        TSs.add(TSTF, gbc);
+        ASPanel.add(ASLabel, gbc);
         
         gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipadx = 0;
         gbc.weightx = 1;
-        gbc.weighty = 1;
+        gbc.weighty = 3;
         gbc.gridx = 0;
         gbc.gridy = 2;
-        TSs.add(TSSlider, gbc);
+        ASPanel.add(ASSlider, gbc);
     }
     
-    public int getAmount() {
-        return amount;
+    public int[] getData() {
+        try{this.amount = Integer.parseInt(amountTF.getText());}
+        catch(Exception e) {amountTF.setText("15000");}
+        try{this.maxSpeed = Integer.parseInt(maxSpeedTF.getText());}
+        catch(Exception e) {maxSpeedTF.setText("70");}
+        try{this.minSpeed = Integer.parseInt(minSpeedTF.getText());}
+        catch(Exception e) {minSpeedTF.setText("5");}
+        int[] temp = {amount, maxSpeed, minSpeed};
+        System.out.println(amount);
+        return temp;
     }
     
-    public int getTS() {
-        return TS;
+    public boolean[] getButtons() {
+        boolean[] temp = {start, pause, reset};
+        return temp;
     }
     
-    class event implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            amount = amountSlider.getValue();
-            TS = TSSlider.getValue();
-            
-            amountTF.setText("" + amount);
-            TSTF.setText("" + (TS + 20));
-        }
+    public void setStart() {
+        start = false;
     }
     
-    public class action implements ActionListener {
-        public void actionPerformed(ActionEvent a) {
-            amount = Integer.parseInt(amountTF.getText());
-            TS = Integer.parseInt(TSTF.getText()) - 20;
-            
-            amountSlider.setValue(amount);
-            TSSlider.setValue(TS);
-        }
+    public void setPause() {
+        pause = false;
     }
+    
+    public void setReset() {
+        reset = false;
+    }
+    
+    public void setAll() {
+        start = false;
+        pause = false;
+        reset = false;
+    }
+    
+    public int getAS() {
+        AS = ASSlider.getValue();
+        ASLabel.setText("" + (1 + 0.25 * AS));
+        return AS;
+    }
+    
+    public class Start implements ActionListener{
 
+        public void actionPerformed(ActionEvent e) {
+            start = true;
+        }
+    }
+    
+    public class Pause implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+            pause = true;
+        }
+    }
+    
+    public class Reset implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+            reset = true;
+        }
+    }
 }
+
+
