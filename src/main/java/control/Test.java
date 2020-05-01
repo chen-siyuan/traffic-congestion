@@ -1,24 +1,40 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package control;
-
-import map.ClassPreamble;
 
 import javax.swing.*;
 import java.awt.*;
+import map.ClassPreamble;
 
 @ClassPreamble (
         author = "William Wu",
         date = "04/23/2020",
-        currentRevision = 1.1,
-        lastModified = "04/23/2020",
-        lastModifiedBy = "Daniel Chen"
+        currentRevision = 2,
+        lastModified = "04/30/2020",
+        lastModifiedBy = "William Wu"
 )
+
+/**
+ *
+ * @author williamw
+ */
 public class Test {
     
-    static int tickSpeed = 20;
+    static int AS = 0;
     static int amount = 15000;
-    static Animator animator = new Animator();
-    static Controller controller = new Controller();
+    static int maxSpeed = 70;
+    static int minSpeed = 5;
+    static Animator ani = new Animator(amount, maxSpeed, minSpeed, AS);
+    static Controller cont = new Controller(amount, maxSpeed, minSpeed, AS);
 
+    /**
+     * @param args the command line arguments
+     */
+    
+    
     public static void main(String[] args) throws InterruptedException {
         // TODO code application logic here
         JFrame frame = new JFrame("Traffic Test");
@@ -34,28 +50,46 @@ public class Test {
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        frame.add(animator, gbc);
+        frame.add(ani, gbc);
         gbc.fill = GridBagConstraints.VERTICAL;
         gbc.weightx = 0.5;
         gbc.weighty = 1;
         gbc.gridx = 1;
         gbc.gridy = 0;
-        frame.add(controller, gbc);
+        frame.add(cont, gbc);
         
         frame.setVisible(true);
         
         while(true){
             update();
-            Thread.sleep(tickSpeed);
+            Thread.sleep(1000/60);
         }
-
     }
     
     public static void update() {
-        amount = controller.getAmount();
-        tickSpeed = controller.getTS() + 20;
-        animator.getData(amount, tickSpeed);
-        animator.update();
+        int[] temp = cont.getData();
+        AS = cont.getAS();
+        boolean[] tempB = cont.getButtons();
+        if (tempB[0]) {
+            ani.unPause();
+            AS = cont.getAS();
+            cont.setAll();
+        }
+        else if (tempB[1]) {
+            ani.pause();
+            cont.setAll();
+        }
+        else if (tempB[2]) {
+            ani.reset(temp);
+            amount = temp[0];
+            maxSpeed = temp[1];
+            minSpeed = temp[2];
+            cont.setAll();
+        }
+        else {}
+        ani.getData(amount, maxSpeed, minSpeed);
+        ani.getAS(AS);
+        ani.update();
     }
     
 }
