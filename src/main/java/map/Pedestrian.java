@@ -6,8 +6,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 5.4,
-        lastModified = "04/14/2020",
+        currentRevision = 7,
+        lastModified = "04/30/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Pedestrian extends Obstacle {
@@ -68,7 +68,7 @@ public class Pedestrian extends Obstacle {
                 getSize().getAcross() * BOUNDING_BOX_FACTOR_ACROSS);
     }
     
-    public void passTime() {
+    public void passTime(double factor) {
 
         if(getPath() == null) return;
         
@@ -77,8 +77,8 @@ public class Pedestrian extends Obstacle {
             this.setVelocity(new Velocity(this.getVelocity().getMagnitude(),
                     this.getPath().getCurrentPosition().getOrientationToward(this.getPath().getNextPosition())));
             
-            this.setPosition(new Position(getPosition().getXPosition() + this.getVelocity().getXMagnitude() * Main.INTERVAL,
-                    getPosition().getYPosition() + this.getVelocity().getYMagnitude() * Main.INTERVAL));
+            this.setPosition(new Position(getPosition().getXPosition() + this.getVelocity().getXMagnitude() * Main.INTERVAL * factor,
+                    getPosition().getYPosition() + this.getVelocity().getYMagnitude() * Main.INTERVAL * factor));
             
         } else {
             
@@ -86,7 +86,7 @@ public class Pedestrian extends Obstacle {
             
             setPosition(this.getPath().getCurrentPosition());
             
-            passTime();
+            passTime(factor);
             
         }
 

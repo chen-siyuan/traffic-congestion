@@ -7,8 +7,8 @@ import java.util.Hashtable;
 @ClassPreamble(
         author = "William Wu",
         date = "04/23/2020",
-        currentRevision = 2,
-        lastModified = "04/23/2020",
+        currentRevision = 3,
+        lastModified = "04/30/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class ControlPanel extends JPanel {
@@ -45,12 +45,14 @@ public class ControlPanel extends JPanel {
         slider.addChangeListener(event -> {
             rawSpeed = slider.getValue();
             textField.setText(String.format("%.2f", convertToPlaySpeed(rawSpeed)));
+            Frame.factor = convertToPlaySpeed(rawSpeed);
         });
 
         textField.addActionListener(event -> {
             rawSpeed = convertToRawSpeed(checkInputRawSpeed(textField.getText()));
             slider.setValue(rawSpeed);
             textField.setText(String.format("%.2f", convertToPlaySpeed(rawSpeed)));
+            Frame.factor = convertToPlaySpeed(rawSpeed);
         });
 
         setLayout(new GridBagLayout());

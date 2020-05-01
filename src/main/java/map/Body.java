@@ -6,8 +6,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.3,
-        lastModified = "04/13/2020",
+        currentRevision = 4.4,
+        lastModified = "04/30/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Body {
@@ -133,6 +133,6 @@ public abstract class Body {
 
     public abstract String toString();
     
-    public abstract void passTime();
+    public abstract void passTime(double factor);
     
 }

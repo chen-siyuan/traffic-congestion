@@ -5,8 +5,8 @@ import java.awt.*;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6.1,
-        lastModified = "04/23/2020",
+        currentRevision = 6.2,
+        lastModified = "04/30/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
@@ -61,13 +61,15 @@ public abstract class Vehicle extends Body {
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
     
-    public void passTime() {
+    public void passTime(double factor) {
 
         Velocity velocity = getVelocity();
         Acceleration acceleration = getAcceleration();
+
+        double interval = Main.INTERVAL * factor;
         
-        double xMagnitude = velocity.getXMagnitude() + acceleration.getXMagnitude() * Main.INTERVAL;
-        double yMagnitude = velocity.getYMagnitude() + acceleration.getYMagnitude() * Main.INTERVAL;
+        double xMagnitude = velocity.getXMagnitude() + acceleration.getXMagnitude() * interval;
+        double yMagnitude = velocity.getYMagnitude() + acceleration.getYMagnitude() * interval;
         
         double newMagnitude = Math.sqrt(Math.pow(xMagnitude, 2) + Math.pow(yMagnitude, 2));
         double newOrientation = Math.atan2(yMagnitude, xMagnitude);
@@ -77,8 +79,8 @@ public abstract class Vehicle extends Body {
         setVelocity(new Velocity(newMagnitude, newOrientation));
         
         setPosition(new Position(
-                getPosition().getXPosition() + getVelocity().getXMagnitude() * Main.INTERVAL,
-                getPosition().getYPosition() + getVelocity().getYMagnitude() * Main.INTERVAL));
+                getPosition().getXPosition() + getVelocity().getXMagnitude() * interval,
+                getPosition().getYPosition() + getVelocity().getYMagnitude() * interval));
         
     }
     

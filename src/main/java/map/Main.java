@@ -6,8 +6,8 @@ import java.awt.EventQueue;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.6,
-        lastModified = "04/23/2020",
+        currentRevision = 8.7,
+        lastModified = "04/30/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -36,21 +36,21 @@ public class Main {
         crossRoad.spawnCar(2, 0);
         crossRoad.spawnCar(3, 0);
         crossRoad.spawnCar(0, 2);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(1, 2);
-//        crossRoad.spawnCar(1, 3);
-//        crossRoad.spawnCar(3, 2);
-//        crossRoad.spawnCar(0, 1);
-//        crossRoad.spawnCar(2, 3);
-//        crossRoad.spawnCar(1, 2);
-//        crossRoad.spawnCar(0, 1);
-//        crossRoad.spawnCar(2, 1);
-//        crossRoad.spawnCar(2, 1);
-//        crossRoad.spawnCar(1, 2);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(1, 0);
-//        crossRoad.spawnCar(1, 0);
-//        crossRoad.spawnCar(2, 3);
+        crossRoad.spawnCar(0, 3);
+        crossRoad.spawnCar(1, 2);
+        crossRoad.spawnCar(1, 3);
+        crossRoad.spawnCar(3, 2);
+        crossRoad.spawnCar(0, 1);
+        crossRoad.spawnCar(2, 3);
+        crossRoad.spawnCar(1, 2);
+        crossRoad.spawnCar(0, 1);
+        crossRoad.spawnCar(2, 1);
+        crossRoad.spawnCar(2, 1);
+        crossRoad.spawnCar(1, 2);
+        crossRoad.spawnCar(0, 3);
+        crossRoad.spawnCar(1, 0);
+        crossRoad.spawnCar(1, 0);
+        crossRoad.spawnCar(2, 3);
 //        crossRoad.spawnCar(2, 3);
 //        crossRoad.spawnCar(2, 0);
 //        crossRoad.spawnCar(3, 1);

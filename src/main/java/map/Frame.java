@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4,
-        lastModified = "04/23/2020",
+        currentRevision = 5,
+        lastModified = "04/30/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
@@ -16,6 +16,8 @@ public class Frame extends JFrame {
     private final DisplayPanel displayPanel;
     private final ControlPanel controlPanel;
     private final boolean record;
+
+    public static double factor = 1.;
 
     public Frame(boolean record, int frameNumber) {
         this.record = record;

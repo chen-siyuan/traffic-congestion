@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 9,
-        lastModified = "04/23/2020",
+        currentRevision = 10,
+        lastModified = "04/30/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class DisplayPanel extends JPanel implements Runnable {
@@ -122,9 +122,9 @@ public class DisplayPanel extends JPanel implements Runnable {
         this.obstacles.addAll(obstacles);
     }
     
-    public void passTime() {
-        vehicles.forEach(Vehicle::passTime);
-        obstacles.forEach(Body::passTime);
+    public void passTime(double factor) {
+        vehicles.forEach(vehicle -> vehicle.passTime(factor));
+        obstacles.forEach(body -> body.passTime(factor));
     }
     
     public void addNotify() {
@@ -271,7 +271,7 @@ public class DisplayPanel extends JPanel implements Runnable {
 
         while(true) {
 
-            passTime();
+            passTime(Frame.factor);
             repaint();
             
             timeDifference = System.currentTimeMillis() - startTime;
