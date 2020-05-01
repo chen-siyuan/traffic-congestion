@@ -32,35 +32,9 @@ public class Main {
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
-        crossRoad.spawnCar(1, 0);
-        crossRoad.spawnCar(2, 0);
-        crossRoad.spawnCar(3, 0);
-        crossRoad.spawnCar(0, 2);
-        crossRoad.spawnCar(0, 3);
-        crossRoad.spawnCar(1, 2);
-        crossRoad.spawnCar(1, 3);
-        crossRoad.spawnCar(3, 2);
-        crossRoad.spawnCar(0, 1);
-        crossRoad.spawnCar(2, 3);
-        crossRoad.spawnCar(1, 2);
-        crossRoad.spawnCar(0, 1);
-        crossRoad.spawnCar(2, 1);
-        crossRoad.spawnCar(2, 1);
-        crossRoad.spawnCar(1, 2);
-        crossRoad.spawnCar(0, 3);
-        crossRoad.spawnCar(1, 0);
-        crossRoad.spawnCar(1, 0);
-        crossRoad.spawnCar(2, 3);
-//        crossRoad.spawnCar(2, 3);
-//        crossRoad.spawnCar(2, 0);
-//        crossRoad.spawnCar(3, 1);
-//        crossRoad.spawnCar(3, 3);
-//        crossRoad.spawnCar(3, 2);
-//        crossRoad.spawnCar(0, 0);
-//        crossRoad.spawnCar(1, 2);
-//        crossRoad.spawnCar(3, 1);
-//        crossRoad.spawnCar(0, 3);
-//        crossRoad.spawnCar(0, 1);
+        for(int i=0; i < 40; i++) {
+            crossRoad.spawnCar((int)(Math.random() * 4), (int)(Math.random() * 4));
+        }
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 //
