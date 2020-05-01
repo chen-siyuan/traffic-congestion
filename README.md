@@ -2,6 +2,13 @@
 
 This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, consisting of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
 
+## TODO LIST
+
+1. Add in tangential acceleration so that there won't be cars turning extremely slowly.
+2. Prevent cars from occasionally driving backwards.
+3. Add in despawn effects.
+4. Read inputs from a file (how much cars to try to pass through the crossroad under an hour).
+
 ## Team Members & Individual Responsibilities
 
 ### Siyuan "Daniel" Chen - Team Captain, Programmer
