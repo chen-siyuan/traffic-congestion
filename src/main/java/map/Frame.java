@@ -19,14 +19,10 @@ public class Frame extends JFrame {
 
     public static double factor = 1.;
 
-    public Frame(boolean record, int frameNumber) {
+    public Frame(Crossroad crossroad, boolean record, int frameNumber) {
         this.record = record;
-        displayPanel = new DisplayPanel(record, frameNumber);
+        displayPanel = new DisplayPanel(crossroad, record, frameNumber);
         controlPanel = new ControlPanel();
-    }
-    
-    public void addVehicles(ArrayList<Vehicle> vehicles) {
-        displayPanel.addVehicles(vehicles);
     }
     
     public void addObstacle(Obstacle obstacle) {

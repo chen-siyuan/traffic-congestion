@@ -111,22 +111,18 @@ public class Crossroad {
         switch(origin) {
             
             case 0:
-//                car.setPosition(new Position(Main.FRAME_ALONG + RANGE_OF_BUFFER, position.getYPosition() - laneWidth * 0.5));
                 car.setPosition(getSpawnPosition(0));
                 car.getVelocity().setOrientation(Math.PI * 2 / 2);
                 break;
             case 1:
-//                car.setPosition(new Position(position.getXPosition() + laneWidth * 0.5, Main.FRAME_ACROSS + RANGE_OF_BUFFER));
                 car.setPosition(getSpawnPosition(1));
                 car.getVelocity().setOrientation(Math.PI * 3 / 2);
                 break;
             case 2:
-//                car.setPosition(new Position(-RANGE_OF_BUFFER, position.getYPosition() + laneWidth * 0.5));
                 car.setPosition(getSpawnPosition(2));
                 car.getVelocity().setOrientation(Math.PI * 0 / 2);
                 break;
             case 3:
-//                car.setPosition(new Position(position.getXPosition() - laneWidth * 0.5, -RANGE_OF_BUFFER));
                 car.setPosition(getSpawnPosition(3));
                 car.getVelocity().setOrientation(Math.PI * 1 / 2);
                 break;
@@ -140,6 +136,24 @@ public class Crossroad {
         vehicles.add(car);
         states.add((origin < 2) ? (origin + 2) : (origin - 2));
         
+    }
+
+    public static boolean couldDespawn(int index) {
+        return Math.random() < 0.001;
+    }
+
+    public void despawnCar() {
+
+        for(int i=0; i < vehicles.size(); i++) {
+
+            if(couldDespawn(i)) {
+                vehicles.remove(i);
+                states.remove(i);
+                i--;
+            }
+
+        }
+
     }
     
     public ArrayList<Vehicle> getVehicles() {

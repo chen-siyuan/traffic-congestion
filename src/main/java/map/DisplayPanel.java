@@ -35,7 +35,7 @@ public class DisplayPanel extends JPanel implements Runnable {
     public static final String PEDESTRIAN_IMAGE_FILE_NAME = "Pedestrian.png";
     public static final String BACKGROUND_IMAGE_FILE_NAME = "Background_final.png";
 
-    private final ArrayList<Vehicle> vehicles;
+    private final Crossroad crossroad;
     private final ArrayList<Obstacle> obstacles;
     private final boolean record;
     private final int frameNumber;
@@ -50,12 +50,13 @@ public class DisplayPanel extends JPanel implements Runnable {
      * @param record whether or not the board is recorded by frame
      * @param frameNumber total number of frames. insignificant if record is set to false
      */
-    public DisplayPanel(boolean record, int frameNumber) {
+    public DisplayPanel(Crossroad crossroad, boolean record, int frameNumber) {
 
         setPreferredSize(new Dimension((int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER)));
-        
-        vehicles = new ArrayList<>();
+
+        this.crossroad = crossroad;
+
         obstacles = new ArrayList<>();
         
         carImage = null;
@@ -97,19 +98,7 @@ public class DisplayPanel extends JPanel implements Runnable {
         frameCount = 0;
 
     }
-    
-    public void addVehicle(Vehicle vehicle) {
-        vehicles.add(vehicle);
-    }
-    
-    public void addVehicles(Vehicle[] vehicles) {
-        Collections.addAll(this.vehicles, vehicles);
-    }
-    
-    public void addVehicles(ArrayList<Vehicle> vehicles) {
-        this.vehicles.addAll(vehicles);
-    }
-    
+
     public void addObstacle(Obstacle obstacle) {
         obstacles.add(obstacle);
     }
@@ -123,10 +112,10 @@ public class DisplayPanel extends JPanel implements Runnable {
     }
     
     public void passTime(double factor) {
-        vehicles.forEach(vehicle -> vehicle.passTime(factor));
+        crossroad.getVehicles().forEach(vehicle -> vehicle.passTime(factor));
         obstacles.forEach(body -> body.passTime(factor));
     }
-    
+
     public void addNotify() {
         
         super.addNotify();
@@ -151,7 +140,7 @@ public class DisplayPanel extends JPanel implements Runnable {
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
 
-            vehicles.forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+            crossroad.getVehicles().forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
             obstacles.forEach((obstacle) -> drawObstacle(imageBufferGraphics2D, obstacle));
         
             graphics2D.drawImage(imageBuffer, 0, 0, this);
@@ -172,7 +161,8 @@ public class DisplayPanel extends JPanel implements Runnable {
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
             
-            vehicles.forEach((vehicle) -> {if(vehicleOnBoard(vehicle)) drawVehicle(graphics2D, vehicle);});
+//            vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
+            crossroad.getVehicles().forEach((vehicle) -> {if(vehicleOnBoard(vehicle)) drawVehicle(graphics2D, vehicle);});
             obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
 
 //            graphics2D.drawImage(backgroundImage, 300, 300,
@@ -238,14 +228,6 @@ public class DisplayPanel extends JPanel implements Runnable {
                 (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER),
                 (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER));
         
-//        graphics2D.fillRect(
-//                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-//                        - (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
-//                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER
-//                        - (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER / 2)),
-//                (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER),
-//                (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER));
-        
         graphics2D.drawImage(pedestrianImage,
                 (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
                         - (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
@@ -255,8 +237,6 @@ public class DisplayPanel extends JPanel implements Runnable {
                 (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER),
                 obstacle.getColor(),
                 null);
-        
-        // Color could be passed as arg 5 to specify the color of transparent pixels in the image.
         
         graphics2D.setTransform(originalTransform);
         Toolkit.getDefaultToolkit().sync();
@@ -272,6 +252,7 @@ public class DisplayPanel extends JPanel implements Runnable {
         while(true) {
 
             passTime(Frame.factor);
+            crossroad.despawnCar();
             repaint();
             
             timeDifference = System.currentTimeMillis() - startTime;

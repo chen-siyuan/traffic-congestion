@@ -32,7 +32,7 @@ public class Main {
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
-        for(int i=0; i < 40; i++) {
+        for(int i=0; i < 1; i++) {
             crossRoad.spawnCar((int)(Math.random() * 4), (int)(Math.random() * 4));
         }
 
@@ -54,9 +54,8 @@ public class Main {
         
         EventQueue.invokeLater(() -> {
 
-            Frame frame = new Frame(false, 1048576);
+            Frame frame = new Frame(crossRoad, false, 1048576);
 
-            frame.addVehicles(crossRoad.getVehicles());
 //            frame.addObstacles(obstaclesList);
 
             frame.initUI();
