@@ -113,7 +113,7 @@ Use the four fundamental Classes
 - *Velocity*
 - *Acceleration*
 
-If a mechanism is introduced, it should be recorded as a large version update; if a mechanism is revised, it should be recorded as a small version update. Style edit or comments should be recorded as small version updates.
+Introductions and revisions of mechanisms should be recorded as large version updates. Stylistic edits and comments should be recorded as small version updates.
 
 ## Instructions for Output as Mp4
 
