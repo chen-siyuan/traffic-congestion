@@ -6,7 +6,7 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 9,
+        currentRevision = 10,
         lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -21,7 +21,7 @@ public class Crossroad {
     private final Lane[] lanes;
     private final ArrayList<Vehicle> vehicles;
     private final ArrayList<Obstacle> obstacles;
-    private final ArrayList<Integer> states; // -1 for turning, 0, 1, 2, 3 for the lanes they are in
+    private final ArrayList<Integer> states; // -1 preturn 0 turning 1 postturn
     private final int[] spawns;
 
     public Crossroad(Position position, double laneWidth) {
@@ -52,18 +52,10 @@ public class Crossroad {
 
     }
     
-    public double getLaneWidth() {
-        return laneWidth;
-    }
-    
     public Position getPosition() {
         return position;
     }
     
-    public Lane[] getLanes() {
-        return lanes;
-    }
-
     public Position getSpawnPosition(int origin) {
 
         double xPosition;
@@ -130,7 +122,8 @@ public class Crossroad {
         car.setCrossroad(this);
         
         vehicles.add(car);
-        states.add((origin < 2) ? (origin + 2) : (origin - 2));
+//        states.add((origin < 2) ? (origin + 2) : (origin - 2));
+        states.add(-1);
 
     }
 
@@ -138,15 +131,22 @@ public class Crossroad {
         return vehicles;
     }
 
-    public static boolean couldDespawn(Vehicle vehicle) {
-        return Math.random() < 0.001;
+    public boolean inBorder(Vehicle vehicle) {
+        return vehicle.getPosition().getXPosition() >= 0
+                && vehicle.getPosition().getXPosition() <= Main.PANEL_ALONG
+                && vehicle.getPosition().getYPosition() >= 0
+                && vehicle.getPosition().getYPosition() <= Main.PANEL_ACROSS;
+    }
+
+    public boolean isPresent(int index) {
+        return states.get(index) != 1 || inBorder(vehicles.get(index));
     }
 
     public ArrayList<Vehicle> getPresentVehicles() {
 
         int pointer = 0;
 
-        while(pointer < vehicles.size()) if(couldDespawn(vehicles.get(pointer++))) {
+        while(pointer < vehicles.size()) if(!isPresent(pointer++)) {
             vehicles.remove(--pointer);
             states.remove(pointer);
         }
@@ -187,7 +187,7 @@ public class Crossroad {
     
     /**
      * 
-     * @param vehicle
+     * @param vehicle the vehicle
      * @return the turning acceleration based on the vehicle, should be a combination of tangential and angular acceleration
      */
     public Acceleration getAccelerationTurningFor(Vehicle vehicle) {
@@ -206,15 +206,26 @@ public class Crossroad {
         
         return null;
     }
-    
+
+    public int getLaneNum(int index) {
+
+        if(states.get(index) == 1) return vehicles.get(index).getDestination();
+        if(states.get(index) == -1) return (vehicles.get(index).getOrigin() + 2) % 4;
+
+        return -1;
+    }
+
     /**
      * 
-     * @param vehicle
+     * @param vehicle the vehicle
      * @return the acceleration for the vehicle driving on a straight lane; need to adjust based on other cars and obstacles
      */
     public Acceleration getAccelerationStraightFor(Vehicle vehicle) {
         
-        int laneNum = states.get(vehicles.indexOf(vehicle));
+//        int laneNum = states.get(vehicles.indexOf(vehicle));
+
+        int laneNum = getLaneNum(vehicles.indexOf(vehicle));
+
         boolean isAlong = laneNum % 2 == 0; // true: horizontal, false: vertical
         double thisPosition;
         
@@ -222,14 +233,14 @@ public class Crossroad {
         
         if(isAlong) {
             
-            for(int i=0; i < states.size(); i++) if(states.get(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))
+            for(int i = 0; i < states.size(); i++) if(getLaneNum(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))
                 positions.add(vehicles.get(i).getPosition().getXPosition());
 
             thisPosition = vehicle.getPosition().getXPosition();
             
         } else {
             
-            for(int i=0; i < states.size(); i++) if(states.get(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))
+            for(int i = 0; i < states.size(); i++) if(getLaneNum(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))
                 positions.add(vehicles.get(i).getPosition().getYPosition());
 
             thisPosition = vehicle.getPosition().getYPosition();
@@ -306,11 +317,11 @@ public class Crossroad {
         int index = vehicles.indexOf(vehicle);
         
         if(inCenter(vehicle)) {
-            states.set(index, -1);
+            states.set(index, 0);
             return this.getAccelerationTurningFor(vehicle);
         }
         
-        if(states.get(vehicles.indexOf(vehicle)) == -1) states.set(index, vehicle.getDestination());
+        if(states.get(index) == 0) states.set(index, 1);
 
         return getAccelerationStraightFor(vehicle);
     }
