@@ -117,7 +117,7 @@ Use the four fundamental Classes
 - *Velocity*
 - *Acceleration*
 
-## Instructions for Output as Mp4
+## Output Instruction
 
 When creating a *Frame* object, pass in attribute *record* as true and a valid *frameNumber*. The images would be created in the folder *output*. Use the following command line to create a video file from the images using *ffmpeg*.
 
