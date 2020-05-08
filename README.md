@@ -2,7 +2,7 @@
 
 This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, consisting of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
 
-## TODO LIST
+## To-Do List
 
 1. Fully transition passTime() from Vehicle-oriented to Crossroad-oriented.
 2. Standardize post-transition velocity of vehicles.
@@ -10,6 +10,10 @@ This repository is for the 2019-2020 *Advanced Topics in Computer Science* cours
 4. Add in tangential acceleration so that there won't be cars turning extremely slowly (Should be solved by #3).
 5. Prevent cars from occasionally driving backwards (Should be solved by #2 and #3).
 6. Change the spawning mechanism into a spawning stream.
+
+## Version Control
+
+Introductions and revisions of mechanisms should be recorded as large version updates. Stylistic edits and comments should be recorded as small version updates.
 
 ## Team Members & Individual Responsibilities
 
@@ -112,8 +116,6 @@ Use the four fundamental Classes
 - *Position*
 - *Velocity*
 - *Acceleration*
-
-Introductions and revisions of mechanisms should be recorded as large version updates. Stylistic edits and comments should be recorded as small version updates.
 
 ## Instructions for Output as Mp4
 
