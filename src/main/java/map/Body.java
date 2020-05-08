@@ -6,8 +6,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.4,
-        lastModified = "04/30/2020",
+        currentRevision = 5,
+        lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Body {
@@ -67,13 +67,6 @@ public abstract class Body {
 
     }
     
-    /**
-     * Each of the inheriting classes have different ways of getting its acceleration
-     * 
-     * @return the Acceleration object
-     */
-    public abstract Acceleration getAcceleration();
-    
     public Size getSize() {
         return size;
     }
@@ -81,7 +74,7 @@ public abstract class Body {
     public Position getPosition() {
         return position;
     }
-    
+
     /**
      * 
      * @return the four Position of the corners of this Body in a random order.
@@ -132,7 +125,5 @@ public abstract class Body {
     }
 
     public abstract String toString();
-    
-    public abstract void passTime(double factor);
-    
+
 }

@@ -5,8 +5,8 @@ import java.awt.*;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6.2,
-        lastModified = "04/30/2020",
+        currentRevision = 7,
+        lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
@@ -61,10 +61,9 @@ public abstract class Vehicle extends Body {
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
     
-    public void passTime(double factor) {
+    public void passTime(double factor, Acceleration acceleration) {
 
         Velocity velocity = getVelocity();
-        Acceleration acceleration = getAcceleration();
 
         double interval = Main.INTERVAL * factor;
         

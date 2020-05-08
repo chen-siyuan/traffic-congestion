@@ -6,8 +6,8 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/14/2020",
-        currentRevision = 4,
-        lastModified = "04/14/2020",
+        currentRevision = 4.1,
+        lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Lane {
@@ -76,9 +76,6 @@ public class Lane {
         double angle1 = orientation + Math.atan2(size.getAcross(), size.getAlong());
         double angle2 = orientation - Math.atan2(size.getAcross(), size.getAlong());
         
-//        System.out.println(halfDiagonal);
-//        System.out.println(angle / Math.PI);
-        
         cornerPositions.add(new Position(
                 position.getXPosition() + halfDiagonal * Math.cos(angle1),
                 position.getYPosition() + halfDiagonal * Math.sin(angle1)));
@@ -108,9 +105,6 @@ public class Lane {
         double halfDiagonal = Math.sqrt(Math.pow(detectionSize.getAlong(), 2) + Math.pow(detectionSize.getAcross(), 2)) / 2;
         double angle1 = orientation + Math.atan2(detectionSize.getAcross(), detectionSize.getAlong());
         double angle2 = orientation - Math.atan2(detectionSize.getAcross(), detectionSize.getAlong());
-        
-//        System.out.println(halfDiagonal);
-//        System.out.println(angle / Math.PI);
         
         cornerPositions.add(new Position(
                 detectionPosition.getXPosition() + halfDiagonal * Math.cos(angle1),
@@ -167,13 +161,9 @@ public class Lane {
         double maxLength = 0.;
         int maxIndex = 0;
         
-        for(int i=1; i < 4; i++) {
-            
-            if(cornerPositions.get(0).distanceTo(cornerPositions.get(i)) > maxLength) {
-                maxLength = cornerPositions.get(0).distanceTo(cornerPositions.get(i));
-                maxIndex = i;
-            }
-            
+        for(int i=1; i < 4; i++) if(cornerPositions.get(0).distanceTo(cornerPositions.get(i)) > maxLength) {
+            maxLength = cornerPositions.get(0).distanceTo(cornerPositions.get(i));
+            maxIndex = i;
         }
         
         int index0;
@@ -213,15 +203,7 @@ public class Lane {
      * @return whether or not the rectangular region of this Lane contains all points or any point of this body
      */
     public boolean onLane(Body body, boolean needAll) {
-        
-        for(Position otherPosition: body.getCornerPositions()) {
-            
-            if(onLane(otherPosition) != needAll) {
-                return !needAll;
-            }
-            
-        }
-        
+        for(Position otherPosition: body.getCornerPositions()) if(onLane(otherPosition) != needAll) return !needAll;
         return needAll;
     }
     
@@ -237,13 +219,9 @@ public class Lane {
         double maxLength = 0.;
         int maxIndex = 0;
         
-        for(int i=1; i < 4; i++) {
-            
-            if(detectionCornerPositions.get(0).distanceTo(detectionCornerPositions.get(i)) > maxLength) {
-                maxLength = detectionCornerPositions.get(0).distanceTo(detectionCornerPositions.get(i));
-                maxIndex = i;
-            }
-            
+        for(int i=1; i < 4; i++) if(detectionCornerPositions.get(0).distanceTo(detectionCornerPositions.get(i)) > maxLength) {
+            maxLength = detectionCornerPositions.get(0).distanceTo(detectionCornerPositions.get(i));
+            maxIndex = i;
         }
         
         int index0;
@@ -280,19 +258,11 @@ public class Lane {
     /**
      * 
      * @param body the body to be tested for
-     * @param needAll
+     * @param needAll whether or not all corners need to be in
      * @return whether or not the range of detection (including the Lane itself) contains all points or any point of this body
      */
     public boolean inRange(Body body, boolean needAll) {
-        
-        for(Position otherPosition: body.getCornerPositions()) {
-            
-            if(inRange(otherPosition) != needAll) {
-                return !needAll;
-            }
-            
-        }
-        
+        for(Position otherPosition: body.getCornerPositions()) if(inRange(otherPosition) != needAll) return !needAll;
         return needAll;
     }
     

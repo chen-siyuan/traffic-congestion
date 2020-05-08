@@ -3,8 +3,8 @@ package map;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 4.3,
-        lastModified = "04/14/2020",
+        currentRevision = 5,
+        lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Position {
@@ -47,6 +47,10 @@ public class Position {
 
     public double getYPosition() {
         return yPosition;
+    }
+
+    public double getPosition(boolean isX) {
+        return isX ? xPosition : yPosition;
     }
 
     public void setXPosition(double xPosition) {

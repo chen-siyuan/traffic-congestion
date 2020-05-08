@@ -5,8 +5,8 @@ import java.awt.Color;
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 4.2,
-        lastModified = "04/03/2020",
+        currentRevision = 5,
+        lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Obstacle extends Body {
@@ -44,5 +44,7 @@ public abstract class Obstacle extends Body {
                 this.getPosition().getXPosition(), this.getPosition().getYPosition(),
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
-    
+
+    public abstract void passTime(double factor);
+
 }

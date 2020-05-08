@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.9,
+        currentRevision = 8.10,
         lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -33,7 +33,7 @@ public class Main {
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
         for(int i=0; i < 50; i++) {
-            crossRoad.spawnCar(3, (int)(Math.random() * 4));
+            crossRoad.spawnCar(0, (int)(Math.random() * 4));
         }
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();

@@ -17,19 +17,12 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 11,
-        lastModified = "05/7/2020",
+        currentRevision = 12,
+        lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class DisplayPanel extends JPanel implements Runnable {
 
-    public static boolean vehicleOnBoard(Vehicle vehicle) {
-        return vehicle.getPosition().getXPosition() >= 0
-                && vehicle.getPosition().getXPosition() <= Main.PANEL_ALONG
-                && vehicle.getPosition().getYPosition() >= 0
-                && vehicle.getPosition().getYPosition() <= Main.PANEL_ACROSS;
-    }
-    
     public static final String CAR_IMAGE_FILE_NAME = "Car.png";
     public static final String PEDESTRIAN_IMAGE_FILE_NAME = "Pedestrian.png";
     public static final String BACKGROUND_IMAGE_FILE_NAME = "Background_final.png";
@@ -59,36 +52,27 @@ public class DisplayPanel extends JPanel implements Runnable {
         obstacles = new ArrayList<>();
         
         carImage = null;
-        
         try {
             carImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + CAR_IMAGE_FILE_NAME));
         } catch(IOException e) {
-            
             System.out.println("Car Image Not Found");
             System.exit(0);
-            
         }
         
         pedestrianImage = null;
-        
         try {
             pedestrianImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + PEDESTRIAN_IMAGE_FILE_NAME));
         } catch(IOException e) {
-            
             System.out.println("Pedestrian Image Not Found");
             System.exit(0);
-            
         }
         
         backgroundImage = null;
-        
         try {
             backgroundImage = ImageIO.read(new File(Main.ASSETS_ADDRESS + BACKGROUND_IMAGE_FILE_NAME));
         } catch(IOException e) {
-            
             System.out.println("Background Image Not Found");
             System.exit(0);
-            
         }
         
         this.record = record;
@@ -115,9 +99,9 @@ public class DisplayPanel extends JPanel implements Runnable {
 
         ArrayList<Vehicle> vehicles = crossroad.getPresentVehicles();
         int pointer = 0;
-        while(pointer < vehicles.size()) vehicles.get(pointer++).passTime(factor);
+        while(pointer < vehicles.size()) vehicles.get(pointer++).passTime(factor, crossroad.getAccelerationFor(pointer - 1));
 
-        obstacles.forEach(body -> body.passTime(factor));
+        obstacles.forEach(obstacle -> obstacle.passTime(factor));
 
     }
 
