@@ -6,8 +6,8 @@ import java.awt.EventQueue;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.7,
-        lastModified = "04/30/2020",
+        currentRevision = 8.8,
+        lastModified = "05/7/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -19,7 +19,7 @@ public class Main {
     public static final Color FAST_VEHICLE_COLOR = new Color(255, 255, 255);
     
     public static final double PIXELS_PER_METER = 80. / 3;
-    public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
+    public static final double MILLISECONDS_PER_SECOND = 10000; //use this to change display render speed
 
     public static final double PANEL_ALONG = 1000. / PIXELS_PER_METER;
     public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER;
@@ -32,7 +32,7 @@ public class Main {
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
         
-        for(int i=0; i < 1; i++) {
+        for(int i=0; i < 50; i++) {
             crossRoad.spawnCar((int)(Math.random() * 4), (int)(Math.random() * 4));
         }
 
@@ -64,5 +64,5 @@ public class Main {
         });
 
     }
-    
+
 }

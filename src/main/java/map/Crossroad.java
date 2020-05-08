@@ -6,8 +6,8 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 8,
-        lastModified = "04/23/2020",
+        currentRevision = 9,
+        lastModified = "05/07/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
@@ -23,7 +23,7 @@ public class Crossroad {
     private final ArrayList<Obstacle> obstacles;
     private final ArrayList<Integer> states; // -1 for turning, 0, 1, 2, 3 for the lanes they are in
     private final int[] spawns;
-    
+
     public Crossroad(Position position, double laneWidth) {
         
         this.position = position;
@@ -91,10 +91,6 @@ public class Crossroad {
         return null;
     }
     
-    public void addVehicle(Vehicle vehicle) {
-        vehicles.add(vehicle);
-    }
-    
     /**
      * Create a new Car in this Crossroad with origin and destination set. The origin could not be the same as the destination
      * 
@@ -135,28 +131,26 @@ public class Crossroad {
         
         vehicles.add(car);
         states.add((origin < 2) ? (origin + 2) : (origin - 2));
-        
+
     }
 
-    public static boolean couldDespawn(int index) {
+    public ArrayList<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public static boolean couldDespawn(Vehicle vehicle) {
         return Math.random() < 0.001;
     }
 
-    public void despawnCar() {
+    public ArrayList<Vehicle> getPresentVehicles() {
 
-        for(int i=0; i < vehicles.size(); i++) {
+        int pointer = 0;
 
-            if(couldDespawn(i)) {
-                vehicles.remove(i);
-                states.remove(i);
-                i--;
-            }
-
+        while(pointer < vehicles.size()) if(couldDespawn(vehicles.get(pointer++))) {
+            vehicles.remove(--pointer);
+            states.remove(pointer);
         }
 
-    }
-    
-    public ArrayList<Vehicle> getVehicles() {
         return vehicles;
     }
     

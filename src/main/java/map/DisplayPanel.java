@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,8 +17,8 @@ import javax.swing.JPanel;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 10,
-        lastModified = "04/30/2020",
+        currentRevision = 11,
+        lastModified = "05/7/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class DisplayPanel extends JPanel implements Runnable {
@@ -112,8 +111,14 @@ public class DisplayPanel extends JPanel implements Runnable {
     }
     
     public void passTime(double factor) {
-        crossroad.getVehicles().forEach(vehicle -> vehicle.passTime(factor));
+//        crossroad.getVehicles().forEach(vehicle -> vehicle.passTime(factor));
+
+        ArrayList<Vehicle> vehicles = crossroad.getPresentVehicles();
+        int pointer = 0;
+        while(pointer < vehicles.size()) vehicles.get(pointer++).passTime(factor);
+
         obstacles.forEach(body -> body.passTime(factor));
+
     }
 
     public void addNotify() {
@@ -140,7 +145,7 @@ public class DisplayPanel extends JPanel implements Runnable {
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
 
-            crossroad.getVehicles().forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+            crossroad.getPresentVehicles().forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
             obstacles.forEach((obstacle) -> drawObstacle(imageBufferGraphics2D, obstacle));
         
             graphics2D.drawImage(imageBuffer, 0, 0, this);
@@ -161,13 +166,12 @@ public class DisplayPanel extends JPanel implements Runnable {
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
             
-//            vehicles.forEach((vehicle) -> drawVehicle(graphics2D, vehicle));
-            crossroad.getVehicles().forEach((vehicle) -> {if(vehicleOnBoard(vehicle)) drawVehicle(graphics2D, vehicle);});
-            obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
+            ArrayList<Vehicle> vehicles = crossroad.getPresentVehicles();
+            int pointer = 0;
+            while(pointer < vehicles.size()) drawVehicle(graphics2D, vehicles.get(pointer++));
 
-//            graphics2D.drawImage(backgroundImage, 300, 300,
-//                    (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
-//                    (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
+//            temp.forEach((vehicle) -> {if(vehicleOnBoard(vehicle)) drawVehicle(graphics2D, vehicle);});
+            obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
 
         }
         
@@ -252,9 +256,8 @@ public class DisplayPanel extends JPanel implements Runnable {
         while(true) {
 
             passTime(Frame.factor);
-            crossroad.despawnCar();
             repaint();
-            
+
             timeDifference = System.currentTimeMillis() - startTime;
             correctedInterval = (int)Math.round(Main.INTERVAL * Main.MILLISECONDS_PER_SECOND) - timeDifference;
 
