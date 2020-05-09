@@ -6,7 +6,7 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 11.1,
+        currentRevision = 11.2,
         lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -55,7 +55,12 @@ public class Crossroad {
     public Position getPosition() {
         return position;
     }
-    
+
+    /**
+     *
+     * @param origin which of the four origins the vehicle is coming from
+     * @return the spawn position of the vehicle, depends on the origin and the relative position of the vehicle to others
+     */
     public Position getSpawnPosition(int origin) {
 
         double xPosition = 0;
@@ -109,17 +114,40 @@ public class Crossroad {
         return vehicles;
     }
 
-    public boolean inBorder(Vehicle vehicle) {
-        return vehicle.getPosition().getXPosition() >= 0
-                && vehicle.getPosition().getXPosition() <= Main.PANEL_ALONG
-                && vehicle.getPosition().getYPosition() >= 0
-                && vehicle.getPosition().getYPosition() <= Main.PANEL_ACROSS;
+    public void addObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
+    }
+    
+    public ArrayList<Obstacle> getObstacles() {
+        return obstacles;
     }
 
+    /**
+     *
+     * @param position the position to be examined
+     * @return whether or not the position is in the display border
+     */
+    public boolean inBorder(Position position) {
+
+        return position.getXPosition() >= 0
+                && position.getXPosition() <= Main.PANEL_ALONG
+                && position.getYPosition() >= 0
+                && position.getYPosition() <= Main.PANEL_ACROSS;
+
+    }
+
+    /**
+     *
+     * @param index the index of the vehicle
+     * @return whether or not the vehicle should be eliminated
+     */
     public boolean isPresent(int index) {
-        return states.get(index) != 1 || inBorder(vehicles.get(index));
+        return states.get(index) != 1 || inBorder(vehicles.get(index).getPosition());
     }
 
+    /**
+     * remove those vehicles that are no longer meaningful
+     */
     public void cleanVehicles() {
 
         int pointer = 0;
@@ -129,14 +157,6 @@ public class Crossroad {
             states.remove(pointer);
         }
 
-    }
-
-    public void addObstacle(Obstacle obstacle) {
-        obstacles.add(obstacle);
-    }
-    
-    public ArrayList<Obstacle> getObstacles() {
-        return obstacles;
     }
     
     /**
@@ -152,28 +172,14 @@ public class Crossroad {
                 && (this.position.getYPosition() + this.laneWidth >= position.getYPosition());
         
     }
-    
-    public boolean inCenter(int index) {
+
+    /**
+     *
+     * @param index the index of the vehicle of interest
+     * @return whether or not that vehicle is in the center of the crossroad (is turning)
+     */
+    public boolean isTurning(int index) {
         return inCenter(vehicles.get(index).getPosition());
-    }
-    
-    public Acceleration getAccelerationTurningFor(int index) {
-
-        Vehicle vehicle = vehicles.get(index);
-        
-        if((vehicle.getOrigin() + vehicle.getDestination()) % 2 == 0) return new Acceleration(0, 0);
-
-        if((vehicle.getDestination() - vehicle.getOrigin() - 1) % 4 == 0) {
-            return new Acceleration(Math.pow(vehicle.getVelocity().getMagnitude(), 2) / (laneWidth * 1.5),
-                    vehicle.getVelocity().getOrientation() - Math.PI / 2);
-        }
-        
-        if((vehicle.getDestination() - vehicle.getOrigin() + 1) % 4 == 0) {
-            return new Acceleration(Math.pow(vehicle.getVelocity().getMagnitude(), 2) / (laneWidth * 0.5),
-                    vehicle.getVelocity().getOrientation() + Math.PI / 2);
-        }
-        
-        return null;
     }
 
     public int getLaneNum(int index) {
@@ -255,10 +261,29 @@ public class Crossroad {
 
         return null;
     }
+
+    public Acceleration getAccelerationTurningFor(int index) {
+
+        Vehicle vehicle = vehicles.get(index);
+
+        if((vehicle.getOrigin() + vehicle.getDestination()) % 2 == 0) return new Acceleration(0, 0);
+
+        if((vehicle.getDestination() - vehicle.getOrigin() - 1) % 4 == 0) {
+            return new Acceleration(Math.pow(vehicle.getVelocity().getMagnitude(), 2) / (laneWidth * 1.5),
+                    vehicle.getVelocity().getOrientation() - Math.PI / 2);
+        }
+
+        if((vehicle.getDestination() - vehicle.getOrigin() + 1) % 4 == 0) {
+            return new Acceleration(Math.pow(vehicle.getVelocity().getMagnitude(), 2) / (laneWidth * 0.5),
+                    vehicle.getVelocity().getOrientation() + Math.PI / 2);
+        }
+
+        return null;
+    }
     
     public Acceleration getAccelerationFor(int index) {
         
-        if(inCenter(index)) {
+        if(isTurning(index)) {
             states.set(index, 0);
             return this.getAccelerationTurningFor(index);
         }

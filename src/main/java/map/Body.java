@@ -6,7 +6,7 @@ import java.util.ArrayList;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5.1,
+        currentRevision = 5.2,
         lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -16,7 +16,7 @@ public abstract class Body {
      * returns the four corners of the rectangle described by the parameters
      * 
      * @param size the Size of the rectangle
-     * @param position Position of the center of the rectangle
+     * @param position the Position of the center of the rectangle
      * @param velocity defines the orientation of the rectangle
      * @return the four Position objects of the rectangle described
      */

@@ -3,17 +3,29 @@ package map;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 2,
-        lastModified = "04/03/2020",
+        currentRevision = 2.1,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Acceleration {
-    
+
+    /**
+     *
+     * @param xComponent the xComponent
+     * @param yComponent the yComponent
+     * @return the Acceleration vector from the two components
+     */
     public static Acceleration accelerationFromComponents(double xComponent, double yComponent) {
         return new Acceleration(Velocity.magnitudeFromComponents(xComponent, yComponent),
                 Velocity.orientationFromComponents(xComponent, yComponent));
     }
-    
+
+    /**
+     *
+     * @param acceleration1 the first Acceleration vector
+     * @param acceleration2 the second Acceleration vector
+     * @return the sum of the two Acceleration vectors
+     */
     public static Acceleration combineAccelerations(Acceleration acceleration1, Acceleration acceleration2) {
         return accelerationFromComponents(acceleration1.getXMagnitude() + acceleration2.getXMagnitude(),
                 acceleration1.getYMagnitude() + acceleration2.getYMagnitude());

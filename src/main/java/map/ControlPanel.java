@@ -7,8 +7,8 @@ import java.util.Hashtable;
 @ClassPreamble(
         author = "William Wu",
         date = "04/23/2020",
-        currentRevision = 3,
-        lastModified = "04/30/2020",
+        currentRevision = 3.1,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class ControlPanel extends JPanel {
@@ -25,7 +25,6 @@ public class ControlPanel extends JPanel {
         JLabel label = new JLabel("PLAY SPEED");
 
         slider.setMajorTickSpacing(1);
-//        slider.setPaintTicks(true);
 
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
 
@@ -81,10 +80,20 @@ public class ControlPanel extends JPanel {
 
     }
 
+    /**
+     *
+     * @param rawSpeed the numerical value from the slider
+     * @return the actual play speed factor
+     */
     public double convertToPlaySpeed(int rawSpeed) {
         return Math.pow(10, rawSpeed / 40.);
     }
 
+    /**
+     *
+     * @param playSpeed the actual play speed factor entered
+     * @return the numerical value displayed on the slider
+     */
     public int convertToRawSpeed(double playSpeed) {
 
         if(playSpeed > 10.) return 40;
@@ -93,6 +102,11 @@ public class ControlPanel extends JPanel {
         return (int)Math.round(Math.log10(playSpeed) * 40);
     }
 
+    /**
+     *
+     * @param string the inputted play speed factor string
+     * @return 1 if the string is not a valid value
+     */
     public double checkInputRawSpeed(String string) {
 
         try {
