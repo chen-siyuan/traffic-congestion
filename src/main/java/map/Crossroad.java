@@ -6,8 +6,8 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 11,
-        lastModified = "05/07/2020",
+        currentRevision = 11.1,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
@@ -120,7 +120,7 @@ public class Crossroad {
         return states.get(index) != 1 || inBorder(vehicles.get(index));
     }
 
-    public ArrayList<Vehicle> getPresentVehicles() {
+    public void cleanVehicles() {
 
         int pointer = 0;
 
@@ -129,7 +129,6 @@ public class Crossroad {
             states.remove(pointer);
         }
 
-        return vehicles;
     }
 
     public void addObstacle(Obstacle obstacle) {
@@ -185,11 +184,11 @@ public class Crossroad {
         return -1;
     }
 
-    public Acceleration getAccelerationStraightFor(int indey) {
+    public Acceleration getAccelerationStraightFor(int index) {
         
-        int laneNum = getLaneNum(indey);
+        int laneNum = getLaneNum(index);
         boolean isAlong = laneNum % 2 == 0; // true: horizontal, false: vertical
-        Vehicle vehicle = vehicles.get(indey);
+        Vehicle vehicle = vehicles.get(index);
 
         ArrayList<Double> allPositions = new ArrayList<>();
 
@@ -269,10 +268,9 @@ public class Crossroad {
         return getAccelerationStraightFor(index);
     }
 
-    //TEMPORARY
-
-    public Acceleration getAccelerationFor(Vehicle vehicle) {
-        return getAccelerationFor(vehicles.indexOf(vehicle));
+    public void passTime(double factor) {
+        cleanVehicles();
+        for(int i=0; i < vehicles.size(); i++) vehicles.get(i).passTime(factor, getAccelerationFor(i));
     }
     
 }

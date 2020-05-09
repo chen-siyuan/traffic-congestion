@@ -1,14 +1,14 @@
 package map;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.JFrame;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 5,
-        lastModified = "04/30/2020",
+        currentRevision = 5.1,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Frame extends JFrame {
@@ -54,8 +54,6 @@ public class Frame extends JFrame {
         }
 
         setResizable(false);
-
-//        add(board);
 
         setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();

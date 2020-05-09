@@ -1,24 +1,21 @@
 package map;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import java.util.concurrent.TimeUnit;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 12,
-        lastModified = "05/07/2020",
+        currentRevision = 13,
+        lastModified = "05/00/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class DisplayPanel extends JPanel implements Runnable {
@@ -32,6 +29,7 @@ public class DisplayPanel extends JPanel implements Runnable {
     private final boolean record;
     private final int frameNumber;
     private int frameCount;
+    private boolean simulationCompleted;
     
     private BufferedImage carImage;
     private BufferedImage pedestrianImage;
@@ -79,6 +77,7 @@ public class DisplayPanel extends JPanel implements Runnable {
         this.frameNumber = frameNumber;
         
         frameCount = 0;
+        simulationCompleted = false;
 
     }
 
@@ -95,14 +94,8 @@ public class DisplayPanel extends JPanel implements Runnable {
     }
     
     public void passTime(double factor) {
-//        crossroad.getVehicles().forEach(vehicle -> vehicle.passTime(factor));
-
-        ArrayList<Vehicle> vehicles = crossroad.getPresentVehicles();
-        int pointer = 0;
-        while(pointer < vehicles.size()) vehicles.get(pointer++).passTime(factor, crossroad.getAccelerationFor(pointer - 1));
-
+        crossroad.passTime(factor);
         obstacles.forEach(obstacle -> obstacle.passTime(factor));
-
     }
 
     public void addNotify() {
@@ -124,19 +117,24 @@ public class DisplayPanel extends JPanel implements Runnable {
             
             BufferedImage imageBuffer = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
             Graphics2D imageBufferGraphics2D = imageBuffer.createGraphics();
-            
+
             imageBufferGraphics2D.drawImage(backgroundImage, 0, 0,
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
 
-            crossroad.getPresentVehicles().forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+            try {
+                crossroad.getVehicles().forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
+            } catch(Exception e) {
+                System.out.println("CAR DESPAWNED");
+            }
+
             obstacles.forEach((obstacle) -> drawObstacle(imageBufferGraphics2D, obstacle));
-        
+
             graphics2D.drawImage(imageBuffer, 0, 0, this);
-        
+
             File file = new File(Main.OUTPUT_ADDRESS
                     + String.format("FRAME_%0" + Integer.toString(frameNumber).length() + "d.png", frameCount));
-            
+
             try {
                 ImageIO.write(imageBuffer, "PNG", file);
             } catch (IOException e) {
@@ -149,12 +147,13 @@ public class DisplayPanel extends JPanel implements Runnable {
             graphics2D.drawImage(backgroundImage, 0, 0,
                 (int)Math.round(Main.PANEL_ALONG * Main.PIXELS_PER_METER),
                 (int)Math.round(Main.PANEL_ACROSS * Main.PIXELS_PER_METER), this);
-            
-            ArrayList<Vehicle> vehicles = crossroad.getPresentVehicles();
-            int pointer = 0;
-            while(pointer < vehicles.size()) drawVehicle(graphics2D, vehicles.get(pointer++));
 
-//            temp.forEach((vehicle) -> {if(vehicleOnBoard(vehicle)) drawVehicle(graphics2D, vehicle);});
+            try {
+                crossroad.getVehicles().forEach(vehicle -> drawVehicle(graphics2D, vehicle));
+            } catch(Exception e) {
+                System.out.println("CAR DESPAWNED");
+            }
+
             obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));
 
         }
@@ -163,7 +162,7 @@ public class DisplayPanel extends JPanel implements Runnable {
         
         if(frameCount == frameNumber) {
             System.out.println(record ? "IMAGES GENERATION COMPLETED." : "SIMULATION COMPLETED.");
-            System.exit(0);
+            simulationCompleted = true;
         }
         
     }
@@ -237,7 +236,7 @@ public class DisplayPanel extends JPanel implements Runnable {
 
         startTime = System.currentTimeMillis();
 
-        while(true) {
+        while(!simulationCompleted) {
 
             passTime(Frame.factor);
             repaint();
@@ -252,7 +251,7 @@ public class DisplayPanel extends JPanel implements Runnable {
             }
 
             try {
-                Thread.sleep(correctedInterval);
+                TimeUnit.MILLISECONDS.sleep(correctedInterval);
             } catch (InterruptedException e) {
                 String msg = String.format("ERROR RUNNING THREAD: %s", e.getMessage());
                 JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
@@ -261,6 +260,15 @@ public class DisplayPanel extends JPanel implements Runnable {
             startTime = System.currentTimeMillis();
             
         }
+
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.exit(0);
+
     }
     
 }

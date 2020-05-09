@@ -1,13 +1,12 @@
 package map;
 
-import java.awt.Color;
-import java.util.ArrayList;
+import java.awt.*;
 
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 7,
-        lastModified = "04/30/2020",
+        currentRevision = 7.1,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Pedestrian extends Obstacle {

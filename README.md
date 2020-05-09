@@ -4,12 +4,11 @@ This repository is for the 2019-2020 *Advanced Topics in Computer Science* cours
 
 ## To-Do List
 
-1. Fully transition passTime() from Vehicle-oriented to Crossroad-oriented.
-2. Standardize post-transition velocity of vehicles.
-3. Change the turning mechanism so that only one car is turning at any given moment (In consideration).
-4. Add in tangential acceleration so that there won't be cars turning extremely slowly (Should be solved by #3).
-5. Prevent cars from occasionally driving backwards (Should be solved by #2 and #3).
-6. Change the spawning mechanism into a spawning stream.
+1. Standardize post-transition velocity of vehicles.
+2. Change the turning mechanism so that only one car is turning at any given moment (In consideration).
+3. Add in tangential acceleration so that there won't be cars turning extremely slowly (Should be solved by #3).
+4. Prevent cars from occasionally driving backwards (Should be solved by #2 and #3).
+5. Change the spawning mechanism into a spawning stream.
 
 ## Version Control
 

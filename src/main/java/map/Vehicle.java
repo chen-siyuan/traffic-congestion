@@ -5,8 +5,8 @@ import java.awt.*;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 7,
-        lastModified = "05/07/2020",
+        currentRevision = 8,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
@@ -49,8 +49,6 @@ public abstract class Vehicle extends Body {
     public int getDestination() {
         return destination;
     }
-    
-    public abstract Acceleration getAcceleration();
     
     public abstract Color getColor();
     

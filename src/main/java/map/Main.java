@@ -1,13 +1,12 @@
 package map;
 
-import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.*;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.10,
-        lastModified = "05/07/2020",
+        currentRevision = 8.11,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -19,7 +18,7 @@ public class Main {
     public static final Color FAST_VEHICLE_COLOR = new Color(255, 255, 255);
     
     public static final double PIXELS_PER_METER = 80. / 3;
-    public static final double MILLISECONDS_PER_SECOND = 5000; //use this to change display render speed
+    public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
 
     public static final double PANEL_ALONG = 1000. / PIXELS_PER_METER;
     public static final double PANEL_ACROSS = 600. / PIXELS_PER_METER;
@@ -54,7 +53,7 @@ public class Main {
         
         EventQueue.invokeLater(() -> {
 
-            Frame frame = new Frame(crossRoad, false, 1048576);
+            Frame frame = new Frame(crossRoad, false, 1024);
 
 //            frame.addObstacles(obstaclesList);
 

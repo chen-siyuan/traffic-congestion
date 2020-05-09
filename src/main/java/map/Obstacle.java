@@ -1,12 +1,12 @@
 package map;
 
-import java.awt.Color;
+import java.awt.*;
 
 @ClassPreamble (
         author = "William Wu",
         date = "01/16/2020",
-        currentRevision = 5,
-        lastModified = "05/07/2020",
+        currentRevision = 5.1,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Obstacle extends Body {

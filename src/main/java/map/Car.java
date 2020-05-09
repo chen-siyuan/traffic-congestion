@@ -1,13 +1,12 @@
 package map;
 
-import java.awt.Color;
-import java.util.ArrayList;
+import java.awt.*;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 6.4,
-        lastModified = "04/23/2020",
+        currentRevision = 7,
+        lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Car extends Vehicle {
@@ -69,8 +68,4 @@ public class Car extends Vehicle {
                 this.getVelocity().getMagnitude(), this.getVelocity().getOrientation());
     }
 
-    public Acceleration getAcceleration() {
-        return this.getCrossroad().getAccelerationFor(this);
-    }
-    
 }
