@@ -9,8 +9,8 @@ import java.util.StringTokenizer;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 9,
-        lastModified = "05/09/2020",
+        currentRevision = 9.1,
+        lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
@@ -44,9 +44,12 @@ public class Main {
         int totalNumCars = Integer.parseInt(st.nextToken());
 
         br.close();
+
+        initNumCars = 5;
+        totalNumCars = 10;
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER),
-                100 / PIXELS_PER_METER, totalNumCars);
+                100 / PIXELS_PER_METER, initNumCars, totalNumCars);
         
         for(int i=0; i < initNumCars; i++) crossRoad.spawnVehicle("map.Car");
 

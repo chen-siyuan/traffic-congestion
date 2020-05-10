@@ -6,17 +6,16 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 12,
-        lastModified = "05/09/2020",
+        currentRevision = 13,
+        lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
 
-    public static final double RANGE_OF_SPAWN = 12.;
+    public static final double RANGE_OF_SPAWN = 6.;
     public static final double RANGE_OF_INTEREST = 8.;
     public static final double RANGE_OF_BUFFER = 100.;
-    public static final double FACTOR_OF_SPAWN = 6;
-    
+
     private final double laneWidth;
     private final Position position;
     private final Lane[] lanes;
@@ -24,13 +23,15 @@ public class Crossroad {
     private final ArrayList<Obstacle> obstacles;
     private final ArrayList<Integer> states; // -1 pre-turn 0 turning 1 post-turn
     private final int[] spawns;
+    private final int initNumVehicles;
     private final int totalNumVehicles;
     private int numVehicles;
 
-    public Crossroad(Position position, double laneWidth, int totalNumVehicles) {
+    public Crossroad(Position position, double laneWidth, int initNumVehicles, int totalNumVehicles) {
         
         this.position = position;
         this.laneWidth = laneWidth;
+        this.initNumVehicles = initNumVehicles;
         this.totalNumVehicles = totalNumVehicles;
         this.numVehicles = 0;
 
@@ -73,20 +74,20 @@ public class Crossroad {
 
         switch(origin) {
             case 0:
-                xPosition = Main.FRAME_ALONG + Math.min(FACTOR_OF_SPAWN, spawns[0]++) * RANGE_OF_SPAWN;
+                xPosition = Main.FRAME_ALONG + Math.min(initNumVehicles, spawns[0]++) * RANGE_OF_SPAWN;
                 yPosition = position.getYPosition() - laneWidth * 0.5;
                 break;
             case 1:
                 xPosition = position.getXPosition() + laneWidth * 0.5;
-                yPosition = Main.FRAME_ACROSS + Math.min(FACTOR_OF_SPAWN, spawns[1]++) * RANGE_OF_SPAWN;
+                yPosition = Main.FRAME_ACROSS + Math.min(initNumVehicles, spawns[1]++) * RANGE_OF_SPAWN;
                 break;
             case 2:
-                xPosition = - Math.min(FACTOR_OF_SPAWN, spawns[2]++) * RANGE_OF_SPAWN;
+                xPosition = - Math.min(initNumVehicles, spawns[2]++) * RANGE_OF_SPAWN;
                 yPosition = position.getYPosition() + laneWidth * 0.5;
                 break;
             case 3:
                 xPosition = position.getXPosition() - laneWidth * 0.5;
-                yPosition = - Math.min(FACTOR_OF_SPAWN, spawns[3]++) * RANGE_OF_SPAWN;
+                yPosition = - Math.min(initNumVehicles, spawns[3]++) * RANGE_OF_SPAWN;
                 break;
         }
 
@@ -108,8 +109,7 @@ public class Crossroad {
      */
     public void spawnVehicle(String type, int origin, int destination) {
 
-        if(numVehicles == totalNumVehicles) return;
-        numVehicles++;
+        if(numVehicles++ >= totalNumVehicles) return;
 
         if(origin == destination) destination = (origin + 2) % 4;
 
@@ -322,6 +322,10 @@ public class Crossroad {
     public void passTime(double factor) {
         cleanVehicles();
         for(int i=0; i < vehicles.size(); i++) vehicles.get(i).passTime(factor, getAccelerationFor(i));
+    }
+
+    public boolean completed() {
+        return numVehicles == totalNumVehicles + initNumVehicles;
     }
     
 }

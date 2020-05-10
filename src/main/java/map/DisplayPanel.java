@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 13,
-        lastModified = "05/00/2020",
+        currentRevision = 13.1,
+        lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class DisplayPanel extends JPanel implements Runnable {
@@ -29,7 +29,7 @@ public class DisplayPanel extends JPanel implements Runnable {
     private final boolean record;
     private final int frameNumber;
     private int frameCount;
-    private boolean simulationCompleted;
+    private boolean completed;
     
     private BufferedImage carImage;
     private BufferedImage pedestrianImage;
@@ -77,7 +77,7 @@ public class DisplayPanel extends JPanel implements Runnable {
         this.frameNumber = frameNumber;
         
         frameCount = 0;
-        simulationCompleted = false;
+        completed = false;
 
     }
 
@@ -160,9 +160,9 @@ public class DisplayPanel extends JPanel implements Runnable {
         
         frameCount++;
         
-        if(frameCount == frameNumber) {
+        if(crossroad.completed() || frameCount == frameNumber) {
             System.out.println(record ? "IMAGES GENERATION COMPLETED." : "SIMULATION COMPLETED.");
-            simulationCompleted = true;
+            completed = true;
         }
         
     }
@@ -236,7 +236,7 @@ public class DisplayPanel extends JPanel implements Runnable {
 
         startTime = System.currentTimeMillis();
 
-        while(!simulationCompleted) {
+        while(!completed) {
 
             passTime(Frame.factor);
             repaint();
