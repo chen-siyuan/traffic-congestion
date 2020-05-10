@@ -6,13 +6,13 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 13,
+        currentRevision = 13.1,
         lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
 
-    public static final double RANGE_OF_SPAWN = 6.;
+    public static final double RANGE_OF_SPAWN = 12.;
     public static final double RANGE_OF_INTEREST = 8.;
     public static final double RANGE_OF_BUFFER = 100.;
 
@@ -74,20 +74,20 @@ public class Crossroad {
 
         switch(origin) {
             case 0:
-                xPosition = Main.FRAME_ALONG + Math.min(initNumVehicles, spawns[0]++) * RANGE_OF_SPAWN;
+                xPosition = Main.FRAME_ALONG + Math.min(initNumVehicles, ++spawns[0]) * RANGE_OF_SPAWN;
                 yPosition = position.getYPosition() - laneWidth * 0.5;
                 break;
             case 1:
                 xPosition = position.getXPosition() + laneWidth * 0.5;
-                yPosition = Main.FRAME_ACROSS + Math.min(initNumVehicles, spawns[1]++) * RANGE_OF_SPAWN;
+                yPosition = Main.FRAME_ACROSS + Math.min(initNumVehicles, ++spawns[1]) * RANGE_OF_SPAWN;
                 break;
             case 2:
-                xPosition = - Math.min(initNumVehicles, spawns[2]++) * RANGE_OF_SPAWN;
+                xPosition = - Math.min(initNumVehicles, ++spawns[2]) * RANGE_OF_SPAWN;
                 yPosition = position.getYPosition() + laneWidth * 0.5;
                 break;
             case 3:
                 xPosition = position.getXPosition() - laneWidth * 0.5;
-                yPosition = - Math.min(initNumVehicles, spawns[3]++) * RANGE_OF_SPAWN;
+                yPosition = - Math.min(initNumVehicles, ++spawns[3]) * RANGE_OF_SPAWN;
                 break;
         }
 
@@ -223,6 +223,10 @@ public class Crossroad {
         Vehicle vehicle = vehicles.get(index);
 
         ArrayList<Double> allPositions = new ArrayList<>();
+
+//        allPositions.add(SOMETHING / Main.PIXELS_PER_METER);
+
+        // Need to add turning detection here; 0 1 2 3: 450 450 150 150
 
         for(int i = 0; i < states.size(); i++)
             if(getLaneNum(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))

@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 9.1,
+        currentRevision = 9.2,
         lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -45,13 +45,16 @@ public class Main {
 
         br.close();
 
-        initNumCars = 5;
-        totalNumCars = 10;
+        initNumCars = 1;
+        totalNumCars = 1;
         
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER),
                 100 / PIXELS_PER_METER, initNumCars, totalNumCars);
         
-        for(int i=0; i < initNumCars; i++) crossRoad.spawnVehicle("map.Car");
+        for(int i=0; i < initNumCars; i++) {
+//            crossRoad.spawnVehicle("map.Car");
+            crossRoad.spawnVehicle("map.Car", 2, 0);
+        }
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 //
