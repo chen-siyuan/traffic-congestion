@@ -6,7 +6,7 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 11.2,
+        currentRevision = 12,
         lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -15,6 +15,7 @@ public class Crossroad {
     public static final double RANGE_OF_SPAWN = 12.;
     public static final double RANGE_OF_INTEREST = 8.;
     public static final double RANGE_OF_BUFFER = 100.;
+    public static final double FACTOR_OF_SPAWN = 6;
     
     private final double laneWidth;
     private final Position position;
@@ -23,11 +24,15 @@ public class Crossroad {
     private final ArrayList<Obstacle> obstacles;
     private final ArrayList<Integer> states; // -1 pre-turn 0 turning 1 post-turn
     private final int[] spawns;
+    private final int totalNumVehicles;
+    private int numVehicles;
 
-    public Crossroad(Position position, double laneWidth) {
+    public Crossroad(Position position, double laneWidth, int totalNumVehicles) {
         
         this.position = position;
         this.laneWidth = laneWidth;
+        this.totalNumVehicles = totalNumVehicles;
+        this.numVehicles = 0;
 
         lanes = new Lane[4];
 
@@ -68,20 +73,20 @@ public class Crossroad {
 
         switch(origin) {
             case 0:
-                xPosition = Main.FRAME_ALONG + spawns[0]++ * RANGE_OF_SPAWN;
+                xPosition = Main.FRAME_ALONG + Math.min(FACTOR_OF_SPAWN, spawns[0]++) * RANGE_OF_SPAWN;
                 yPosition = position.getYPosition() - laneWidth * 0.5;
                 break;
             case 1:
                 xPosition = position.getXPosition() + laneWidth * 0.5;
-                yPosition = Main.FRAME_ACROSS + spawns[1]++ * RANGE_OF_SPAWN;
+                yPosition = Main.FRAME_ACROSS + Math.min(FACTOR_OF_SPAWN, spawns[1]++) * RANGE_OF_SPAWN;
                 break;
             case 2:
-                xPosition = - spawns[2]++ * RANGE_OF_SPAWN;
+                xPosition = - Math.min(FACTOR_OF_SPAWN, spawns[2]++) * RANGE_OF_SPAWN;
                 yPosition = position.getYPosition() + laneWidth * 0.5;
                 break;
             case 3:
                 xPosition = position.getXPosition() - laneWidth * 0.5;
-                yPosition = - spawns[3]++ * RANGE_OF_SPAWN;
+                yPosition = - Math.min(FACTOR_OF_SPAWN, spawns[3]++) * RANGE_OF_SPAWN;
                 break;
         }
 
@@ -89,23 +94,37 @@ public class Crossroad {
     }
 
     /**
-     * Create a new Car in this Crossroad with origin and destination set. The origin could not be the same as the destination
+     * Spawn a car going from a random direction to a random direction
+     */
+    public void spawnVehicle(String type) {
+        spawnVehicle(type, (int)(Math.random() * 4), (int)(Math.random() * 4));
+    }
+
+    /**
+     * Create a new Vehicle in this Crossroad with origin and destination set. The origin could not be the same as the destination
      * 
      * @param origin 0, 1, 2, or 3
      * @param destination 0, 1, 2, or 3
      */
-    public void spawnCar(int origin, int destination) {
-        
+    public void spawnVehicle(String type, int origin, int destination) {
+
+        if(numVehicles == totalNumVehicles) return;
+        numVehicles++;
+
         if(origin == destination) destination = (origin + 2) % 4;
 
-        Car car = new Car(getSpawnPosition(origin),
-                new Velocity(5 + 10 * Math.random(), Math.PI * ((origin + 2) % 4) / 2));
+        Vehicle vehicle = null;
 
-        car.setOrigin(origin);
-        car.setDestination(destination);
-        car.setCrossroad(this);
-        
-        vehicles.add(car);
+        if("map.Car".equals(type)) {
+
+            vehicle = new Car(getSpawnPosition(origin),
+                    new Velocity(5 + 10 * Math.random(), Math.PI * ((origin + 2) % 4) / 2));
+            vehicle.setOrigin(origin);
+            vehicle.setDestination(destination);
+
+        }
+
+        vehicles.add(vehicle);
         states.add(-1);
 
     }
@@ -151,11 +170,18 @@ public class Crossroad {
     public void cleanVehicles() {
 
         int pointer = 0;
+        int count = 0;
 
         while(pointer < vehicles.size()) if(!isPresent(pointer++)) {
+
             vehicles.remove(--pointer);
             states.remove(pointer);
+
+            count++;
+
         }
+
+        while(count-- > 0) spawnVehicle("map.Car");
 
     }
     

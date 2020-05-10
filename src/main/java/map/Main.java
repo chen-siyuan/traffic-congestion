@@ -1,21 +1,28 @@
 package map;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8.11,
+        currentRevision = 9,
         lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Main {
     
     public static final String ASSETS_ADDRESS = "assets/";
+    public static final String INPUT_ADDRESS = "input/";
     public static final String OUTPUT_ADDRESS = "output/";
+
+    public static final String INPUT_FILE_NAME = "input.in";
     
-    public static final Color SLOW_VEHICLE_COLOR = new Color(0, 0, 0);
-    public static final Color FAST_VEHICLE_COLOR = new Color(255, 255, 255);
+    public static final Color SLOW_VEHICLE_COLOR = new Color(122, 177, 177);
+    public static final Color FAST_VEHICLE_COLOR = new Color(231, 195, 126);
     
     public static final double PIXELS_PER_METER = 80. / 3;
     public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
@@ -27,13 +34,21 @@ public class Main {
     public static final double INTERVAL = 1. / 256;
     public static final double THRESHOLD = 0.5;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader(INPUT_ADDRESS + INPUT_FILE_NAME));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int initNumCars = Integer.parseInt(st.nextToken());
+        int totalNumCars = Integer.parseInt(st.nextToken());
+
+        br.close();
         
-        Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER), 100 / PIXELS_PER_METER);
+        Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER),
+                100 / PIXELS_PER_METER, totalNumCars);
         
-        for(int i=0; i < 50; i++) {
-            crossRoad.spawnCar(0, (int)(Math.random() * 4));
-        }
+        for(int i=0; i < initNumCars; i++) crossRoad.spawnVehicle("map.Car");
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 //
@@ -53,7 +68,7 @@ public class Main {
         
         EventQueue.invokeLater(() -> {
 
-            Frame frame = new Frame(crossRoad, false, 1024);
+            Frame frame = new Frame(crossRoad, false, 1048576);
 
 //            frame.addObstacles(obstaclesList);
 

@@ -6,9 +6,9 @@ This repository is for the 2019-2020 *Advanced Topics in Computer Science* cours
 
 1. Standardize post-transition velocity of vehicles.
 2. Change the turning mechanism so that only one car is turning at any given moment (In consideration).
-3. Add in tangential acceleration so that there won't be cars turning extremely slowly (Should be solved by #3).
-4. Prevent cars from occasionally driving backwards (Should be solved by #2 and #3).
-5. Change the spawning mechanism into a spawning stream.
+3. Add in tangential acceleration so that there won't be cars turning extremely slowly (Should be solved by #2).
+4. Prevent cars from occasionally driving backwards (Should be solved by #1 and #2).
+5. Decide the means of output (just the time it takes to complete, or detailed data on the exit time of each car?).
 
 ## Version Control
 

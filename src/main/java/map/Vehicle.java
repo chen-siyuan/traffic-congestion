@@ -5,13 +5,12 @@ import java.awt.*;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 8,
+        currentRevision = 8.1,
         lastModified = "05/09/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public abstract class Vehicle extends Body {
     
-    private Crossroad crossroad;
     private int origin; // 0, 1, 2, 3
     private int destination; // corresponds to +x, +y, -x, -y direction
     
@@ -24,14 +23,6 @@ public abstract class Vehicle extends Body {
      */
     public Vehicle(Size size, Position position, Velocity velocity) {
         super(size, position, velocity);
-    }
-    
-    public void setCrossroad(Crossroad crossroad) {
-        this.crossroad = crossroad;
-    }
-    
-    public Crossroad getCrossroad() {
-        return crossroad;
     }
     
     public void setOrigin(int origin) {
