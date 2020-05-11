@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 9.2,
+        currentRevision = 9.3,
         lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -21,8 +21,8 @@ public class Main {
 
     public static final String INPUT_FILE_NAME = "input.in";
     
-    public static final Color SLOW_VEHICLE_COLOR = new Color(122, 177, 177);
-    public static final Color FAST_VEHICLE_COLOR = new Color(231, 195, 126);
+    public static final Color SLOW_VEHICLE_COLOR = new Color(0, 0, 0);
+    public static final Color FAST_VEHICLE_COLOR = new Color(255, 255, 255);
     
     public static final double PIXELS_PER_METER = 80. / 3;
     public static final double MILLISECONDS_PER_SECOND = 1000; //use this to change display render speed
@@ -45,16 +45,10 @@ public class Main {
 
         br.close();
 
-        initNumCars = 1;
-        totalNumCars = 1;
-        
         Crossroad crossRoad = new Crossroad(new Position(300 / PIXELS_PER_METER, 300 / PIXELS_PER_METER),
                 100 / PIXELS_PER_METER, initNumCars, totalNumCars);
         
-        for(int i=0; i < initNumCars; i++) {
-//            crossRoad.spawnVehicle("map.Car");
-            crossRoad.spawnVehicle("map.Car", 2, 0);
-        }
+        for(int i=0; i < initNumCars; i++) crossRoad.spawnVehicle("map.Car");
 
 //        ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 //

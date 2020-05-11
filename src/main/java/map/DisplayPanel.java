@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 13.1,
+        currentRevision = 13.2,
         lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -262,7 +262,7 @@ public class DisplayPanel extends JPanel implements Runnable {
         }
 
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(2);
         } catch(InterruptedException e) {
             e.printStackTrace();
         }

@@ -6,7 +6,7 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 13.1,
+        currentRevision = 13.2,
         lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
@@ -136,7 +136,7 @@ public class Crossroad {
     public void addObstacle(Obstacle obstacle) {
         obstacles.add(obstacle);
     }
-    
+
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
     }
@@ -216,6 +216,28 @@ public class Crossroad {
         return -1;
     }
 
+    /**
+     *
+     * @param origin the origin of the vehicle of interest
+     * @return a virtual block in the road to prevent multiple cars from using the turning point at the same time.
+     */
+    public double virtualBlock(int origin) {
+
+        switch(origin) {
+            case 0:
+                return 450 / Main.PIXELS_PER_METER;
+            case 1:
+                return 450 / Main.PIXELS_PER_METER;
+            case 2:
+                return 150 / Main.PIXELS_PER_METER;
+            case 3:
+                return 150 / Main.PIXELS_PER_METER;
+            default:
+                return -1;
+        }
+
+    }
+
     public Acceleration getAccelerationStraightFor(int index) {
         
         int laneNum = getLaneNum(index);
@@ -224,13 +246,18 @@ public class Crossroad {
 
         ArrayList<Double> allPositions = new ArrayList<>();
 
-//        allPositions.add(SOMETHING / Main.PIXELS_PER_METER);
+        boolean centerOccupied = false;
 
-        // Need to add turning detection here; 0 1 2 3: 450 450 150 150
+        for(int i = 0; i < states.size(); i++) {
 
-        for(int i = 0; i < states.size(); i++)
             if(getLaneNum(i) == laneNum || lanes[laneNum].inRange(vehicles.get(i), false))
                 allPositions.add(vehicles.get(i).getPosition().getPosition(isAlong));
+
+            if(states.get(i) == 0) centerOccupied = true;
+
+        }
+
+        if(centerOccupied) allPositions.add(virtualBlock(vehicle.getOrigin()));
 
         double absolutePosition = vehicle.getPosition().getPosition(isAlong);
 
