@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "01/14/2020",
-        currentRevision = 13.2,
-        lastModified = "05/10/2020",
+        currentRevision = 13.3,
+        lastModified = "05/11/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class DisplayPanel extends JPanel implements Runnable {
@@ -173,58 +173,40 @@ public class DisplayPanel extends JPanel implements Runnable {
      * @param vehicle the vehicle to draw
      */
     private void drawVehicle(Graphics2D graphics2D, Vehicle vehicle) {
-        
-        AffineTransform originalTransform = graphics2D.getTransform();
-        
-        graphics2D.setColor(vehicle.getColor());
-        
-        graphics2D.rotate(vehicle.getVelocity().getOrientation(),
-                (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER),
-                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER));
-        
-//        graphics2D.fillRect(
-//                (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-//                        - (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
-//                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER
-//                        - (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER / 2)),
-//                (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER),
-//                (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER));
-        
-        graphics2D.drawImage(carImage,
-                (int)Math.round(vehicle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(vehicle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(vehicle.getSize().getAlong() * Main.PIXELS_PER_METER),
-                (int)Math.round(vehicle.getSize().getAcross() * Main.PIXELS_PER_METER),
-                vehicle.getColor(),
-                null);
-        
-        graphics2D.setTransform(originalTransform);
-        Toolkit.getDefaultToolkit().sync();
-
+        drawBody(graphics2D, vehicle, vehicle.getColor(), carImage);
     }
     
     private void drawObstacle(Graphics2D graphics2D, Obstacle obstacle) {
-        
+        drawBody(graphics2D, obstacle, obstacle.getColor(), pedestrianImage);
+    }
+
+    /**
+     *
+     * @param graphics2D graphics2D
+     * @param body the rectangle block to be colored
+     * @param color the base, supplementary color of the rectangle
+     * @param bufferedImage the image to be drawn onto the rectangle
+     */
+    public void drawBody(Graphics2D graphics2D, Body body, Color color, BufferedImage bufferedImage) {
+
         AffineTransform originalTransform = graphics2D.getTransform();
-        
-        graphics2D.setColor(obstacle.getColor());
-        
-        graphics2D.rotate(obstacle.getVelocity().getOrientation(),
-                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER),
-                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER));
-        
-        graphics2D.drawImage(pedestrianImage,
-                (int)Math.round(obstacle.getPosition().getXPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(obstacle.getPosition().getYPosition() * Main.PIXELS_PER_METER)
-                        - (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER / 2),
-                (int)Math.round(obstacle.getSize().getAlong() * Main.PIXELS_PER_METER),
-                (int)Math.round(obstacle.getSize().getAcross() * Main.PIXELS_PER_METER),
-                obstacle.getColor(),
+
+        graphics2D.setColor(color);
+
+        graphics2D.rotate(body.getVelocity().getOrientation(),
+                (int)Math.round(body.getPosition().getXPosition() * Main.PIXELS_PER_METER),
+                (int)Math.round(body.getPosition().getYPosition() * Main.PIXELS_PER_METER));
+
+        graphics2D.drawImage(bufferedImage,
+                (int)Math.round(body.getPosition().getXPosition() * Main.PIXELS_PER_METER)
+                        - (int)Math.round(body.getSize().getAlong() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(body.getPosition().getYPosition() * Main.PIXELS_PER_METER)
+                        - (int)Math.round(body.getSize().getAcross() * Main.PIXELS_PER_METER / 2),
+                (int)Math.round(body.getSize().getAlong() * Main.PIXELS_PER_METER),
+                (int)Math.round(body.getSize().getAcross() * Main.PIXELS_PER_METER),
+                color,
                 null);
-        
+
         graphics2D.setTransform(originalTransform);
         Toolkit.getDefaultToolkit().sync();
 
@@ -260,6 +242,8 @@ public class DisplayPanel extends JPanel implements Runnable {
             startTime = System.currentTimeMillis();
             
         }
+
+        System.out.println(frameCount);
 
         try {
             TimeUnit.SECONDS.sleep(2);

@@ -6,8 +6,8 @@ import java.util.Collections;
 @ClassPreamble (
         author = "Daniel Chen",
         date = "02/25/2020",
-        currentRevision = 13.2,
-        lastModified = "05/10/2020",
+        currentRevision = 13.3,
+        lastModified = "05/12/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class Crossroad {
@@ -225,13 +225,13 @@ public class Crossroad {
 
         switch(origin) {
             case 0:
-                return 450 / Main.PIXELS_PER_METER;
+                return position.getXPosition() + laneWidth * 1.5;
             case 1:
-                return 450 / Main.PIXELS_PER_METER;
+                return position.getYPosition() + laneWidth * 1.5;
             case 2:
-                return 150 / Main.PIXELS_PER_METER;
+                return position.getXPosition() - laneWidth * 1.5;
             case 3:
-                return 150 / Main.PIXELS_PER_METER;
+                return position.getYPosition() - laneWidth * 1.5;
             default:
                 return -1;
         }
