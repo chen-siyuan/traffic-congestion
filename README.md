@@ -2,7 +2,13 @@
 
 This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, consisting of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
 
-## To-Do List
+## To-Do List (Presentation)
+
+1. Do multiple test runs of (6, 300) and add the results to data/output.out.
+2. Produce the new MindNode graph.
+3. Separate the presentation parts (I'm gonna be there since it's in the evenings).
+
+## To-Do List (Coding)
 
 1. Standardize post-transition velocity of vehicles.
 2. Add in tangential acceleration so that there won't be cars turning extremely slowly.
