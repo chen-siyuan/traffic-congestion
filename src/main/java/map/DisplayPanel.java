@@ -124,8 +124,7 @@ public class DisplayPanel extends JPanel implements Runnable {
 
             try {
                 crossroad.getVehicles().forEach((vehicle) -> drawVehicle(imageBufferGraphics2D, vehicle));
-            } catch(Exception e) {
-                System.out.println("CAR DESPAWNED");
+            } catch(Exception ignored) {
             }
 
             obstacles.forEach((obstacle) -> drawObstacle(imageBufferGraphics2D, obstacle));
@@ -150,8 +149,7 @@ public class DisplayPanel extends JPanel implements Runnable {
 
             try {
                 crossroad.getVehicles().forEach(vehicle -> drawVehicle(graphics2D, vehicle));
-            } catch(Exception e) {
-                System.out.println("CAR DESPAWNED");
+            } catch(Exception ignored) {
             }
 
             obstacles.forEach((obstacle) -> drawObstacle(graphics2D, obstacle));

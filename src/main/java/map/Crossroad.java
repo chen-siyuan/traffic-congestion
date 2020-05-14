@@ -352,7 +352,10 @@ public class Crossroad {
 
     public void passTime(double factor) {
         cleanVehicles();
-        for(int i=0; i < vehicles.size(); i++) vehicles.get(i).passTime(factor, getAccelerationFor(i));
+
+        int pointer = 0;
+        for(Vehicle vehicle: vehicles) vehicle.passTime(factor, getAccelerationFor(pointer++));
+
     }
 
     public boolean completed() {
