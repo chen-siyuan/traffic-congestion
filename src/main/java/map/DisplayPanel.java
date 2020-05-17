@@ -29,6 +29,7 @@ public class DisplayPanel extends JPanel implements Runnable {
     private final boolean record;
     private final int frameNumber;
     private int frameCount;
+    private double timeElapsed = 0.;
     private boolean completed;
     
     private BufferedImage carImage;
@@ -94,8 +95,17 @@ public class DisplayPanel extends JPanel implements Runnable {
     }
     
     public void passTime(double factor) {
+
         crossroad.passTime(factor);
         obstacles.forEach(obstacle -> obstacle.passTime(factor));
+
+        timeElapsed += Main.INTERVAL * factor;
+
+        if(crossroad.completed()) {
+            System.out.println(record ? "IMAGES GENERATION COMPLETED." : "SIMULATION COMPLETED.");
+            completed = true;
+        }
+
     }
 
     public void addNotify() {
@@ -158,7 +168,7 @@ public class DisplayPanel extends JPanel implements Runnable {
         
         frameCount++;
         
-        if(crossroad.completed() || frameCount == frameNumber) {
+        if(frameCount == frameNumber) {
             System.out.println(record ? "IMAGES GENERATION COMPLETED." : "SIMULATION COMPLETED.");
             completed = true;
         }
@@ -241,7 +251,7 @@ public class DisplayPanel extends JPanel implements Runnable {
             
         }
 
-        System.out.println(frameCount);
+        System.out.println(String.format("TOTAL TIME ELAPSED FOR %d CARS: %.2f SECONDS", crossroad.getTotalNumVehicles(), timeElapsed));
 
         try {
             TimeUnit.SECONDS.sleep(2);

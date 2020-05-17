@@ -62,6 +62,10 @@ public class Crossroad {
         return position;
     }
 
+    public int getTotalNumVehicles() {
+        return totalNumVehicles;
+    }
+
     /**
      *
      * @param origin which of the four origins the vehicle is coming from
@@ -351,6 +355,7 @@ public class Crossroad {
     }
 
     public void passTime(double factor) {
+
         cleanVehicles();
 
         int pointer = 0;
