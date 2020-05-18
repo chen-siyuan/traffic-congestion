@@ -18,12 +18,14 @@ select * from nycData where [Roadway Name] = 'Cross Bronx Expressway'
 """)
     crossBronxExpressway = data.extract(cbe)
 
-    data.scatter(crossBronxExpressway)
+###data graph on Cross Bronx Expressway
+    data.scatter(crossBronxExpressway, "Cross Bronx Expressway")
+    
     cbeVals = data.createList(crossBronxExpressway)
-    print(cbeVals)
 
-    avgCbeVals = data.maxAverageValue(cbeVals)
-    print(avgCbeVals)
+    avgCbe = data.maxAverageValue(cbeVals)
+    print("Average of top 1/3 hours for traffic counts\nCross Brox Expressway: ")
+    print(avgCbe)
 
     
 ###    
@@ -33,7 +35,13 @@ and [from] = 'East 42 Street'
 and [to] = 'East 43 Street'
 """)
     east42 = data.extract(e42)
-    data.scatter(east42)
+    data.scatter(east42, "East 42nd Street")
+
+    east42Vals = data.createList(east42)
+    avgEast42 = data.maxAverageValue(east42Vals)
+    print("")
+    print("Average of the top 1/3 traffic counts\nEast 42nd Street")
+    print(avgEast42)
     
 
 main()

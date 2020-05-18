@@ -40,13 +40,23 @@ class dataReader():
         return df2
     
     
-    def scatter(self, df):
+    def scatter(self, df, title):
         dfMean = df.mean()
         k = 1
-        for i in self.keys:
-            plt.scatter(k, dfMean[i])
-            k+=1
+        fig = plt.figure()
+        fig.subplots_adjust(top = 0.8)
+        ax1 = fig.add_subplot(211)
+        ax1.set_ylabel('Avg # Cars')
+        ax1.set_xlabel("Hour")
+        ax1.set_title(title)
+        
+        for i in self.keys:   
+            x = k
+            y = dfMean[i]
 
+            ax1.scatter(x,y)
+            k+=1
+            
         plt.show()
 
     def createList(self, df):
