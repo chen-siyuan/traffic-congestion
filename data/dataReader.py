@@ -71,9 +71,9 @@ class dataReader():
         listVals.sort(reverse = True)
         ##highest third
         totalSum = 0
-        for i in range(0, 7):
+        for i in range(0, 4):
             totalSum += listVals[i]
-        average = totalSum/8
+        average = totalSum/5
         return average
         
 

@@ -24,7 +24,7 @@ select * from nycData where [Roadway Name] = 'Cross Bronx Expressway'
     cbeVals = data.createList(crossBronxExpressway)
 
     avgCbe = data.maxAverageValue(cbeVals)
-    print("Average of top 1/3 hours for traffic counts\nCross Brox Expressway: ")
+    print("Average of top 5 hours for traffic counts\nCross Brox Expressway: ")
     print(avgCbe)
 
     
@@ -38,9 +38,11 @@ and [to] = 'East 43 Street'
     data.scatter(east42, "East 42nd Street")
 
     east42Vals = data.createList(east42)
+
+
     avgEast42 = data.maxAverageValue(east42Vals)
     print("")
-    print("Average of the top 1/3 traffic counts\nEast 42nd Street")
+    print("Average of the top 5 traffic counts\nEast 42nd Street")
     print(avgEast42)
     
 
