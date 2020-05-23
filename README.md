@@ -8,7 +8,7 @@ The presentation is a success. I think we did a really good job. I personally lo
 
 The demo videos can be found here:
 
-- slider mechanism ![https://www.youtube.com/watch?v=-0xZJXuY53w&t=10s](here)
+- ![slider mechanism](https://www.youtube.com/watch?v=-0xZJXuY53w&t=10s)
 - simulation highlights
 - simulation bugs
 
