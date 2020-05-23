@@ -6,6 +6,12 @@ This repository is for the 2019-2020 *Advanced Topics in Computer Science* cours
 
 The presentation is a success. I think we did a really good job. I personally loved this project as it is a huge challenge that my teammates and I overcame. The slides and other materials used for presentation can be found in the *presentation* folder.
 
+The demo videos can be found here:
+
+- slider mechanism ![https://www.youtube.com/watch?v=-0xZJXuY53w&t=10s](here)
+- simulation highlights
+- simulation bugs
+
 ## To-Do List (Coding)
 
 1. Standardize post-transition velocity of vehicles.
