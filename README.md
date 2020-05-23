@@ -2,11 +2,9 @@
 
 This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, consisting of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
 
-## To-Do List (Presentation)
+## Note
 
-1. Do multiple test runs of (6, 300) and add the results to data/output.out.
-2. Produce the new MindNode graph.
-3. Separate the presentation parts (I'm gonna be there since it's in the evenings).
+The presentation is a success. I think we did a really good job. I personally loved this project as it is a huge challenge that my teammates and I overcame. The slides and other materials used for presentation can be found in the *presentation* folder.
 
 ## To-Do List (Coding)
 
