@@ -12,6 +12,10 @@ The demo videos can be found here:
 - [simulation highlights](https://www.youtube.com/watch?v=-0xZJXuY53w&t=10s)
 - [simulation bugs](https://www.youtube.com/watch?v=QnFFjuYpibc&t=32s)
 
+The presentation slides can be found here:
+
+- [presentation slides](https://docs.google.com/presentation/d/13ZvTHROURSSyoiy_aaaA2LyBva7DCs9VzM5XUktOJfk/edit?usp=sharing)
+
 ## To-Do List (Coding)
 
 1. Standardize post-transition velocity of vehicles.
