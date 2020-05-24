@@ -1,12 +1,20 @@
 # Advanced Topics in Computer Science Project
 
-This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, consisting of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
+This repository is for the 2019-2020 *Advanced Topics in Computer Science* course at Tabor Academy, Marion, MA. The team, which consists of one junior and three seniors, seeks to find a method to mitigate traffic congestion.
 
-## To-Do List (Presentation)
+## Note
 
-1. Do multiple test runs of (6, 300) and add the results to data/output.out.
-2. Produce the new MindNode graph.
-3. Separate the presentation parts (I'm gonna be there since it's in the evenings).
+The presentation is a success. I think we did a really good job. I personally loved this project as it is a huge challenge that my teammates and I overcame. The slides and other materials used for presentation can be found in the *presentation* folder.
+
+The demo videos can be found here:
+
+- [slider mechanism](https://www.youtube.com/watch?v=X3eocx7e0ZQ&t=6s)
+- [simulation highlights](https://www.youtube.com/watch?v=-0xZJXuY53w&t=10s)
+- [simulation bugs](https://www.youtube.com/watch?v=QnFFjuYpibc&t=32s)
+
+The presentation slides can be found here:
+
+- [presentation slides](https://docs.google.com/presentation/d/13ZvTHROURSSyoiy_aaaA2LyBva7DCs9VzM5XUktOJfk/edit?usp=sharing)
 
 ## To-Do List (Coding)
 
