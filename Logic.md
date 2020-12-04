@@ -1,7 +1,7 @@
 # Logic of the Self-driving cars
 
 ## On a straight road
-The car can detect other cars and objects with in a certain radius.
+The car should detect other cars and objects with in a certain radius.
 At all times, the car will try to manage equal distance between the car in the front and the car in the back.
 When no car is detected in the front or back, the distance will be calculated as the edge of the detection circle.
 //Interaction with obstacles is yet to be filled
