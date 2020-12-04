@@ -8,7 +8,7 @@ import java.util.Hashtable;
         author = "William Wu",
         date = "04/23/2020",
         currentRevision = 3.1,
-        lastModified = "05/09/2020",
+        lastModified = "05/10/2020",
         lastModifiedBy = "Daniel Chen"
 )
 public class ControlPanel extends JPanel {
